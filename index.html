@@ -202,34 +202,11 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
-.time-control{position:fixed;bottom:24px;right:24px;background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 20px;border-radius:12px;z-index:100;display:flex;flex-direction:column;gap:10px;font-size:.75rem;color:var(--ink-2)}
-.time-control label{display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.1em;font-weight:500;color:var(--ink)}
-.time-control input[type=range]{accent-color:var(--accent-2);width:130px;cursor:pointer}
-.planet-nav { position:fixed; right:24px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:16px; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.4s ease; }
-.planet-nav.visible { opacity:1; pointer-events:auto; }
-.planet-nav a { display:flex; align-items:center; justify-content:flex-end; gap:12px; text-decoration:none; color:var(--ink-2); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; transition:opacity 0.3s, color 0.3s; opacity:0.4; }
-.planet-nav a:hover, .planet-nav a.active { opacity:1; color:var(--accent-2); }
-.planet-nav .dot { width:8px; height:8px; border-radius:50%; background:var(--ink-2); transition:transform 0.3s, background 0.3s; }
-.planet-nav a.active .dot { background:var(--accent-2); transform:scale(1.5); box-shadow:0 0 10px rgba(167,243,208,0.5); }
 </style>
 </head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
-<div class="time-control">
-  <label for="timeSlider">Time Speed: <span id="timeVal">1.0x</span></label>
-  <input type="range" id="timeSlider" min="0" max="5" step="0.1" value="1">
-</div>
 <a class="skip" href="#main">Skip to content</a>
-
-<div class="planet-nav">
-  <a href="#header" data-section="header"><span>Solar System</span><div class="dot"></div></a>
-  <a href="#about" data-section="about"><span>Earth</span><div class="dot"></div></a>
-  <a href="#experience" data-section="experience"><span>Jupiter</span><div class="dot"></div></a>
-  <a href="#research" data-section="research"><span>Saturn</span><div class="dot"></div></a>
-  <a href="#skills" data-section="skills"><span>Pluto</span><div class="dot"></div></a>
-  <a href="#education" data-section="education"><span>Mars</span><div class="dot"></div></a>
-  <a href="#contact" data-section="contact"><span>Uranus</span><div class="dot"></div></a>
-</div>
 
 <nav>
   <div class="wrap">
@@ -682,14 +659,6 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   }, {passive:true});
 
   var timeScale = 1.0;
-  var timeSlider = document.getElementById('timeSlider');
-  var timeVal = document.getElementById('timeVal');
-  if(timeSlider) {
-    timeSlider.addEventListener('input', function(e) {
-      timeScale = parseFloat(e.target.value);
-      timeVal.textContent = timeScale.toFixed(1) + 'x';
-    });
-  }
 
   // Camera tracking logic for Infinite Zoom
   var sections = [
@@ -723,18 +692,6 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     
     if (bestSection) {
       currentTargetPlanet = bestSection.planet;
-      document.querySelectorAll('.planet-nav a').forEach(a => a.classList.remove('active'));
-      var activeLink = document.querySelector('.planet-nav a[data-section="'+bestSection.id+'"]');
-      if (activeLink) activeLink.classList.add('active');
-      
-      var navContainer = document.querySelector('.planet-nav');
-      if (navContainer) {
-        if (bestSection.id === 'header') {
-          navContainer.classList.remove('visible');
-        } else {
-          navContainer.classList.add('visible');
-        }
-      }
     }
   }
 
