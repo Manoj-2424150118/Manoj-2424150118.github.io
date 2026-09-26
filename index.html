@@ -506,18 +506,17 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   scene.add(solarSystem);
 
   var tLoader = new THREE.TextureLoader();
-  tLoader.setCrossOrigin('anonymous');
-  var TEX_BASE = 'https://cdn.jsdelivr.net/gh/SoumyaEXE/3d-Solar-System-ThreeJS@main/public/textures/';
+  var TEX_BASE = 'textures/';
 
   var sunMesh = new THREE.Mesh(
     new THREE.SphereGeometry(2.5, 32, 32),
-    new THREE.MeshBasicMaterial({ map: tLoader.load(TEX_BASE + 'sun.jpg') }) // Photographic sun!
+    new THREE.MeshBasicMaterial({ map: tLoader.load(TEX_BASE + 'sun.jpg'), color: 0xffffff }) // Photographic sun!
   );
   solarSystem.add(sunMesh);
 
   var systemLight = new THREE.PointLight(0xffeedd, 1.8, 150);
   sunMesh.add(systemLight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
   var planetsData = [
     { name: 'Mercury', tex: tLoader.load(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0 },
