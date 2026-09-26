@@ -230,7 +230,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
 </nav>
 
 <main id="main">
-<header>
+<header id="header">
   <div class="wrap hgrid">
     <div>
       <p class="eyebrow">Cybersecurity · Jaipur, India</p>
@@ -473,10 +473,14 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
 
   var renderer, scene, camera, pts, mesh, raf, mx=0, my=0;
   try {
-    renderer = new THREE.WebGLRenderer({canvas:c, alpha:true, antialias:false});
+    renderer = new THREE.WebGLRenderer({canvas:c, alpha:true, antialias:true, powerPreference: "high-performance"});
   } catch(e) { c.style.display='none'; return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 1.6));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
   renderer.setSize(innerWidth, innerHeight);
+  // Photorealistic rendering settings
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
 
   scene = new THREE.Scene();
   // Using a lower FOV (telephoto) prevents spheres from distorting into ellipses at the screen edges
@@ -496,17 +500,17 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   starCtx.fillRect(0, 0, 16, 16);
   var starTex = new THREE.CanvasTexture(starCanvas);
 
-  // particle field (Stars)
-  var N = innerWidth < 720 ? 700 : 1600, pos = new Float32Array(N*3);
+  // particle field (Stars) - Expanded for camera movement
+  var N = innerWidth < 720 ? 1200 : 2500, pos = new Float32Array(N*3);
   for (var i=0;i<N;i++){
-    pos[i*3]   = (Math.random()-.5)*46;
-    pos[i*3+1] = (Math.random()-.5)*30;
-    pos[i*3+2] = (Math.random()-.5)*26 - 6;
+    pos[i*3]   = (Math.random()-.5)*200;
+    pos[i*3+1] = (Math.random()-.5)*200;
+    pos[i*3+2] = (Math.random()-.5)*200 - 50;
   }
   var g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(pos,3));
   pts = new THREE.Points(g, new THREE.PointsMaterial({
-    color:0xffffff, size:0.15, transparent:true, opacity:0.8, sizeAttenuation:true,
+    color:0xffffff, size:0.35, transparent:true, opacity:0.8, sizeAttenuation:true,
     map: starTex, depthWrite: false, blending: THREE.AdditiveBlending
   }));
   scene.add(pts);
@@ -521,28 +525,51 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   scene.add(solarSystem);
 
   var tLoader = new THREE.TextureLoader();
+  var maxAniso = renderer.capabilities.getMaxAnisotropy();
+  function loadTex(url) {
+    var t = tLoader.load(url, function(tex) {
+      if (tex.image && tex.image.width > 4096) {
+        var c = document.createElement('canvas');
+        c.width = 4096;
+        c.height = Math.round(tex.image.height * (4096 / tex.image.width));
+        var ctx = c.getContext('2d');
+        ctx.drawImage(tex.image, 0, 0, c.width, c.height);
+        tex.image = c;
+        tex.needsUpdate = true;
+      }
+    }, undefined, function(err) {
+      console.error("Texture error:", url, err);
+      if (window.location.protocol === 'file:') {
+        console.warn("CORS Error: Chrome blocks WebGL from reading local files. This will automatically disappear once uploaded to a web server (like GitHub Pages).");
+      }
+    });
+    t.anisotropy = maxAniso;
+    t.encoding = THREE.sRGBEncoding;
+    return t;
+  }
   var TEX_BASE = 'textures/';
 
+  // High-Res Sun
   var sunMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(2.5, 32, 32),
-    new THREE.MeshBasicMaterial({ map: tLoader.load(TEX_BASE + 'sun.jpg'), color: 0xffffff }) // Photographic sun!
+    new THREE.SphereGeometry(2.5, 128, 128),
+    new THREE.MeshBasicMaterial({ map: loadTex(TEX_BASE + 'sun.jpg'), color: 0xffffee })
   );
   solarSystem.add(sunMesh);
 
-  var systemLight = new THREE.PointLight(0xffeedd, 1.8, 150);
+  var systemLight = new THREE.PointLight(0xffeedd, 2.5, 200);
   sunMesh.add(systemLight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
   var planetsData = [
-    { name: 'Mercury', tex: tLoader.load(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0 },
-    { name: 'Venus', tex: tLoader.load(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9 },
-    { name: 'Earth', tex: tLoader.load(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6 },
-    { name: 'Mars', tex: tLoader.load(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9 },
-    { name: 'Jupiter', tex: tLoader.load(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7 },
-    { name: 'Saturn', tex: tLoader.load(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7 },
-    { name: 'Uranus', tex: tLoader.load(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5 },
-    { name: 'Neptune', tex: tLoader.load(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5 },
-    { name: 'Pluto', tex: tLoader.load(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0 }
+    { name: 'Mercury', tex: loadTex(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0 },
+    { name: 'Venus', tex: loadTex(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9 },
+    { name: 'Earth', tex: loadTex(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6 },
+    { name: 'Mars', tex: loadTex(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9 },
+    { name: 'Jupiter', tex: loadTex(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7 },
+    { name: 'Saturn', tex: loadTex(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7 },
+    { name: 'Uranus', tex: loadTex(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5 },
+    { name: 'Neptune', tex: loadTex(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5 },
+    { name: 'Pluto', tex: loadTex(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0 }
   ];
 
   var daysSinceJ2000 = (Date.now() - 946728000000) / (1000 * 60 * 60 * 24);
@@ -550,9 +577,12 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
 
   planetsData.forEach(function(p) {
     var mat = new THREE.MeshStandardMaterial({ map: p.tex, roughness: p.rough, metalness: 0.1 });
-    if(p.rough > 0.8 && p.name !== 'Earth') mat.bumpMap = p.tex; // Rocky planets use noise as bumpmap
+    if(p.rough > 0.8 && p.name !== 'Earth') {
+      mat.bumpMap = p.tex; // Rocky planets use noise as bumpmap
+      mat.bumpScale = 0.015;
+    }
     
-    var pMesh = new THREE.Mesh(new THREE.SphereGeometry(p.size, 32, 32), mat);
+    var pMesh = new THREE.Mesh(new THREE.SphereGeometry(p.size, 128, 128), mat);
     
     if (p.ring) {
       var rCanvas = document.createElement('canvas'); rCanvas.width=256; rCanvas.height=1;
@@ -596,7 +626,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   var beltMesh = new THREE.Points(beltGeo, new THREE.PointsMaterial({ color: 0x888888, size: 0.05 }));
   solarSystem.add(beltMesh);
 
-  var accentLight = new THREE.PointLight(0x10b981, 1.5, 25);
+  var accentLight = new THREE.PointLight(0x10b981, 2.5, 40);
   accentLight.position.set(5, -5, 2); // Subtle emerald rim light
   scene.add(accentLight);
   // Space Debris / Asteroids
@@ -641,6 +671,52 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
       timeVal.textContent = timeScale.toFixed(1) + 'x';
     });
   }
+
+  // Camera tracking logic for Infinite Zoom
+  var sections = [
+    { id: 'header', planet: null },
+    { id: 'about', planet: 'Earth' },
+    { id: 'experience', planet: 'Jupiter' },
+    { id: 'research', planet: 'Saturn' },
+    { id: 'skills', planet: 'Pluto' },
+    { id: 'education', planet: 'Mars' },
+    { id: 'contact', planet: 'Uranus' }
+  ];
+
+  var currentTargetPlanet = null;
+  function updateActiveSection() {
+    var wh = window.innerHeight;
+    var bestSection = null;
+    var maxVis = -1;
+    
+    sections.forEach(function(sec) {
+      var el = document.getElementById(sec.id);
+      if (!el) return;
+      var rect = el.getBoundingClientRect();
+      var top = Math.max(0, rect.top);
+      var bottom = Math.min(wh, rect.bottom);
+      var vis = bottom - top;
+      if (vis > maxVis) {
+        maxVis = vis;
+        bestSection = sec;
+      }
+    });
+    
+    if (bestSection) {
+      currentTargetPlanet = bestSection.planet;
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, {passive: true});
+  updateActiveSection();
+
+  var currentLookAt = new THREE.Vector3(0,0,0);
+  var targetCameraPos = new THREE.Vector3(0,0,28);
+  
+  // Attach a soft light to the camera so planets are always beautifully illuminated when zoomed in
+  scene.add(camera);
+  var camLight = new THREE.PointLight(0xffffff, 0.4, 60);
+  camera.add(camLight);
 
   var t = 0;
   function loop(){
@@ -704,9 +780,37 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
       }
     }
 
-    camera.position.x += (mx*2.2 - camera.position.x)*0.035;
-    camera.position.y += (-my*1.4 - camera.position.y)*0.035;
-    camera.lookAt(0,0,0);
+    // Camera infinite zoom logic
+    var baseTargetPos = new THREE.Vector3(0, 0, 28);
+    var baseTargetLook = new THREE.Vector3(0, 0, 0);
+
+    if (currentTargetPlanet) {
+      var pData = planets.find(p => p.data.name === currentTargetPlanet);
+      if (pData) {
+        var worldPos = new THREE.Vector3();
+        pData.mesh.getWorldPosition(worldPos);
+        
+        baseTargetLook.copy(worldPos);
+        
+        // Calculate dynamic offset based on planet size
+        var dist = pData.data.size * 5 + 1.2;
+        if (pData.data.name === 'Saturn') dist += 2.5; // Extra space for rings
+        if (pData.data.name === 'Jupiter') dist += 1.0;
+        
+        var offset = new THREE.Vector3(pData.data.size * 1.5, pData.data.size * 0.8, dist);
+        baseTargetPos.copy(worldPos).add(offset);
+      }
+    }
+
+    // Apply Parallax based on zoom state
+    var parallaxMult = currentTargetPlanet ? 0.3 : 2.2;
+    targetCameraPos.copy(baseTargetPos).add(new THREE.Vector3(mx * parallaxMult, -my * (parallaxMult * 0.6), 0));
+
+    // Smooth camera interpolation
+    camera.position.lerp(targetCameraPos, 0.05);
+    currentLookAt.lerp(baseTargetLook, 0.05);
+    camera.lookAt(currentLookAt);
+
     renderer.render(scene, camera);
   }
   loop();
