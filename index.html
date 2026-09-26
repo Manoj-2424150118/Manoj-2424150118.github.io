@@ -826,15 +826,16 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
         var worldPos = new THREE.Vector3();
         pData.mesh.getWorldPosition(worldPos);
         
-        // Calculate dynamic offset based on planet size
-        var dist = pData.data.size * 5 + 1.2;
-        if (pData.data.name === 'Saturn') dist += 2.5; // Extra space for rings
-        if (pData.data.name === 'Jupiter') dist += 1.0;
+        // Force EXACT 35-45% screen height ratio for ALL planets, big or small
+        // FOV 30 = visible height is 0.5359 * distance. 
+        // (2 * size) / (0.5359 * dist) = 0.39 -> dist = 9.5 * size
+        var dist = pData.data.size * 9.5; 
+        if (pData.data.name === 'Saturn') dist *= 1.4; // Saturn's rings need extra framing space
         
         var panLeft = window.innerWidth > 1024 ? dist * 0.22 : 0;
         
         baseTargetLook.copy(worldPos).add(new THREE.Vector3(-panLeft, 0, 0));
-        var offset = new THREE.Vector3(pData.data.size * 1.5 - panLeft, pData.data.size * 0.8, dist);
+        var offset = new THREE.Vector3(-panLeft, pData.data.size * 0.5, dist);
         baseTargetPos.copy(worldPos).add(offset);
       }
     }
