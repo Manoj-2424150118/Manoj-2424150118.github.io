@@ -437,7 +437,6 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   </div>
 </footer>
 
-<script src="earth_b64.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
 <script>
 (function(){
@@ -497,36 +496,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   }));
   scene.add(pts);
 
-  // Procedural Texture Generators
-  function createBandedTexture(colors) {
-    var canvas = document.createElement('canvas'); canvas.width = 1; canvas.height = 256;
-    var ctx = canvas.getContext('2d'); var grad = ctx.createLinearGradient(0,0,0,256);
-    colors.forEach(function(c, i) { grad.addColorStop(i / (colors.length - 1), c); });
-    ctx.fillStyle = grad; ctx.fillRect(0,0,1,256);
-    return new THREE.CanvasTexture(canvas);
-  }
-  function createRockyTexture(baseColor) {
-    var canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 256;
-    var ctx = canvas.getContext('2d'); ctx.fillStyle = baseColor; ctx.fillRect(0,0,512,256);
-    var imgData = ctx.getImageData(0,0,512,256); var d = imgData.data;
-    for(var i=0; i<d.length; i+=4) {
-      var noise = (Math.random() - 0.5) * 50;
-      d[i] += noise; d[i+1] += noise; d[i+2] += noise;
-    }
-    ctx.putImageData(imgData, 0,0);
-    return new THREE.CanvasTexture(canvas);
-  }
-  function createSunTexture() {
-    var canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 256;
-    var ctx = canvas.getContext('2d'); ctx.fillStyle = '#ffaa33'; ctx.fillRect(0,0,512,256);
-    var imgData = ctx.getImageData(0,0,512,256); var d = imgData.data;
-    for(var i=0; i<d.length; i+=4) {
-      var noise = Math.random() * 60;
-      d[i] = 255; d[i+1] = 170 + noise; d[i+2] = noise;
-    }
-    ctx.putImageData(imgData, 0,0);
-    return new THREE.CanvasTexture(canvas);
-  }
+
 
   // --- FULL SOLAR SYSTEM ---
   var solarSystem = new THREE.Group();
@@ -535,9 +505,13 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   solarSystem.rotation.y = -0.15 * Math.PI;
   scene.add(solarSystem);
 
+  var tLoader = new THREE.TextureLoader();
+  tLoader.setCrossOrigin('anonymous');
+  var TEX_BASE = 'https://cdn.jsdelivr.net/gh/SoumyaEXE/3d-Solar-System-ThreeJS@main/public/textures/';
+
   var sunMesh = new THREE.Mesh(
     new THREE.SphereGeometry(2.5, 32, 32),
-    new THREE.MeshBasicMaterial({ map: createSunTexture() }) // Texturized glowing sun
+    new THREE.MeshBasicMaterial({ map: tLoader.load(TEX_BASE + 'sun.jpg') }) // Photographic sun!
   );
   solarSystem.add(sunMesh);
 
@@ -546,15 +520,15 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
   var planetsData = [
-    { name: 'Mercury', tex: createRockyTexture('#888888'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0 },
-    { name: 'Venus', tex: createRockyTexture('#e3bb76'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9 },
-    { name: 'Earth', tex: (typeof EARTH_BASE64 !== 'undefined' ? new THREE.TextureLoader().load(EARTH_BASE64) : createRockyTexture('#2b82c9')), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6 },
-    { name: 'Mars', tex: createRockyTexture('#c1440e'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9 },
-    { name: 'Jupiter', tex: createBandedTexture(['#c88b3a', '#e0c4a2', '#a67c52', '#d39c7e', '#e0c4a2', '#c88b3a']), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7 },
-    { name: 'Saturn', tex: createBandedTexture(['#ead6b8', '#ceb8b8', '#ead6b8', '#e5c183', '#ead6b8']), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7 },
-    { name: 'Uranus', tex: createBandedTexture(['#4b70dd', '#6bc0e8', '#4b70dd']), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5 },
-    { name: 'Neptune', tex: createBandedTexture(['#274687', '#365ebf', '#274687']), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5 },
-    { name: 'Pluto', tex: createRockyTexture('#dddddd'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0 }
+    { name: 'Mercury', tex: tLoader.load(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0 },
+    { name: 'Venus', tex: tLoader.load(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9 },
+    { name: 'Earth', tex: tLoader.load(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6 },
+    { name: 'Mars', tex: tLoader.load(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9 },
+    { name: 'Jupiter', tex: tLoader.load(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7 },
+    { name: 'Saturn', tex: tLoader.load(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7 },
+    { name: 'Uranus', tex: tLoader.load(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5 },
+    { name: 'Neptune', tex: tLoader.load(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5 },
+    { name: 'Pluto', tex: tLoader.load(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0 }
   ];
 
   var daysSinceJ2000 = (Date.now() - 946728000000) / (1000 * 60 * 60 * 24);
