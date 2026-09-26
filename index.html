@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
   background:radial-gradient(120% 70% at 50% 0%,transparent 30%,var(--bg) 92%)}
 .wrap{position:relative;z-index:1;max-width:var(--max);width:100%;margin:0 auto;padding:0 24px}
 section .wrap{mix-blend-mode:difference}
+@media(min-width:1024px){ section .wrap{margin-left:8%;max-width:55%;padding-right:40px} }
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:24px;top:16px;z-index:9;background:var(--bg-2);padding:10px 16px;border-radius:8px}
 nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -825,14 +826,15 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
         var worldPos = new THREE.Vector3();
         pData.mesh.getWorldPosition(worldPos);
         
-        baseTargetLook.copy(worldPos);
-        
         // Calculate dynamic offset based on planet size
         var dist = pData.data.size * 5 + 1.2;
         if (pData.data.name === 'Saturn') dist += 2.5; // Extra space for rings
         if (pData.data.name === 'Jupiter') dist += 1.0;
         
-        var offset = new THREE.Vector3(pData.data.size * 1.5, pData.data.size * 0.8, dist);
+        var panLeft = window.innerWidth > 1024 ? dist * 0.22 : 0;
+        
+        baseTargetLook.copy(worldPos).add(new THREE.Vector3(-panLeft, 0, 0));
+        var offset = new THREE.Vector3(pData.data.size * 1.5 - panLeft, pData.data.size * 0.8, dist);
         baseTargetPos.copy(worldPos).add(offset);
       }
     }
