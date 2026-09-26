@@ -35,7 +35,8 @@ a:hover{text-decoration:underline}
 #bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 #bg::after{content:"";position:absolute;inset:0;
   background:radial-gradient(120% 70% at 50% 0%,transparent 30%,var(--bg) 92%)}
-.wrap{position:relative;z-index:1;max-width:var(--max);width:100%;margin:0 auto;padding:0 24px;mix-blend-mode:difference}
+.wrap{position:relative;z-index:1;max-width:var(--max);width:100%;margin:0 auto;padding:0 24px}
+section .wrap{mix-blend-mode:difference}
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:24px;top:16px;z-index:9;background:var(--bg-2);padding:10px 16px;border-radius:8px}
 nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
