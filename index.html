@@ -25,7 +25,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07080a}}
 :root[data-theme="dark"]{--bg:#07080a}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-snap-type:y mandatory}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
   line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
@@ -35,7 +35,7 @@ a:hover{text-decoration:underline}
 #bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 #bg::after{content:"";position:absolute;inset:0;
   background:radial-gradient(120% 70% at 50% 0%,transparent 30%,var(--bg) 92%)}
-.wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 24px}
+.wrap{position:relative;z-index:1;max-width:var(--max);width:100%;margin:0 auto;padding:0 24px}
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:24px;top:16px;z-index:9;background:var(--bg-2);padding:10px 16px;border-radius:8px}
 nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -51,7 +51,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
   .navlinks{display:none;position:absolute;top:61px;left:0;width:100%;background:rgba(7,8,10,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-direction:column;align-items:center;padding:30px 0;gap:24px;border-bottom:1px solid var(--line)}
   .navlinks.open{display:flex}
 }
-header{min-height:88vh;display:flex;align-items:center;padding:80px 0 64px}
+header{min-height:100vh;display:flex;align-items:center;padding:80px 0 64px;scroll-snap-align:start;scroll-snap-stop:always}
 .hgrid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center}
 @media(min-width:820px){.hgrid{grid-template-columns:1.45fr .85fr;gap:56px}}
 .eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
@@ -167,7 +167,7 @@ a.chip:hover{border-color:var(--accent-2);color:var(--ink);background:rgba(122,1
 }
 .mono{font-family:var(--serif);font-size:4rem;color:var(--ink);opacity:.9}
 .phint{font-size:.7rem;color:var(--ink-3);text-align:center;padding:0 22px;letter-spacing:.04em}
-section{padding:82px 0;border-top:1px solid var(--line)}
+section{padding:82px 0;border-top:1px solid var(--line);min-height:100vh;display:flex;align-items:center;scroll-snap-align:start;scroll-snap-stop:always}
 h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,4.4vw,2.5rem);letter-spacing:-.01em;margin-bottom:8px}
 .sub{color:var(--ink-3);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:30px}
 .grid{display:grid;gap:18px;grid-template-columns:1fr}
@@ -202,6 +202,11 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
 .time-control{position:fixed;bottom:24px;right:24px;background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 20px;border-radius:12px;z-index:100;display:flex;flex-direction:column;gap:10px;font-size:.75rem;color:var(--ink-2)}
 .time-control label{display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.1em;font-weight:500;color:var(--ink)}
 .time-control input[type=range]{accent-color:var(--accent-2);width:130px;cursor:pointer}
+.planet-nav { position:fixed; right:24px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:16px; z-index:100; }
+.planet-nav a { display:flex; align-items:center; justify-content:flex-end; gap:12px; text-decoration:none; color:var(--ink-2); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; transition:opacity 0.3s, color 0.3s; opacity:0.4; }
+.planet-nav a:hover, .planet-nav a.active { opacity:1; color:var(--accent-2); }
+.planet-nav .dot { width:8px; height:8px; border-radius:50%; background:var(--ink-2); transition:transform 0.3s, background 0.3s; }
+.planet-nav a.active .dot { background:var(--accent-2); transform:scale(1.5); box-shadow:0 0 10px rgba(167,243,208,0.5); }
 </style>
 </head>
 <body>
@@ -211,6 +216,16 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   <input type="range" id="timeSlider" min="0" max="5" step="0.1" value="1">
 </div>
 <a class="skip" href="#main">Skip to content</a>
+
+<div class="planet-nav">
+  <a href="#header" data-section="header"><span>Solar System</span><div class="dot"></div></a>
+  <a href="#about" data-section="about"><span>Earth</span><div class="dot"></div></a>
+  <a href="#experience" data-section="experience"><span>Jupiter</span><div class="dot"></div></a>
+  <a href="#research" data-section="research"><span>Saturn</span><div class="dot"></div></a>
+  <a href="#skills" data-section="skills"><span>Pluto</span><div class="dot"></div></a>
+  <a href="#education" data-section="education"><span>Mars</span><div class="dot"></div></a>
+  <a href="#contact" data-section="contact"><span>Uranus</span><div class="dot"></div></a>
+</div>
 
 <nav>
   <div class="wrap">
@@ -608,7 +623,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
 
     solarSystem.add(pMesh);
     p.baseAngle = (daysSinceJ2000 / p.period) * Math.PI * 2;
-    planets.push({ mesh: pMesh, data: p });
+    planets.push({ mesh: pMesh, data: p, path: pathMesh });
   });
 
   // Asteroid Belt (Between Mars & Jupiter, orbit ~12)
@@ -623,7 +638,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     beltPos[i*3+2] = Math.sin(a) * r;
   }
   beltGeo.setAttribute('position', new THREE.BufferAttribute(beltPos, 3));
-  var beltMesh = new THREE.Points(beltGeo, new THREE.PointsMaterial({ color: 0x888888, size: 0.05 }));
+  var beltMesh = new THREE.Points(beltGeo, new THREE.PointsMaterial({ color: 0x888888, size: 0.05, transparent: true, opacity: 0.3 }));
   solarSystem.add(beltMesh);
 
   var accentLight = new THREE.PointLight(0x10b981, 2.5, 40);
@@ -704,6 +719,9 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     
     if (bestSection) {
       currentTargetPlanet = bestSection.planet;
+      document.querySelectorAll('.planet-nav a').forEach(a => a.classList.remove('active'));
+      var activeLink = document.querySelector('.planet-nav a[data-section="'+bestSection.id+'"]');
+      if (activeLink) activeLink.classList.add('active');
     }
   }
 
@@ -783,6 +801,12 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     // Camera infinite zoom logic
     var baseTargetPos = new THREE.Vector3(0, 0, 28);
     var baseTargetLook = new THREE.Vector3(0, 0, 0);
+
+    var targetOpacity = currentTargetPlanet ? 0.0 : 0.3;
+    planets.forEach(function(p) {
+      if(p.path) p.path.material.opacity += (targetOpacity - p.path.material.opacity) * 0.1;
+    });
+    if (beltMesh) beltMesh.material.opacity += (targetOpacity - beltMesh.material.opacity) * 0.1;
 
     if (currentTargetPlanet) {
       var pData = planets.find(p => p.data.name === currentTargetPlanet);
