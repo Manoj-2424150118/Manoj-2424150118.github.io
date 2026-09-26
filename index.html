@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>Manoj Kumar Sharma — Cybersecurity Analyst</title>
+<meta name="description" content="Manoj Kumar Sharma — Cybersecurity professional and final-year MCA student at Manipal University Jaipur. Vulnerability assessment, AI-driven threat intelligence, cryptographic protocol design.">
+<meta property="og:title" content="Manoj Kumar Sharma — Cybersecurity Analyst">
+<meta property="og:description" content="Vulnerability assessment, AI-security and cryptography. Creator of Deceptive-Net.">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080a; --bg-2:#0c0e12; --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
+  --ink:#eef0f4; --ink-2:#98a0ae; --ink-3:#5f6774; --accent:#10b981; --accent-2:#a7f3d0;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --r:16px; --max:1080px;
+}
+:root:not([data-theme="light"]){color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07080a}}
+:root[data-theme="dark"]{--bg:#07080a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
+  line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+#bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 70% at 50% 0%,transparent 30%,var(--bg) 92%)}
+.wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:24px;top:16px;z-index:9;background:var(--bg-2);padding:10px 16px;border-radius:8px}
+nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(7,8,10,.62);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{font-family:var(--serif);font-size:1.15rem;letter-spacing:.3px;color:var(--ink)}
+.navlinks{display:flex;gap:22px}
+.menu-toggle{display:none;background:none;border:none;color:var(--ink);cursor:pointer;padding:4px}
+.navlinks a{color:var(--ink-2);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;transition:color .2s}
+.navlinks a:hover{color:var(--ink);text-decoration:none}
+@media(max-width:820px){
+  .menu-toggle{display:block}
+  .navlinks{display:none;position:absolute;top:61px;left:0;width:100%;background:rgba(7,8,10,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-direction:column;align-items:center;padding:30px 0;gap:24px;border-bottom:1px solid var(--line)}
+  .navlinks.open{display:flex}
+}
+header{min-height:88vh;display:flex;align-items:center;padding:80px 0 64px}
+.hgrid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center}
+@media(min-width:820px){.hgrid{grid-template-columns:1.45fr .85fr;gap:56px}}
+.eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.7rem,8vw,4.6rem);line-height:1.02;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{margin-top:20px;font-size:clamp(1rem,2.4vw,1.14rem);color:var(--ink-2);max-width:46ch}
+.meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 15px;
+  font-size:.78rem;color:var(--ink-2);letter-spacing:.02em;transition:border-color .25s,color .25s,background .25s}
+a.chip:hover{border-color:var(--accent-2);color:var(--ink);background:rgba(122,162,255,.1);text-decoration:none}
+.cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 24px;border-radius:999px;font-size:.88rem;letter-spacing:.02em;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);transition:transform .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent-2);text-decoration:none}
+.btn.primary{background:var(--accent-2);color:#04120e;border-color:var(--accent-2);font-weight:500}
+.portrait-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  max-width: 320px;
+  margin: 0 auto;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+.portrait-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  z-index: 1;
+}
+.portrait-card.is-flipped {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+.portrait-front, .portrait-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg,rgba(16,185,129,.15),rgba(167,243,208,.07) 55%,transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.portrait-front {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+.portrait-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.portrait-back {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  background: var(--bg-2);
+  display: flex;
+  flex-direction: column;
+}
+.resume-wrapper {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.resume-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+}
+.resume-footer {
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+}
+.view-fs-btn {
+  font-size: 0.85rem;
+  padding: 8px 20px;
+  width: 100%;
+  display: inline-block;
+  cursor: pointer;
+}
+.flip-hint {
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  letter-spacing: 0.03em;
+  transition: color 0.3s;
+  pointer-events: none;
+}
+.portrait-container:hover .flip-hint {
+  color: var(--accent-2);
+}
+.mono{font-family:var(--serif);font-size:4rem;color:var(--ink);opacity:.9}
+.phint{font-size:.7rem;color:var(--ink-3);text-align:center;padding:0 22px;letter-spacing:.04em}
+section{padding:82px 0;border-top:1px solid var(--line)}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,4.4vw,2.5rem);letter-spacing:-.01em;margin-bottom:8px}
+.sub{color:var(--ink-3);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:30px}
+.grid{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .4s,border-color .4s,background .4s}
+.card:hover{transform:translateY(-4px);border-color:rgba(110,231,199,.32);background:rgba(255,255,255,.065)}
+a.card{display:block;color:inherit;text-decoration:none;cursor:pointer}
+a.card:hover{text-decoration:none;color:inherit;border-color:rgba(122,162,255,.4)}
+.card h3{font-size:1.05rem;font-weight:500;margin-bottom:6px;letter-spacing:-.01em}
+.card .role{font-size:.8rem;color:var(--accent);margin-bottom:12px;letter-spacing:.04em}
+a.card .role{color:var(--accent-2)}
+.card p{color:var(--ink-2);font-size:.92rem}
+.card ul{margin-top:10px;padding-left:18px;color:var(--ink-2);font-size:.9rem}
+.card li{margin-bottom:6px}
+.tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:.7rem;padding:4px 10px;border-radius:6px;background:rgba(110,231,199,.1);color:var(--accent);font-weight:500;border:1px solid rgba(110,231,199,.18)}
+.ph{color:var(--ink-3);font-style:italic;font-size:.82rem}
+.skills{display:flex;flex-wrap:wrap;gap:9px}
+.skills span{border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:.84rem;color:var(--ink-2);
+  background:var(--panel);transition:color .3s,border-color .3s}
+.skills span:hover{color:var(--ink);border-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:56px 0 64px;text-align:center}
+footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+.time-control{position:fixed;bottom:24px;right:24px;background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 20px;border-radius:12px;z-index:100;display:flex;flex-direction:column;gap:10px;font-size:.75rem;color:var(--ink-2)}
+.time-control label{display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.1em;font-weight:500;color:var(--ink)}
+.time-control input[type=range]{accent-color:var(--accent-2);width:130px;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="time-control">
+  <label for="timeSlider">Time Speed: <span id="timeVal">1.0x</span></label>
+  <input type="range" id="timeSlider" min="0" max="5" step="0.1" value="1">
+</div>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">MKS</span>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line class="top" x1="3" y1="6" x2="21" y2="6"></line>
+        <line class="mid" x1="3" y1="12" x2="21" y2="12"></line>
+        <line class="bot" x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">About</a><a href="#experience">Experience</a><a href="#research">Research</a>
+      <a href="#skills">Skills</a><a href="#education">Education</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<header>
+  <div class="wrap hgrid">
+    <div>
+      <p class="eyebrow">Cybersecurity · Jaipur, India</p>
+      <h1>Manoj Kumar<br><em>Sharma</em></h1>
+      <p class="lede">Results-driven cybersecurity professional and final-year MCA student at Manipal University Jaipur, working across vulnerability assessment, AI-driven threat intelligence and cryptographic protocol design.</p>
+      <div class="meta">
+        <a class="chip" href="https://coursera.org/verify/professional-cert/0QQA98KOB70G" target="_blank" rel="noopener noreferrer">Google Cybersecurity Professional</a>
+        <a class="chip" href="https://drive.google.com/file/d/1WKWKHbFcj89dsZMunD3ocIQQzil1Dpar/view" target="_blank" rel="noopener noreferrer">EC-Council EHE</a>
+        <a class="chip" href="https://drive.google.com/file/d/14ZAkLfacnDs4Tkph3MeRp52hWaSi_MJZ/view" target="_blank" rel="noopener noreferrer">EC-Council DFE</a>
+        <a class="chip" href="https://www.coursera.org/verify/YPS8LDV8N6ZE" target="_blank" rel="noopener noreferrer">Coursera: Industrial IoT Markets and Security</a>
+        <a class="chip" href="https://www.coursera.org/verify/D78NAJ5KCUL7" target="_blank" rel="noopener noreferrer">Coursera: Introduction to Architecture Smart IoT Devices</a>
+        <a class="chip" href="https://www.coursera.org/verify/FSJU39KU5JDX" target="_blank" rel="noopener noreferrer">Coursera: Introduction to Programming with IoT Boards</a>
+        <a class="chip" href="https://drive.google.com/file/d/1KLXjpZk2y-QjtTZuk0YP3IaHiDj7auZi/view" target="_blank" rel="noopener noreferrer">NPTEL: The Joy of Computing Using Python</a>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="https://github.com/Manoj-2424150118" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+    <div class="portrait-container">
+      <div class="portrait-placeholder">
+        <div class="portrait-card" id="resumeCard" title="Click to flip">
+          <div class="portrait-front">
+            <img src="MKS%20Dark%20Gray.jpg" alt="Portrait of Manoj Kumar Sharma" width="420" height="420" loading="eager" decoding="async">
+          </div>
+          <div class="portrait-back">
+            <div class="resume-wrapper">
+              <iframe src="Manoj_Resume_2026.pdf#view=Fit&toolbar=0" title="Resume Preview" class="resume-iframe"></iframe>
+            </div>
+            <div class="resume-footer">
+              <a href="Manoj_Resume_2026.pdf" target="_blank" rel="noopener noreferrer" class="btn primary view-fs-btn" id="viewFullscreenBtn">View Fullscreen</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-hint">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+        <span id="flipHintText">Flip to view Resume</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="reveal">
+  <div class="wrap">
+    <h2>About</h2><p class="sub">Profile</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>What I do</h3>
+        <p>Penetration testing, network forensics and risk analysis, alongside AI-security research. I build Deceptive-Net, a GAN-based honey-token framework designed to detect and intercept financial credential theft on dark web portals by deploying decoy tokens that trace unauthorised exfiltration.</p>
+      </div>
+      <div class="card">
+        <h3>What I'm looking for</h3>
+        <p>Entry-level roles as a Cybersecurity Analyst, SOC Analyst, Information Security Analyst or GRC Analyst. Comfortable translating complex security architectures into governance-ready documentation and executive reporting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <div class="wrap">
+    <h2>Experience</h2><p class="sub">Professional &amp; Internships</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Handshake AI</h3>
+        <p class="role">AI Fellow · July 2026 – Present</p>
+        <ul>
+          <li>Evaluate AI model outputs and prompts for domain-specific accuracy, security vulnerabilities and safety compliance.</li>
+          <li>Use Python and security analysis frameworks to assess model performance on complex edge cases, working with domain experts to refine qualitative evaluation metrics.</li>
+        </ul>
+      </div>
+      <a class="card" href="https://drive.google.com/drive/folders/1MBg7yPfnWE3tcTdfwDyLy_JNqgVUFihd" target="_blank" rel="noopener noreferrer">
+        <h3>Plasmid Innovation Pvt. Ltd.</h3>
+        <p class="role">Cyber Security Intern · March – May 2025</p>
+        <ul>
+          <li>Conducted structured vulnerability assessments and documented findings into formal risk registers aligned with digital resilience frameworks.</li>
+          <li>Monitored active threat intelligence streams to identify indicators of compromise within defined SLAs.</li>
+          <li>Analysed network traffic logs via Nmap and Wireshark to execute root-cause analysis.</li>
+        </ul>
+        <div class="tags"><span class="tag">In association with MSME DFO</span></div>
+      </a>
+      <a class="card" href="https://drive.google.com/file/d/1dphwndaP0wqRTKSJzJoZzfv0lORjUuIm/view" target="_blank" rel="noopener noreferrer">
+        <h3>Earth5R Foundation</h3>
+        <p class="role">Content Writing Intern · January – March 2024</p>
+        <p>Formulated secondary research briefs, synthesising sustainability datasets into executive-level policy documentation and stakeholder-ready reports.</p>
+      </a>
+      <a class="card" href="https://drive.google.com/file/d/1Mb27uNqAKUBIyVHFiT4auCs2rSOL9Gjr/view" target="_blank" rel="noopener noreferrer">
+        <h3>Marpu Foundation</h3>
+        <p class="role">Writing Intern · January – February 2024</p>
+        <p>Drafted public awareness documentation and structured institutional reports adhering to rigorous editorial standards.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="reveal">
+  <div class="wrap">
+    <h2>Projects &amp; Publications</h2><p class="sub">Research</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Deceptive-Net</h3>
+        <p class="role">Academic Capstone · January – June 2026</p>
+        <p>An automated, AI-driven defensive security system using Wasserstein GANs (WGAN-GP) to dynamically generate hyper-realistic honey-tokens and deceptive network artifacts during attacker reconnaissance. Architected the end-to-end data pipeline, GAN training methodology and evaluation metrics aligned with NIST security frameworks.</p>
+        <div class="tags"><span class="tag">WGAN-GP</span><span class="tag">Honey-tokens</span><span class="tag">NIST</span></div>
+        <div class="cta"><a class="btn" href="https://github.com/Manoj-2424150118/Deceptive-Net-A-Honey-Token-Generative-Framework" target="_blank" rel="noopener noreferrer">View repository</a></div>
+      </div>
+      <div class="card">
+        <h3>Secure Password Generator</h3>
+        <p class="role">Open-Source Developer · June – August 2025</p>
+        <p>A cryptographic credential utility implementing custom entropy-maximising algorithms to minimise predictable pattern vulnerabilities. Designed for secure SDLC integration, with full technical documentation and algorithmic complexity analysis.</p>
+        <div class="tags"><span class="tag">Cryptography</span><span class="tag">Entropy</span><span class="tag">Secure SDLC</span></div>
+        <div class="cta"><a class="btn" href="https://github.com/Manoj-2424150118/SecurePasswordGenerator" target="_blank" rel="noopener noreferrer">View repository</a></div>
+      </div>
+      <a class="card" style="grid-column:1/-1" href="https://drive.google.com/file/d/12CmGo4tpmAPHNNIgtXVlCdyzk33cS4BP/view" target="_blank" rel="noopener noreferrer">
+        <h3>Robust Password Generation Through KMAC DRBG</h3>
+        <p class="role">7th ICDSA Conference, 2026 · July 2026</p>
+        <p>A post-SHA-2 performance and entropy analysis, presented before session chairs. Status: under review by session chair members.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="wrap">
+    <h2>Core Competencies</h2><p class="sub">Capabilities</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Security</h3>
+        <div class="skills" style="margin-top:12px">
+          <span>Penetration Testing</span><span>Vulnerability Assessment</span><span>Network Forensics</span>
+          <span>Nmap</span><span>Wireshark</span><span>Log Analysis</span>
+          <span>Risk Analysis &amp; Compliance</span><span>Policy Drafting</span><span>Mobile &amp; Firmware Security</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Engineering</h3>
+        <div class="skills" style="margin-top:12px">
+          <span>Python</span><span>Java</span><span>Kotlin</span><span>SQL</span>
+          <span>Generative Adversarial Networks</span><span>Cryptography</span>
+          <span>KMAC DRBG</span><span>Secure SDLC / DevSecOps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="reveal">
+  <div class="wrap">
+    <h2>Education &amp; Certifications</h2><p class="sub">Credentials</p>
+    <div class="grid two">
+      <a class="card" href="#" onclick="alert('To Be Distributed'); return false;">
+        <h3>Master of Computer Applications</h3>
+        <p class="role">Manipal University Jaipur · September 2024 – June 2026</p>
+        <p>Aggregate 76%. Core focus: advanced network security, cloud architecture, AI and cryptography.</p>
+      </a>
+      <a class="card" href="https://drive.google.com/file/d/1yLHDMwRNR8VU3WMsTuAzU08QNWQiNKT4/view" target="_blank" rel="noopener noreferrer">
+        <h3>Bachelor of Computer Applications</h3>
+        <p class="role">Vivekananda Global University, Jaipur · September 2021 – May 2024</p>
+        <p>Aggregate 75.40%. Specialisation in Cloud Technology &amp; Information Security (CT&amp;IS).</p>
+      </a>
+    </div>
+    <div class="grid two" style="margin-top:18px">
+      <div class="card">
+        <h3>Certifications</h3>
+        <ul>
+          <li>Ethical Hacking Essentials (EHE) — EC-Council</li>
+          <li>Google Cybersecurity Professional Certification — Coursera</li>
+          <li>The Joy of Computing using Python — NPTEL</li>
+          <li>Code Red Hackathon — ACIC-VGU &amp; AIM</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Languages</h3>
+        <ul>
+          <li>English — professional proficiency</li>
+          <li>Hindi — native</li>
+          <li>Rajasthani — native</li>
+          <li>Gujarati — basic</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="wrap">
+    <h2>Contact</h2><p class="sub">Get in touch</p>
+    <div class="card">
+      <p>Open to cybersecurity roles across analysis, SOC operations and GRC. Based in Jaipur, Rajasthan, India.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:sharmamanojkumar697@gmail.com">sharmamanojkumar697@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/manojthegeek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn" href="https://github.com/Manoj-2424150118" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">Manoj Kumar Sharma</span>
+    <p>Jaipur, Rajasthan, India</p>
+  </div>
+</footer>
+
+<script src="earth_b64.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // Scroll reveals
+  var els = document.querySelectorAll('.reveal');
+  if (rm.matches || !('IntersectionObserver' in window)) {
+    els.forEach(function(e){ e.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  // 3D background
+  var c = document.getElementById('bg');
+  if (!window.THREE || rm.matches) { if(c) c.style.display='none'; return; }
+
+  var renderer, scene, camera, pts, mesh, raf, mx=0, my=0;
+  try {
+    renderer = new THREE.WebGLRenderer({canvas:c, alpha:true, antialias:false});
+  } catch(e) { c.style.display='none'; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 1.6));
+  renderer.setSize(innerWidth, innerHeight);
+
+  scene = new THREE.Scene();
+  // Using a lower FOV (telephoto) prevents spheres from distorting into ellipses at the screen edges
+  camera = new THREE.PerspectiveCamera(30, innerWidth/innerHeight, 0.1, 100);
+  camera.position.z = 28;
+
+  // Generate circular star texture
+  var starCanvas = document.createElement('canvas');
+  starCanvas.width = 16; starCanvas.height = 16;
+  var starCtx = starCanvas.getContext('2d');
+  var starGrad = starCtx.createRadialGradient(8, 8, 0, 8, 8, 8);
+  starGrad.addColorStop(0, 'rgba(255,255,255,1)');
+  starGrad.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+  starGrad.addColorStop(0.5, 'rgba(255,255,255,0.2)');
+  starGrad.addColorStop(1, 'rgba(0,0,0,0)');
+  starCtx.fillStyle = starGrad;
+  starCtx.fillRect(0, 0, 16, 16);
+  var starTex = new THREE.CanvasTexture(starCanvas);
+
+  // particle field (Stars)
+  var N = innerWidth < 720 ? 700 : 1600, pos = new Float32Array(N*3);
+  for (var i=0;i<N;i++){
+    pos[i*3]   = (Math.random()-.5)*46;
+    pos[i*3+1] = (Math.random()-.5)*30;
+    pos[i*3+2] = (Math.random()-.5)*26 - 6;
+  }
+  var g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  pts = new THREE.Points(g, new THREE.PointsMaterial({
+    color:0xffffff, size:0.15, transparent:true, opacity:0.8, sizeAttenuation:true,
+    map: starTex, depthWrite: false, blending: THREE.AdditiveBlending
+  }));
+  scene.add(pts);
+
+  // Procedural Texture Generators
+  function createBandedTexture(colors) {
+    var canvas = document.createElement('canvas'); canvas.width = 1; canvas.height = 256;
+    var ctx = canvas.getContext('2d'); var grad = ctx.createLinearGradient(0,0,0,256);
+    colors.forEach(function(c, i) { grad.addColorStop(i / (colors.length - 1), c); });
+    ctx.fillStyle = grad; ctx.fillRect(0,0,1,256);
+    return new THREE.CanvasTexture(canvas);
+  }
+  function createRockyTexture(baseColor) {
+    var canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 256;
+    var ctx = canvas.getContext('2d'); ctx.fillStyle = baseColor; ctx.fillRect(0,0,512,256);
+    var imgData = ctx.getImageData(0,0,512,256); var d = imgData.data;
+    for(var i=0; i<d.length; i+=4) {
+      var noise = (Math.random() - 0.5) * 50;
+      d[i] += noise; d[i+1] += noise; d[i+2] += noise;
+    }
+    ctx.putImageData(imgData, 0,0);
+    return new THREE.CanvasTexture(canvas);
+  }
+  function createSunTexture() {
+    var canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 256;
+    var ctx = canvas.getContext('2d'); ctx.fillStyle = '#ffaa33'; ctx.fillRect(0,0,512,256);
+    var imgData = ctx.getImageData(0,0,512,256); var d = imgData.data;
+    for(var i=0; i<d.length; i+=4) {
+      var noise = Math.random() * 60;
+      d[i] = 255; d[i+1] = 170 + noise; d[i+2] = noise;
+    }
+    ctx.putImageData(imgData, 0,0);
+    return new THREE.CanvasTexture(canvas);
+  }
+
+  // --- FULL SOLAR SYSTEM ---
+  var solarSystem = new THREE.Group();
+  solarSystem.position.set(6, -2, -15);
+  solarSystem.rotation.x = 0.25 * Math.PI;
+  solarSystem.rotation.y = -0.15 * Math.PI;
+  scene.add(solarSystem);
+
+  var sunMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(2.5, 32, 32),
+    new THREE.MeshBasicMaterial({ map: createSunTexture() }) // Texturized glowing sun
+  );
+  solarSystem.add(sunMesh);
+
+  var systemLight = new THREE.PointLight(0xffeedd, 1.8, 150);
+  sunMesh.add(systemLight);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+  var planetsData = [
+    { name: 'Mercury', tex: createRockyTexture('#888888'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0 },
+    { name: 'Venus', tex: createRockyTexture('#e3bb76'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9 },
+    { name: 'Earth', tex: (typeof EARTH_BASE64 !== 'undefined' ? new THREE.TextureLoader().load(EARTH_BASE64) : createRockyTexture('#2b82c9')), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6 },
+    { name: 'Mars', tex: createRockyTexture('#c1440e'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9 },
+    { name: 'Jupiter', tex: createBandedTexture(['#c88b3a', '#e0c4a2', '#a67c52', '#d39c7e', '#e0c4a2', '#c88b3a']), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7 },
+    { name: 'Saturn', tex: createBandedTexture(['#ead6b8', '#ceb8b8', '#ead6b8', '#e5c183', '#ead6b8']), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7 },
+    { name: 'Uranus', tex: createBandedTexture(['#4b70dd', '#6bc0e8', '#4b70dd']), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5 },
+    { name: 'Neptune', tex: createBandedTexture(['#274687', '#365ebf', '#274687']), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5 },
+    { name: 'Pluto', tex: createRockyTexture('#dddddd'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0 }
+  ];
+
+  var daysSinceJ2000 = (Date.now() - 946728000000) / (1000 * 60 * 60 * 24);
+  var planets = [];
+
+  planetsData.forEach(function(p) {
+    var mat = new THREE.MeshStandardMaterial({ map: p.tex, roughness: p.rough, metalness: 0.1 });
+    if(p.rough > 0.8 && p.name !== 'Earth') mat.bumpMap = p.tex; // Rocky planets use noise as bumpmap
+    
+    var pMesh = new THREE.Mesh(new THREE.SphereGeometry(p.size, 32, 32), mat);
+    
+    if (p.ring) {
+      var rCanvas = document.createElement('canvas'); rCanvas.width=256; rCanvas.height=1;
+      var rCtx = rCanvas.getContext('2d'); var rGrad = rCtx.createLinearGradient(0,0,256,0);
+      rGrad.addColorStop(0, 'rgba(234,214,184,0)'); rGrad.addColorStop(0.2, 'rgba(234,214,184,0.8)');
+      rGrad.addColorStop(0.5, 'rgba(206,184,184,0.9)'); rGrad.addColorStop(0.8, 'rgba(234,214,184,0.5)'); rGrad.addColorStop(1, 'rgba(234,214,184,0)');
+      rCtx.fillStyle = rGrad; rCtx.fillRect(0,0,256,1);
+      
+      var ring = new THREE.Mesh(
+        new THREE.RingGeometry(p.size * 1.4, p.size * 2.2, 64),
+        new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(rCanvas), side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
+      );
+      ring.rotation.x = Math.PI / 2.2;
+      pMesh.add(ring);
+    }
+    
+    var pathMesh = new THREE.Mesh(
+      new THREE.RingGeometry(p.orbit, p.orbit + 0.03, 64),
+      new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide, transparent: true, opacity: 0.3 })
+    );
+    pathMesh.rotation.x = Math.PI / 2;
+    solarSystem.add(pathMesh);
+
+    solarSystem.add(pMesh);
+    p.baseAngle = (daysSinceJ2000 / p.period) * Math.PI * 2;
+    planets.push({ mesh: pMesh, data: p });
+  });
+
+  // Asteroid Belt (Between Mars & Jupiter, orbit ~12)
+  var beltGeo = new THREE.BufferGeometry();
+  var beltCount = 1200;
+  var beltPos = new Float32Array(beltCount * 3);
+  for(var i=0; i<beltCount; i++) {
+    var a = Math.random() * Math.PI * 2;
+    var r = 11.5 + Math.random() * 1.5;
+    beltPos[i*3] = Math.cos(a) * r;
+    beltPos[i*3+1] = (Math.random()-0.5) * 0.4;
+    beltPos[i*3+2] = Math.sin(a) * r;
+  }
+  beltGeo.setAttribute('position', new THREE.BufferAttribute(beltPos, 3));
+  var beltMesh = new THREE.Points(beltGeo, new THREE.PointsMaterial({ color: 0x888888, size: 0.05 }));
+  solarSystem.add(beltMesh);
+
+  var accentLight = new THREE.PointLight(0x10b981, 1.5, 25);
+  accentLight.position.set(5, -5, 2); // Subtle emerald rim light
+  scene.add(accentLight);
+  // Space Debris / Asteroids
+  var debrisList = [];
+  var debrisGeo = new THREE.DodecahedronGeometry(0.04, 0);
+  var debrisMat = new THREE.MeshStandardMaterial({color:0x444444, roughness:1.0, metalness:0});
+  for(var i=0; i<30; i++) {
+    var d = new THREE.Mesh(debrisGeo, debrisMat);
+    d.position.set((Math.random()-0.5)*40, (Math.random()-0.5)*40, (Math.random()-0.5)*30 - 5);
+    d.userData = {
+      v: new THREE.Vector3((Math.random()-0.5)*0.015, (Math.random()-0.5)*0.015, (Math.random()-0.5)*0.015),
+      rv: new THREE.Vector3((Math.random()-0.5)*0.05, (Math.random()-0.5)*0.05, (Math.random()-0.5)*0.05)
+    };
+    var scale = Math.random() * 2.0 + 0.5;
+    d.scale.set(scale, scale, scale);
+    scene.add(d);
+    debrisList.push(d);
+  }
+
+  // Meteors / Comets
+  var meteors = [];
+  var meteorGeo = new THREE.CylinderGeometry(0.005, 0.02, 3, 5);
+  var meteorMat = new THREE.MeshBasicMaterial({color: 0xa7f3d0, transparent:true, opacity: 0.8});
+  for(var i=0; i<5; i++) {
+    var m = new THREE.Mesh(meteorGeo, meteorMat);
+    m.position.set(999,999,999);
+    m.userData = { active: false, timer: Math.random() * 300 + 100, v: new THREE.Vector3() };
+    scene.add(m);
+    meteors.push(m);
+  }
+
+  addEventListener('pointermove', function(e){
+    mx = (e.clientX/innerWidth - .5); my = (e.clientY/innerHeight - .5);
+  }, {passive:true});
+
+  var timeScale = 1.0;
+  var timeSlider = document.getElementById('timeSlider');
+  var timeVal = document.getElementById('timeVal');
+  if(timeSlider) {
+    timeSlider.addEventListener('input', function(e) {
+      timeScale = parseFloat(e.target.value);
+      timeVal.textContent = timeScale.toFixed(1) + 'x';
+    });
+  }
+
+  var t = 0;
+  function loop(){
+    raf = requestAnimationFrame(loop);
+    t += 0.0035 * timeScale;
+    pts.rotation.y = t * 0.01; // Mostly static realistic stars
+    pts.rotation.x = 0;
+    
+    // Real-Time Solar System Revolution
+    var animTime = t * 0.5;
+    planets.forEach(function(p) {
+      var currentAngle = p.data.baseAngle + (animTime * (365.25 / p.data.period));
+      p.mesh.position.x = p.data.orbit * Math.cos(currentAngle);
+      p.mesh.position.z = p.data.orbit * Math.sin(currentAngle);
+      p.mesh.position.y = 0;
+      p.mesh.rotation.y += 0.01 * timeScale;
+    });
+    beltMesh.rotation.y -= 0.0005 * timeScale; // Slowly rotate asteroid belt
+
+    // Update Debris
+    for(var i=0; i<debrisList.length; i++) {
+      var d = debrisList[i];
+      d.position.x += d.userData.v.x * timeScale;
+      d.position.y += d.userData.v.y * timeScale;
+      d.position.z += d.userData.v.z * timeScale;
+      d.rotation.x += d.userData.rv.x * timeScale;
+      d.rotation.y += d.userData.rv.y * timeScale;
+      d.rotation.z += d.userData.rv.z * timeScale;
+      if (d.position.x > 25) d.position.x = -25;
+      if (d.position.x < -25) d.position.x = 25;
+      if (d.position.y > 25) d.position.y = -25;
+      if (d.position.y < -25) d.position.y = 25;
+      if (d.position.z > 15) d.position.z = -25;
+      if (d.position.z < -25) d.position.z = 15;
+    }
+
+    // Update Meteors
+    for(var i=0; i<meteors.length; i++) {
+      var m = meteors[i];
+      if (!m.userData.active) {
+        m.userData.timer -= timeScale;
+        if (m.userData.timer <= 0) {
+          m.userData.active = true;
+          var startX = (Math.random() > 0.5 ? 1 : -1) * 25;
+          var startY = (Math.random() - 0.5) * 20;
+          var startZ = (Math.random() - 0.5) * 20 - 5;
+          m.position.set(startX, startY, startZ);
+          var speed = 0.5 + Math.random() * 0.5;
+          m.userData.v.set(-Math.sign(startX) * speed, (Math.random()-0.5)*speed*0.5, (Math.random()-0.5)*speed*0.5);
+          m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), m.userData.v.clone().normalize());
+        }
+      } else {
+        m.position.x += m.userData.v.x * timeScale;
+        m.position.y += m.userData.v.y * timeScale;
+        m.position.z += m.userData.v.z * timeScale;
+        if (Math.abs(m.position.x) > 35 || Math.abs(m.position.y) > 35 || Math.abs(m.position.z) > 35) {
+          m.userData.active = false;
+          m.userData.timer = Math.random() * 400 + 100;
+          m.position.set(999,999,999);
+        }
+      }
+    }
+
+    camera.position.x += (mx*2.2 - camera.position.x)*0.035;
+    camera.position.y += (-my*1.4 - camera.position.y)*0.035;
+    camera.lookAt(0,0,0);
+    renderer.render(scene, camera);
+  }
+  loop();
+
+  var rt;
+  addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    }, 140);
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) { cancelAnimationFrame(raf); } else { loop(); }
+  });
+
+  // Mobile Menu Toggle
+  var menuBtn = document.getElementById('menuToggle');
+  var navlinks = document.getElementById('navlinks');
+  if (menuBtn && navlinks) {
+    menuBtn.addEventListener('click', function() {
+      navlinks.classList.toggle('open');
+      menuBtn.classList.toggle('open');
+    });
+    navlinks.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') {
+        navlinks.classList.remove('open');
+        menuBtn.classList.remove('open');
+      }
+    });
+  }
+
+  // Resume Card Flip In-Place
+  var card = document.getElementById('resumeCard');
+  var hintText = document.getElementById('flipHintText');
+  if (card) {
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('#viewFullscreenBtn')) {
+        return; // Let the link click go through natively
+      }
+      card.classList.toggle('is-flipped');
+      if (hintText) {
+        hintText.textContent = card.classList.contains('is-flipped') ? 'Flip to view Profile' : 'Flip to view Resume';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
