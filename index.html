@@ -615,25 +615,6 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     p.baseAngle = (daysSinceJ2000 / p.period) * Math.PI * 2;
     
     var moonObjects = [];
-    if (p.moons) {
-      p.moons.forEach(function(m) {
-        var mTex = loadTex(TEX_BASE + 'moon.jpg');
-        var mMesh = new THREE.Mesh(new THREE.SphereGeometry(m.size, 32, 32), new THREE.MeshStandardMaterial({map: mTex, roughness: 1.0, color: 0xdddddd}));
-        mMesh.userData = { name: m.name, desc: m.desc, facts: m.facts };
-        solarSystem.add(mMesh);
-        interactables.push(mMesh);
-        
-        var mPath = new THREE.Mesh(
-          new THREE.RingGeometry(m.distance, m.distance + 0.01, 32),
-          new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide, transparent: true, opacity: 0.3 })
-        );
-        mPath.rotation.x = Math.PI / 2;
-        solarSystem.add(mPath);
-        
-        moonObjects.push({ mesh: mMesh, data: m, path: mPath, baseAngle: Math.random() * Math.PI * 2 });
-      });
-    }
-
     planets.push({ mesh: pMesh, data: p, path: pathMesh, moons: moonObjects });
   });
 
