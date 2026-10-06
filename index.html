@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>Manoj Kumar Sharma — Cybersecurity Analyst</title>
+<meta name="description" content="Manoj Kumar Sharma — Cybersecurity professional and final-year MCA student at Manipal University Jaipur. Vulnerability assessment, AI-driven threat intelligence, cryptographic protocol design.">
+<meta property="og:title" content="Manoj Kumar Sharma — Cybersecurity Analyst">
+<meta property="og:description" content="Vulnerability assessment, AI-security and cryptography. Creator of Deceptive-Net.">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080a; --bg-2:#0c0e12; --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
+  --ink:#ffffff; --ink-2:#e2e8f0; --ink-3:#cbd5e1; --accent:#10b981; --accent-2:#a7f3d0;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --r:16px; --max:1080px;
+}
+:root:not([data-theme="light"]){color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07080a}}
+:root[data-theme="dark"]{--bg:#07080a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-snap-type:y mandatory}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
+  line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+#bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 70% at 50% 0%,transparent 30%,var(--bg) 92%)}
+.wrap{position:relative;z-index:1;max-width:var(--max);width:100%;margin:0 auto;padding:0 24px}
+section .wrap{mix-blend-mode:difference}
+@media(min-width:1024px){ section .wrap{margin-left:8%;max-width:55%;padding-right:40px} }
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:24px;top:16px;z-index:9;background:var(--bg-2);padding:10px 16px;border-radius:8px}
+nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(7,8,10,.62);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{font-family:var(--serif);font-size:1.15rem;letter-spacing:.3px;color:var(--ink)}
+.brand-img{height:36px;border-radius:6px;object-fit:contain}
+.navlinks{display:flex;gap:22px}
+.menu-toggle{display:none;background:none;border:none;color:var(--ink);cursor:pointer;padding:4px}
+.navlinks a{color:var(--ink-2);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;transition:color .2s}
+.navlinks a:hover{color:var(--ink);text-decoration:none}
+@media(max-width:820px){
+  .menu-toggle{display:block}
+  .navlinks{display:none;position:absolute;top:61px;left:0;width:100%;background:rgba(7,8,10,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);flex-direction:column;align-items:center;padding:30px 0;gap:24px;border-bottom:1px solid var(--line)}
+  .navlinks.open{display:flex}
+}
+header{min-height:100vh;display:flex;align-items:center;padding:80px 0 64px;scroll-snap-align:start;scroll-snap-stop:always}
+.hgrid{display:grid;grid-template-columns:1fr;gap:36px;align-items:center}
+@media(min-width:820px){.hgrid{grid-template-columns:1.45fr .85fr;gap:56px}}
+.eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.7rem,8vw,4.6rem);line-height:1.02;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{margin-top:20px;font-size:clamp(1rem,2.4vw,1.14rem);color:var(--ink-2);max-width:46ch}
+.meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 15px;
+  font-size:.78rem;color:var(--ink-2);letter-spacing:.02em;transition:border-color .25s,color .25s,background .25s}
+a.chip:hover{border-color:var(--accent-2);color:var(--ink);background:rgba(122,162,255,.1);text-decoration:none}
+.cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 24px;border-radius:999px;font-size:.88rem;letter-spacing:.02em;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);transition:transform .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent-2);text-decoration:none}
+.btn.primary{background:var(--accent-2);color:#04120e;border-color:var(--accent-2);font-weight:500}
+.portrait-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  max-width: 320px;
+  margin: 0 auto;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+.portrait-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  z-index: 1;
+}
+.portrait-card.is-flipped {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+.portrait-front, .portrait-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg,rgba(16,185,129,.15),rgba(167,243,208,.07) 55%,transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.portrait-front {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+.portrait-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.portrait-back {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  background: var(--bg-2);
+  display: flex;
+  flex-direction: column;
+}
+.resume-wrapper {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+#resumeCanvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  background: #fff;
+}
+.resume-footer {
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+}
+.view-fs-btn {
+  font-size: 0.85rem;
+  padding: 8px 20px;
+  width: 100%;
+  display: inline-block;
+  cursor: pointer;
+}
+.flip-hint {
+  font-size: 0.82rem;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  letter-spacing: 0.03em;
+  transition: color 0.3s;
+  pointer-events: none;
+}
+.portrait-container:hover .flip-hint {
+  color: var(--accent-2);
+}
+.mono{font-family:var(--serif);font-size:4rem;color:var(--ink);opacity:.9}
+.phint{font-size:.7rem;color:var(--ink-3);text-align:center;padding:0 22px;letter-spacing:.04em}
+section{padding:82px 0;border-top:1px solid var(--line);min-height:100vh;display:flex;align-items:center;scroll-snap-align:start;scroll-snap-stop:always}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,4.4vw,2.5rem);letter-spacing:-.01em;margin-bottom:8px}
+.sub{color:var(--ink-3);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:30px}
+.grid{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
+.card{background:transparent;border:1px solid var(--line);border-radius:var(--r);padding:26px;
+  transition:transform .4s,border-color .4s,background .4s}
+.card:hover{transform:translateY(-4px);border-color:rgba(110,231,199,.32);background:rgba(255,255,255,.065)}
+a.card{display:block;color:inherit;text-decoration:none;cursor:pointer}
+a.card:hover{text-decoration:none;color:inherit;border-color:rgba(122,162,255,.4)}
+.card h3{font-size:1.05rem;font-weight:500;margin-bottom:6px;letter-spacing:-.01em}
+.card .role{font-size:.8rem;color:var(--accent);margin-bottom:12px;letter-spacing:.04em}
+a.card .role{color:var(--accent-2)}
+.card p{color:var(--ink-2);font-size:.92rem}
+.card ul{margin-top:10px;padding-left:18px;color:var(--ink-2);font-size:.9rem}
+.card li{margin-bottom:6px}
+.tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:.7rem;padding:4px 10px;border-radius:6px;background:rgba(110,231,199,.1);color:var(--accent);font-weight:500;border:1px solid rgba(110,231,199,.18)}
+.ph{color:var(--ink-3);font-style:italic;font-size:.82rem}
+.skills{display:flex;flex-wrap:wrap;gap:9px}
+.skills span{border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:.84rem;color:var(--ink-2);
+  background:var(--panel);transition:color .3s,border-color .3s}
+.skills span:hover{color:var(--ink);border-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:56px 0 64px;text-align:center}
+footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+.motion-container { position: fixed; bottom: 24px; right: 24px; z-index: 100; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; width: 220px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); overflow: hidden; transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.motion-header { padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: var(--ink); font-size: 0.85rem; background: rgba(255, 255, 255, 0.05); transition: background 0.3s; }
+.motion-header:hover { background: rgba(255, 255, 255, 0.1); }
+.motion-body { padding: 0 18px; max-height: 0; opacity: 0; transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s, padding 0.4s; }
+.motion-container.open .motion-body { padding: 18px 18px 22px; max-height: 100px; opacity: 1; }
+.motion-body label { display: block; font-size: 0.75rem; color: var(--ink-2); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+.motion-body input[type="range"] { width: 100%; -webkit-appearance: none; background: transparent; }
+.motion-body input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; }
+.motion-body input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent-2); margin-top: -6px; cursor: pointer; box-shadow: 0 0 12px rgba(167, 243, 208, 0.6); transition: transform 0.2s; }
+.motion-body input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.info-panel { position: fixed; left: 0; top: 0; z-index: 9999; background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; width: 280px; padding: 24px; color: var(--ink); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; transform: translate(15px, 15px); }
+.info-panel.visible { opacity: 1; }
+.info-title { font-family: var(--serif); font-size: 1.8rem; margin-bottom: 8px; color: var(--accent-2); }
+.info-desc { font-size: 0.85rem; color: var(--ink-2); margin-bottom: 16px; line-height: 1.5; }
+.info-fact { font-size: 0.8rem; color: var(--ink); padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px; border-left: 3px solid var(--accent); }
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<div class="info-panel" id="infoPanel">
+  <div class="info-title" id="infoTitle">Planet Name</div>
+  <div class="info-desc" id="infoDesc">Description</div>
+  <div class="info-fact" id="infoFact">Fun Fact</div>
+</div>
+
+<div class="motion-container" id="motionContainer">
+  <div class="motion-header" id="motionHeader">
+    <span>Motion Setting</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="motionArrow"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+  <div class="motion-body">
+    <label for="timeScaleSlider">Time Scale (Speed)</label>
+    <input type="range" id="timeScaleSlider" min="0" max="2" step="0.05" value="1.0">
+  </div>
+</div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<nav>
+  <div class="wrap">
+    <img src="Logo.png" alt="Logo" class="brand-img">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line class="top" x1="3" y1="6" x2="21" y2="6"></line>
+        <line class="mid" x1="3" y1="12" x2="21" y2="12"></line>
+        <line class="bot" x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">About</a><a href="#experience">Experience</a><a href="#research">Research</a>
+      <a href="#skills">Skills</a><a href="#education">Education</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<header id="header">
+  <div class="wrap hgrid">
+    <div>
+      <p class="eyebrow">Cybersecurity · Jaipur, India</p>
+      <h1>Manoj Kumar<br><em>Sharma</em></h1>
+      <p class="lede">Results-driven cybersecurity professional and final-year MCA student at Manipal University Jaipur, working across vulnerability assessment, AI-driven threat intelligence and cryptographic protocol design.</p>
+      <div class="meta">
+        <a class="chip" href="https://coursera.org/verify/professional-cert/0QQA98KOB70G" target="_blank" rel="noopener noreferrer">Google Cybersecurity Professional</a>
+        <a class="chip" href="https://drive.google.com/file/d/1WKWKHbFcj89dsZMunD3ocIQQzil1Dpar/view" target="_blank" rel="noopener noreferrer">EC-Council EHE</a>
+        <a class="chip" href="https://drive.google.com/file/d/14ZAkLfacnDs4Tkph3MeRp52hWaSi_MJZ/view" target="_blank" rel="noopener noreferrer">EC-Council DFE</a>
+        <a class="chip" href="https://www.coursera.org/verify/YPS8LDV8N6ZE" target="_blank" rel="noopener noreferrer">Coursera: Industrial IoT Markets and Security</a>
+        <a class="chip" href="https://www.coursera.org/verify/D78NAJ5KCUL7" target="_blank" rel="noopener noreferrer">Coursera: Introduction to Architecture Smart IoT Devices</a>
+        <a class="chip" href="https://www.coursera.org/verify/FSJU39KU5JDX" target="_blank" rel="noopener noreferrer">Coursera: Introduction to Programming with IoT Boards</a>
+        <a class="chip" href="https://drive.google.com/file/d/1KLXjpZk2y-QjtTZuk0YP3IaHiDj7auZi/view" target="_blank" rel="noopener noreferrer">NPTEL: The Joy of Computing Using Python</a>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="https://github.com/Manoj-2424150118" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+    <div class="portrait-container">
+      <div class="portrait-placeholder">
+        <div class="portrait-card" id="resumeCard" title="Click to flip">
+          <div class="portrait-front">
+            <img src="MKS%20Dark%20Gray.jpg" alt="Portrait of Manoj Kumar Sharma" width="420" height="420" loading="eager" decoding="async">
+          </div>
+          <div class="portrait-back">
+            <div class="resume-wrapper">
+              <canvas id="resumeCanvas" title="Resume Preview"></canvas>
+            </div>
+            <div class="resume-footer">
+              <a href="Manoj_Resume_2026.pdf" target="_blank" rel="noopener noreferrer" class="btn primary view-fs-btn" id="viewFullscreenBtn">View Fullscreen</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-hint">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+        <span id="flipHintText">Flip to view Resume</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="reveal">
+  <div class="wrap">
+    <h2>About</h2><p class="sub">Profile</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>What I do</h3>
+        <p>Penetration testing, network forensics and risk analysis, alongside AI-security research. I build Deceptive-Net, a GAN-based honey-token framework designed to detect and intercept financial credential theft on dark web portals by deploying decoy tokens that trace unauthorised exfiltration.</p>
+      </div>
+      <div class="card">
+        <h3>What I'm looking for</h3>
+        <p>Entry-level roles as a Cybersecurity Analyst, SOC Analyst, Information Security Analyst or GRC Analyst. Comfortable translating complex security architectures into governance-ready documentation and executive reporting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <div class="wrap">
+    <h2>Experience</h2><p class="sub">Professional &amp; Internships</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Handshake AI</h3>
+        <p class="role">AI Fellow · July 2026 – Present</p>
+        <ul>
+          <li>Evaluate AI model outputs and prompts for domain-specific accuracy, security vulnerabilities and safety compliance.</li>
+          <li>Use Python and security analysis frameworks to assess model performance on complex edge cases, working with domain experts to refine qualitative evaluation metrics.</li>
+        </ul>
+      </div>
+      <a class="card" href="https://drive.google.com/drive/folders/1MBg7yPfnWE3tcTdfwDyLy_JNqgVUFihd" target="_blank" rel="noopener noreferrer">
+        <h3>Plasmid Innovation Pvt. Ltd.</h3>
+        <p class="role">Cyber Security Intern · March – May 2025</p>
+        <ul>
+          <li>Conducted structured vulnerability assessments and documented findings into formal risk registers aligned with digital resilience frameworks.</li>
+          <li>Monitored active threat intelligence streams to identify indicators of compromise within defined SLAs.</li>
+          <li>Analysed network traffic logs via Nmap and Wireshark to execute root-cause analysis.</li>
+        </ul>
+        <div class="tags"><span class="tag">In association with MSME DFO</span></div>
+      </a>
+      <a class="card" href="https://drive.google.com/file/d/1dphwndaP0wqRTKSJzJoZzfv0lORjUuIm/view" target="_blank" rel="noopener noreferrer">
+        <h3>Earth5R Foundation</h3>
+        <p class="role">Content Writing Intern · January – March 2024</p>
+        <p>Formulated secondary research briefs, synthesising sustainability datasets into executive-level policy documentation and stakeholder-ready reports.</p>
+      </a>
+      <a class="card" href="https://drive.google.com/file/d/1Mb27uNqAKUBIyVHFiT4auCs2rSOL9Gjr/view" target="_blank" rel="noopener noreferrer">
+        <h3>Marpu Foundation</h3>
+        <p class="role">Writing Intern · January – February 2024</p>
+        <p>Drafted public awareness documentation and structured institutional reports adhering to rigorous editorial standards.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="reveal">
+  <div class="wrap">
+    <h2>Projects &amp; Publications</h2><p class="sub">Research</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Deceptive-Net</h3>
+        <p class="role">Academic Capstone · January – June 2026</p>
+        <p>An automated, AI-driven defensive security system using Wasserstein GANs (WGAN-GP) to dynamically generate hyper-realistic honey-tokens and deceptive network artifacts during attacker reconnaissance. Architected the end-to-end data pipeline, GAN training methodology and evaluation metrics aligned with NIST security frameworks.</p>
+        <div class="tags"><span class="tag">WGAN-GP</span><span class="tag">Honey-tokens</span><span class="tag">NIST</span></div>
+        <div class="cta"><a class="btn" href="https://github.com/Manoj-2424150118/Deceptive-Net-A-Honey-Token-Generative-Framework" target="_blank" rel="noopener noreferrer">View repository</a></div>
+      </div>
+      <div class="card">
+        <h3>Secure Password Generator</h3>
+        <p class="role">Open-Source Developer · June – August 2025</p>
+        <p>A cryptographic credential utility implementing custom entropy-maximising algorithms to minimise predictable pattern vulnerabilities. Designed for secure SDLC integration, with full technical documentation and algorithmic complexity analysis.</p>
+        <div class="tags"><span class="tag">Cryptography</span><span class="tag">Entropy</span><span class="tag">Secure SDLC</span></div>
+        <div class="cta"><a class="btn" href="https://github.com/Manoj-2424150118/SecurePasswordGenerator" target="_blank" rel="noopener noreferrer">View repository</a></div>
+      </div>
+      <a class="card" style="grid-column:1/-1" href="https://drive.google.com/file/d/12CmGo4tpmAPHNNIgtXVlCdyzk33cS4BP/view" target="_blank" rel="noopener noreferrer">
+        <h3>Robust Password Generation Through KMAC DRBG</h3>
+        <p class="role">7th ICDSA Conference, 2026 · July 2026</p>
+        <p>A post-SHA-2 performance and entropy analysis, presented before session chairs. Status: under review by session chair members.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="wrap">
+    <h2>Core Competencies</h2><p class="sub">Capabilities</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>Security</h3>
+        <div class="skills" style="margin-top:12px">
+          <span>Penetration Testing</span><span>Vulnerability Assessment</span><span>Network Forensics</span>
+          <span>Nmap</span><span>Wireshark</span><span>Log Analysis</span>
+          <span>Risk Analysis &amp; Compliance</span><span>Policy Drafting</span><span>Mobile &amp; Firmware Security</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Engineering</h3>
+        <div class="skills" style="margin-top:12px">
+          <span>Python</span><span>Java</span><span>Kotlin</span><span>SQL</span>
+          <span>Generative Adversarial Networks</span><span>Cryptography</span>
+          <span>KMAC DRBG</span><span>Secure SDLC / DevSecOps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="reveal">
+  <div class="wrap">
+    <h2>Education &amp; Certifications</h2><p class="sub">Credentials</p>
+    <div class="grid two">
+      <a class="card" href="#" onclick="alert('To Be Distributed'); return false;">
+        <h3>Master of Computer Applications</h3>
+        <p class="role">Manipal University Jaipur · September 2024 – June 2026</p>
+        <p>Aggregate 76%. Core focus: advanced network security, cloud architecture, AI and cryptography.</p>
+      </a>
+      <a class="card" href="https://drive.google.com/file/d/1yLHDMwRNR8VU3WMsTuAzU08QNWQiNKT4/view" target="_blank" rel="noopener noreferrer">
+        <h3>Bachelor of Computer Applications</h3>
+        <p class="role">Vivekananda Global University, Jaipur · September 2021 – May 2024</p>
+        <p>Aggregate 75.40%. Specialisation in Cloud Technology &amp; Information Security (CT&amp;IS).</p>
+      </a>
+    </div>
+    <div class="grid two" style="margin-top:18px">
+      <div class="card">
+        <h3>Certifications</h3>
+        <ul>
+          <li>Ethical Hacking Essentials (EHE) — EC-Council</li>
+          <li>Google Cybersecurity Professional Certification — Coursera</li>
+          <li>The Joy of Computing using Python — NPTEL</li>
+          <li>Code Red Hackathon — ACIC-VGU &amp; AIM</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Languages</h3>
+        <ul>
+          <li>English — professional proficiency</li>
+          <li>Hindi — native</li>
+          <li>Rajasthani — native</li>
+          <li>Gujarati — basic</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="wrap">
+    <h2>Contact</h2><p class="sub">Get in touch</p>
+    <div class="card">
+      <p>Open to cybersecurity roles across analysis, SOC operations and GRC. Based in Jaipur, Rajasthan, India.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:sharmamanojkumar697@gmail.com">sharmamanojkumar697@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/manojthegeek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn" href="https://github.com/Manoj-2424150118" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">Manoj Kumar Sharma</span>
+    <p>Jaipur, Rajasthan, India</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+  pdfjsLib.getDocument('Manoj_Resume_2026.pdf').promise.then(function(pdf) {
+    pdf.getPage(1).then(function(page) {
+      var viewport = page.getViewport({scale: 1.5});
+      var canvas = document.getElementById('resumeCanvas');
+      var context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      page.render({canvasContext: context, viewport: viewport});
+    });
+  }).catch(function(e){ console.log("PDF render error:", e); });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // Scroll reveals
+  var els = document.querySelectorAll('.reveal');
+  if (rm.matches || !('IntersectionObserver' in window)) {
+    els.forEach(function(e){ e.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  // 3D background
+  var c = document.getElementById('bg');
+  if (!window.THREE || rm.matches) { if(c) c.style.display='none'; return; }
+
+  var renderer, scene, camera, pts, mesh, raf, mx=0, my=0;
+  try {
+    renderer = new THREE.WebGLRenderer({canvas:c, alpha:true, antialias:true, powerPreference: "high-performance"});
+  } catch(e) { c.style.display='none'; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  // Photorealistic rendering settings
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  scene = new THREE.Scene();
+  // Using a lower FOV (telephoto) prevents spheres from distorting into ellipses at the screen edges
+  camera = new THREE.PerspectiveCamera(30, innerWidth/innerHeight, 0.1, 100);
+  camera.position.z = 28;
+
+  // Generate circular star texture
+  var starCanvas = document.createElement('canvas');
+  starCanvas.width = 16; starCanvas.height = 16;
+  var starCtx = starCanvas.getContext('2d');
+  var starGrad = starCtx.createRadialGradient(8, 8, 0, 8, 8, 8);
+  starGrad.addColorStop(0, 'rgba(255,255,255,1)');
+  starGrad.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+  starGrad.addColorStop(0.5, 'rgba(255,255,255,0.2)');
+  starGrad.addColorStop(1, 'rgba(0,0,0,0)');
+  starCtx.fillStyle = starGrad;
+  starCtx.fillRect(0, 0, 16, 16);
+  var starTex = new THREE.CanvasTexture(starCanvas);
+
+  // particle field (Stars) - Expanded for camera movement
+  var N = innerWidth < 720 ? 1200 : 2500;
+  var starGeo = new THREE.SphereGeometry(0.12, 8, 8);
+  var starMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  var pts = new THREE.InstancedMesh(starGeo, starMat, N);
+  var dummy = new THREE.Object3D();
+  for (var i=0;i<N;i++){
+    dummy.position.set((Math.random()-.5)*200, (Math.random()-.5)*200, (Math.random()-.5)*200 - 50);
+    var scale = Math.random() * 0.8 + 0.2;
+    dummy.scale.set(scale, scale, scale);
+    dummy.updateMatrix();
+    pts.setMatrixAt(i, dummy.matrix);
+  }
+  scene.add(pts);
+
+  // Milky Way Galaxy Band
+  var mwN = 15000, mwPos = new Float32Array(mwN*3);
+  for (var i=0; i<mwN; i++) {
+    var r = 100 + Math.random() * 150; // Far away
+    var theta = Math.random() * Math.PI * 2;
+    var phi = (Math.random() - 0.5) * (Math.random() * Math.random() * Math.PI * 0.2); 
+    mwPos[i*3] = r * Math.cos(theta) * Math.cos(phi);
+    mwPos[i*3+1] = r * Math.sin(phi);
+    mwPos[i*3+2] = r * Math.sin(theta) * Math.cos(phi);
+  }
+  var mwGeo = new THREE.BufferGeometry();
+  mwGeo.setAttribute('position', new THREE.BufferAttribute(mwPos, 3));
+  var mwMat = new THREE.PointsMaterial({ color: 0x99aaff, size: 0.15, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+  var milkyWay = new THREE.Points(mwGeo, mwMat);
+  milkyWay.rotation.x = Math.PI / 4; 
+  scene.add(milkyWay);
+
+
+
+  // --- FULL SOLAR SYSTEM ---
+  var solarSystem = new THREE.Group();
+  solarSystem.position.set(6, -2, -15);
+  solarSystem.rotation.x = 0.25 * Math.PI;
+  solarSystem.rotation.y = -0.15 * Math.PI;
+  scene.add(solarSystem);
+
+  var tLoader = new THREE.TextureLoader();
+  var maxAniso = renderer.capabilities.getMaxAnisotropy();
+  function loadTex(url) {
+    var t = tLoader.load(url, function(tex) {
+      if (tex.image && tex.image.width > 4096) {
+        var c = document.createElement('canvas');
+        c.width = 4096;
+        c.height = Math.round(tex.image.height * (4096 / tex.image.width));
+        var ctx = c.getContext('2d');
+        ctx.drawImage(tex.image, 0, 0, c.width, c.height);
+        tex.image = c;
+        tex.needsUpdate = true;
+      }
+    }, undefined, function(err) {
+      console.error("Texture error:", url, err);
+      if (window.location.protocol === 'file:') {
+        console.warn("CORS Error: Chrome blocks WebGL from reading local files. This will automatically disappear once uploaded to a web server (like GitHub Pages).");
+      }
+    });
+    t.anisotropy = maxAniso;
+    t.encoding = THREE.sRGBEncoding;
+    return t;
+  }
+  var TEX_BASE = 'textures/';
+
+  // High-Res Sun
+  var sunMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(2.5, 128, 128),
+    new THREE.MeshBasicMaterial({ map: loadTex(TEX_BASE + 'sun.jpg'), color: 0xffffee })
+  );
+  sunMesh.userData = { name: "Sun", desc: "The star around which the Earth and other planets revolve.", fact: "The Sun accounts for 99.86% of the mass in the solar system." };
+  solarSystem.add(sunMesh);
+
+  var systemLight = new THREE.PointLight(0xffeedd, 2.5, 200);
+  sunMesh.add(systemLight);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+  var planetsData = [
+    { name: 'Mercury', tex: loadTex(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0, desc: "The smallest and innermost planet.", fact: "Mercury has no atmosphere to retain heat.", moons: [] },
+    { name: 'Venus', tex: loadTex(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9, desc: "Earth's sister planet.", fact: "Venus rotates backwards compared to most planets.", moons: [] },
+    { name: 'Earth', tex: loadTex(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6, desc: "Our home planet.", fact: "Earth is the only planet known to harbor life.", moons: [{name: "Moon", size: 0.08, distance: 0.8, period: 27.3, desc: "Earth's only natural satellite.", fact: "The Moon is drifting away at 3.8 cm per year."}] },
+    { name: 'Mars', tex: loadTex(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9, desc: "The Red Planet.", fact: "Mars has the largest dust storms in the solar system.", moons: [{name: "Phobos", size: 0.04, distance: 0.5, period: 1.3, desc: "Inner moon of Mars.", fact: "Phobos is spiraling inwards."}, {name: "Deimos", size: 0.03, distance: 0.7, period: 4.0, desc: "Outer moon of Mars.", fact: "Deimos is only 12.4 km in mean radius."}] },
+    { name: 'Jupiter', tex: loadTex(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7, desc: "The largest planet.", fact: "Jupiter's Great Red Spot is a 300-year-old storm.", moons: [{name: "Io", size: 0.1, distance: 1.5, period: 16.7, desc: "A Galilean moon.", fact: "Io is the most geologically active body in the solar system."}, {name: "Europa", size: 0.08, distance: 1.8, period: 42.5, desc: "A Galilean moon.", fact: "Europa has a water-ice crust."}, {name: "Ganymede", size: 0.09, distance: 2.1, period: 85.2, desc: "A Galilean moon.", fact: "Ganymede is the largest moon in the solar system."}, {name: "Callisto", size: 0.07, distance: 2.4, period: 16.7*4, desc: "A Galilean moon.", fact: "Callisto is heavily cratered."}] },
+    { name: 'Saturn', tex: loadTex(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7, desc: "Famous for its prominent ring system.", fact: "Saturn is less dense than water.", moons: [{name: "Titan", size: 0.12, distance: 1.4, period: 15.9, desc: "Saturn's largest moon.", fact: "Titan has a dense atmosphere."}, {name: "Enceladus", size: 0.06, distance: 1.7, period: 32, desc: "A moon of Saturn.", fact: "Enceladus has geysers shooting water into space."}] },
+    { name: 'Uranus', tex: loadTex(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5, desc: "The seventh planet, an ice giant.", fact: "Uranus rotates on its side.", moons: [{name: "Titania", size: 0.06, distance: 1.0, period: 8.7, desc: "Largest moon of Uranus.", fact: "Titania is cut by a massive system of faults."}, {name: "Oberon", size: 0.05, distance: 1.2, period: 13.5, desc: "Outermost major moon of Uranus.", fact: "Oberon is heavily cratered."}] },
+    { name: 'Neptune', tex: loadTex(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5, desc: "The farthest known solar planet.", fact: "Neptune has the strongest winds in the solar system.", moons: [{name: "Triton", size: 0.07, distance: 1.1, period: 5.9, desc: "Largest moon of Neptune.", fact: "Triton has a retrograde orbit."}] },
+    { name: 'Pluto', tex: loadTex(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0, desc: "A dwarf planet in the Kuiper belt.", fact: "Pluto is smaller than Earth's Moon.", moons: [{name: "Charon", size: 0.04, distance: 0.3, period: 6.4, desc: "Pluto's largest moon.", fact: "Charon is so large that it and Pluto orbit each other."}] }
+  ];
+
+  var daysSinceJ2000 = (Date.now() - 946728000000) / (1000 * 60 * 60 * 24);
+  var planets = [];
+  var interactables = [sunMesh];
+
+  planetsData.forEach(function(p) {
+    var mat = new THREE.MeshStandardMaterial({ map: p.tex, roughness: p.rough, metalness: 0.1 });
+    if(p.rough > 0.8 && p.name !== 'Earth') {
+      mat.bumpMap = p.tex; // Rocky planets use noise as bumpmap
+      mat.bumpScale = 0.015;
+    }
+    
+    var pMesh = new THREE.Mesh(new THREE.SphereGeometry(p.size, 128, 128), mat);
+    pMesh.userData = { name: p.name, desc: p.desc, fact: p.fact };
+    interactables.push(pMesh);
+    
+    if (p.ring) {
+      var rCanvas = document.createElement('canvas'); rCanvas.width=256; rCanvas.height=1;
+      var rCtx = rCanvas.getContext('2d'); var rGrad = rCtx.createLinearGradient(0,0,256,0);
+      rGrad.addColorStop(0, 'rgba(234,214,184,0)'); rGrad.addColorStop(0.2, 'rgba(234,214,184,0.8)');
+      rGrad.addColorStop(0.5, 'rgba(206,184,184,0.9)'); rGrad.addColorStop(0.8, 'rgba(234,214,184,0.5)'); rGrad.addColorStop(1, 'rgba(234,214,184,0)');
+      rCtx.fillStyle = rGrad; rCtx.fillRect(0,0,256,1);
+      
+      var ring = new THREE.Mesh(
+        new THREE.RingGeometry(p.size * 1.4, p.size * 2.2, 64),
+        new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(rCanvas), side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
+      );
+      ring.rotation.x = Math.PI / 2.2;
+      pMesh.add(ring);
+    }
+    
+    var pathMesh = new THREE.Mesh(
+      new THREE.RingGeometry(p.orbit, p.orbit + 0.03, 64),
+      new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide, transparent: true, opacity: 0.3 })
+    );
+    pathMesh.rotation.x = Math.PI / 2;
+    solarSystem.add(pathMesh);
+
+    solarSystem.add(pMesh);
+    p.baseAngle = (daysSinceJ2000 / p.period) * Math.PI * 2;
+    
+    var moonObjects = [];
+    if (p.moons) {
+      p.moons.forEach(function(m) {
+        var mMesh = new THREE.Mesh(new THREE.SphereGeometry(m.size, 32, 32), new THREE.MeshStandardMaterial({color: 0xcccccc, roughness: 1.0}));
+        mMesh.userData = { name: m.name, desc: m.desc, fact: m.fact };
+        solarSystem.add(mMesh);
+        interactables.push(mMesh);
+        
+        var mPath = new THREE.Mesh(
+          new THREE.RingGeometry(m.distance, m.distance + 0.01, 32),
+          new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide, transparent: true, opacity: 0.3 })
+        );
+        mPath.rotation.x = Math.PI / 2;
+        solarSystem.add(mPath);
+        
+        moonObjects.push({ mesh: mMesh, data: m, path: mPath, baseAngle: Math.random() * Math.PI * 2 });
+      });
+    }
+
+    planets.push({ mesh: pMesh, data: p, path: pathMesh, moons: moonObjects });
+  });
+
+  var accentLight = new THREE.PointLight(0x10b981, 2.5, 40);
+  accentLight.position.set(5, -5, 2); // Subtle emerald rim light
+  scene.add(accentLight);
+
+  // Realistic Asteroids with Gravity Physics
+  var MAX_ASTEROIDS = 2000;
+  var asteroidCount = 800;
+  var asteroidGeo = new THREE.BufferGeometry();
+  var astPos = new Float32Array(MAX_ASTEROIDS * 3);
+  var astVel = [];
+  
+  for(var i=0; i<MAX_ASTEROIDS; i++) {
+    var a = Math.random() * Math.PI * 2;
+    var r = 11.0 + Math.random() * 3.0;
+    var inclination = (Math.random() - 0.5) * 0.4;
+    
+    if (i < asteroidCount) {
+      astPos[i*3] = Math.cos(a) * r;
+      astPos[i*3+1] = Math.sin(a) * r * inclination;
+      astPos[i*3+2] = Math.sin(a) * r;
+    } else {
+      astPos[i*3] = 9999;
+      astPos[i*3+1] = 9999;
+      astPos[i*3+2] = 9999;
+    }
+    
+    var GM = 4.0;
+    var v = Math.sqrt(GM / r);
+    var vx = -Math.sin(a) * v;
+    var vy = Math.cos(a) * v * inclination;
+    var vz = Math.cos(a) * v;
+    astVel.push(new THREE.Vector3(vx, vy, vz));
+  }
+  asteroidGeo.setAttribute('position', new THREE.BufferAttribute(astPos, 3));
+  var asteroidMat = new THREE.PointsMaterial({ color: 0x999999, size: 0.05, transparent: true, opacity: 0.6 });
+  var asteroidSystem = new THREE.Points(asteroidGeo, asteroidMat);
+  solarSystem.add(asteroidSystem);
+
+  var raycaster = new THREE.Raycaster();
+  var mouse = new THREE.Vector2(-1, -1);
+  var infoPanel = document.getElementById('infoPanel');
+  var infoTitle = document.getElementById('infoTitle');
+  var infoDesc = document.getElementById('infoDesc');
+  var infoFact = document.getElementById('infoFact');
+
+  var selectedObj = null;
+  addEventListener('pointermove', function(e){
+    mx = (e.clientX/innerWidth - .5); my = (e.clientY/innerHeight - .5);
+    mouse.x = (e.clientX / innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / innerHeight) * 2 + 1;
+    
+    if (selectedObj && infoPanel.classList.contains('visible')) {
+      infoPanel.style.left = e.clientX + 'px';
+      infoPanel.style.top = e.clientY + 'px';
+    }
+  }, {passive:true});
+
+  addEventListener('dblclick', function(e) {
+    raycaster.setFromCamera(mouse, camera);
+    var visibleInteractables = interactables.filter(function(obj) { return obj.visible; });
+    var intersects = raycaster.intersectObjects(visibleInteractables);
+    if(intersects.length > 0) {
+      var objData = intersects[0].object.userData;
+      if(objData && objData.name) {
+        selectedObj = objData;
+        infoTitle.innerText = objData.name;
+        infoDesc.innerText = objData.desc;
+        infoFact.innerText = "Fun Fact: " + objData.fact;
+        infoPanel.style.left = e.clientX + 'px';
+        infoPanel.style.top = e.clientY + 'px';
+        infoPanel.classList.add('visible');
+      }
+    } else {
+      selectedObj = null;
+      infoPanel.classList.remove('visible');
+    }
+  });
+
+  var timeScale = 1.0;
+  var userTimeScale = 1.0;
+  
+  // UI logic for Motion Settings
+  var moContainer = document.getElementById('motionContainer');
+  var moHeader = document.getElementById('motionHeader');
+  var moArrow = document.getElementById('motionArrow');
+  var tsSlider = document.getElementById('timeScaleSlider');
+
+  if(moHeader && moContainer) {
+    moHeader.addEventListener('click', function() {
+      moContainer.classList.toggle('open');
+      moArrow.style.transform = moContainer.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+      moArrow.style.transition = 'transform 0.3s';
+    });
+  }
+  if(tsSlider) {
+    tsSlider.addEventListener('input', function(e) {
+      userTimeScale = parseFloat(e.target.value);
+    });
+  }
+
+  // Camera tracking logic for Infinite Zoom
+  var sections = [
+    { id: 'header', planet: null },
+    { id: 'about', planet: 'Earth' },
+    { id: 'experience', planet: 'Jupiter' },
+    { id: 'research', planet: 'Saturn' },
+    { id: 'skills', planet: 'Pluto' },
+    { id: 'education', planet: 'Mars' },
+    { id: 'contact', planet: 'Uranus' }
+  ];
+
+  var currentTargetPlanet = null;
+  function updateActiveSection() {
+    var wh = window.innerHeight;
+    var bestSection = null;
+    var maxVis = -1;
+    
+    sections.forEach(function(sec) {
+      var el = document.getElementById(sec.id);
+      if (!el) return;
+      var rect = el.getBoundingClientRect();
+      var top = Math.max(0, rect.top);
+      var bottom = Math.min(wh, rect.bottom);
+      var vis = bottom - top;
+      if (vis > maxVis) {
+        maxVis = vis;
+        bestSection = sec;
+      }
+    });
+    
+    if (bestSection) {
+      currentTargetPlanet = bestSection.planet;
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, {passive: true});
+  updateActiveSection();
+
+  var currentLookAt = new THREE.Vector3(0,0,0);
+  var targetCameraPos = new THREE.Vector3(0,0,28);
+  
+  // Attach a soft light to the camera so planets are always beautifully illuminated when zoomed in
+  scene.add(camera);
+  var camLight = new THREE.PointLight(0xffffff, 0.4, 60);
+  camera.add(camLight);
+
+  var t = 0;
+  function loop(){
+    raf = requestAnimationFrame(loop);
+    
+    // Target scale slows down heavily when zoomed in to a planet
+    var targetScale = currentTargetPlanet ? 0.05 * userTimeScale : 1.0 * userTimeScale;
+    timeScale += (targetScale - timeScale) * 0.05;
+    
+    t += 0.0035 * timeScale;
+    pts.rotation.y = t * 0.01; // Mostly static realistic stars
+    pts.rotation.x = 0;
+    
+    // Physics update for asteroids
+    var dt = 0.016 * timeScale;
+    var positions = asteroidGeo.attributes.position.array;
+    for(var i=0; i<asteroidCount; i++) {
+      var px = positions[i*3];
+      var py = positions[i*3+1];
+      var pz = positions[i*3+2];
+      
+      var distSq = px*px + py*py + pz*pz;
+      var dist = Math.sqrt(distSq);
+      if(dist > 0.1) {
+        var force = 4.0 / distSq;
+        var ax = -px / dist * force;
+        var ay = -py / dist * force;
+        var az = -pz / dist * force;
+        
+        astVel[i].x += ax * dt;
+        astVel[i].y += ay * dt;
+        astVel[i].z += az * dt;
+      }
+      
+      positions[i*3] += astVel[i].x * dt;
+      positions[i*3+1] += astVel[i].y * dt;
+      positions[i*3+2] += astVel[i].z * dt;
+    }
+    asteroidGeo.attributes.position.needsUpdate = true;
+    
+    // Real-Time Solar System Revolution
+    var animTime = t * 0.5;
+    planets.forEach(function(p) {
+      var currentAngle = p.data.baseAngle + (animTime * (365.25 / p.data.period));
+      p.mesh.position.x = p.data.orbit * Math.cos(currentAngle);
+      p.mesh.position.z = p.data.orbit * Math.sin(currentAngle);
+      p.mesh.position.y = 0;
+      p.mesh.rotation.y += 0.01 * timeScale;
+      
+      if (p.moons) {
+        p.moons.forEach(function(m) {
+          var moonAngle = m.baseAngle + (animTime * (365.25 / m.data.period));
+          m.mesh.position.x = p.mesh.position.x + m.data.distance * Math.cos(moonAngle);
+          m.mesh.position.z = p.mesh.position.z + m.data.distance * Math.sin(moonAngle);
+          m.mesh.position.y = p.mesh.position.y;
+          m.mesh.rotation.y += 0.02 * timeScale;
+          
+          m.path.position.x = p.mesh.position.x;
+          m.path.position.z = p.mesh.position.z;
+          m.path.position.y = p.mesh.position.y;
+          
+          var showMoon = currentTargetPlanet !== null;
+          m.mesh.visible = showMoon;
+          m.path.visible = showMoon;
+        });
+      }
+    });
+
+    // Camera infinite zoom logic
+    var baseTargetPos = new THREE.Vector3(0, 0, 28);
+    var baseTargetLook = new THREE.Vector3(0, 0, 0);
+
+    var targetOpacity = currentTargetPlanet ? 0.0 : 0.3;
+    planets.forEach(function(p) {
+      if(p.path) p.path.material.opacity += (targetOpacity - p.path.material.opacity) * 0.1;
+      if(p.moons) {
+        p.moons.forEach(function(m) {
+          if(m.path) m.path.material.opacity += (targetOpacity - m.path.material.opacity) * 0.1;
+        });
+      }
+    });
+
+    if (currentTargetPlanet) {
+      var pData = planets.find(p => p.data.name === currentTargetPlanet);
+      if (pData) {
+        var worldPos = new THREE.Vector3();
+        pData.mesh.getWorldPosition(worldPos);
+        
+        // Force EXACT 35-45% screen height ratio for ALL planets, big or small
+        // FOV 30 = visible height is 0.5359 * distance. 
+        // (2 * size) / (0.5359 * dist) = 0.39 -> dist = 9.5 * size
+        var dist = pData.data.size * 9.5; 
+        if (pData.data.name === 'Saturn') dist *= 1.4; // Saturn's rings need extra framing space
+        
+        var panLeft = window.innerWidth > 1024 ? dist * 0.22 : 0;
+        
+        baseTargetLook.copy(worldPos).add(new THREE.Vector3(-panLeft, 0, 0));
+        var offset = new THREE.Vector3(-panLeft, pData.data.size * 0.5, dist);
+        baseTargetPos.copy(worldPos).add(offset);
+      }
+    }
+
+    // Apply Parallax based on zoom state
+    var parallaxMult = currentTargetPlanet ? 0.3 : 2.2;
+    targetCameraPos.copy(baseTargetPos).add(new THREE.Vector3(mx * parallaxMult, -my * (parallaxMult * 0.6), 0));
+
+    // Smooth camera interpolation
+    camera.position.lerp(targetCameraPos, 0.05);
+    currentLookAt.lerp(baseTargetLook, 0.05);
+    camera.lookAt(currentLookAt);
+
+    // Raycaster logic is now handled in dblclick event
+
+    renderer.render(scene, camera);
+  }
+  loop();
+
+  var rt;
+  addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    }, 140);
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) { cancelAnimationFrame(raf); } else { loop(); }
+  });
+
+  // Mobile Menu Toggle
+  var menuBtn = document.getElementById('menuToggle');
+  var navlinks = document.getElementById('navlinks');
+  if (menuBtn && navlinks) {
+    menuBtn.addEventListener('click', function() {
+      navlinks.classList.toggle('open');
+      menuBtn.classList.toggle('open');
+    });
+    navlinks.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') {
+        navlinks.classList.remove('open');
+        menuBtn.classList.remove('open');
+      }
+    });
+  }
+
+  // Resume Card Flip In-Place
+  var card = document.getElementById('resumeCard');
+  var hintText = document.getElementById('flipHintText');
+  if (card) {
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('#viewFullscreenBtn')) {
+        return; // Let the link click go through natively
+      }
+      card.classList.toggle('is-flipped');
+      if (hintText) {
+        hintText.textContent = card.classList.contains('is-flipped') ? 'Flip to view Profile' : 'Flip to view Resume';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
