@@ -747,8 +747,14 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
           var randomFact = objData.facts[Math.floor(Math.random() * objData.facts.length)];
           infoFact.innerText = "Fun Fact: " + randomFact;
         }
-        infoPanel.style.left = e.clientX + 'px';
-        infoPanel.style.top = e.clientY + 'px';
+        var pw = infoPanel.offsetWidth || 280;
+        var ph = infoPanel.offsetHeight || 150;
+        var px = e.clientX + 15;
+        var py = e.clientY + 15;
+        if(px + pw > window.innerWidth) px = e.clientX - pw - 15;
+        if(py + ph > window.innerHeight) py = e.clientY - ph - 15;
+        infoPanel.style.left = px + 'px';
+        infoPanel.style.top = py + 'px';
         infoPanel.classList.add('visible');
       }
     } else {
