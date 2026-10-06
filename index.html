@@ -600,7 +600,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     new THREE.SphereGeometry(2.5, 128, 128),
     new THREE.MeshBasicMaterial({ map: loadTex(TEX_BASE + 'sun.jpg'), color: 0xffffee })
   );
-  sunMesh.userData = { name: "Sun", desc: "The star around which the Earth and other planets revolve.", fact: "The Sun accounts for 99.86% of the mass in the solar system." };
+  sunMesh.userData = { name: "Sun", desc: "The star around which the Earth and other planets revolve.", facts: ["The Sun accounts for 99.86% of the mass in the solar system.", "One million Earths could fit inside the Sun.", "The Sun is traveling at 220 kilometers per second."] };
   solarSystem.add(sunMesh);
 
   var systemLight = new THREE.PointLight(0xffeedd, 2.5, 200);
@@ -608,15 +608,15 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
   var planetsData = [
-    { name: 'Mercury', tex: loadTex(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0, desc: "The smallest and innermost planet.", fact: "Mercury has no atmosphere to retain heat.", moons: [] },
-    { name: 'Venus', tex: loadTex(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9, desc: "Earth's sister planet.", fact: "Venus rotates backwards compared to most planets.", moons: [] },
-    { name: 'Earth', tex: loadTex(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6, desc: "Our home planet.", fact: "Earth is the only planet known to harbor life.", moons: [{name: "Moon", size: 0.08, distance: 0.8, period: 27.3, desc: "Earth's only natural satellite.", fact: "The Moon is drifting away at 3.8 cm per year."}] },
-    { name: 'Mars', tex: loadTex(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9, desc: "The Red Planet.", fact: "Mars has the largest dust storms in the solar system.", moons: [{name: "Phobos", size: 0.04, distance: 0.5, period: 1.3, desc: "Inner moon of Mars.", fact: "Phobos is spiraling inwards."}, {name: "Deimos", size: 0.03, distance: 0.7, period: 4.0, desc: "Outer moon of Mars.", fact: "Deimos is only 12.4 km in mean radius."}] },
-    { name: 'Jupiter', tex: loadTex(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7, desc: "The largest planet.", fact: "Jupiter's Great Red Spot is a 300-year-old storm.", moons: [{name: "Io", size: 0.1, distance: 1.5, period: 16.7, desc: "A Galilean moon.", fact: "Io is the most geologically active body in the solar system."}, {name: "Europa", size: 0.08, distance: 1.8, period: 42.5, desc: "A Galilean moon.", fact: "Europa has a water-ice crust."}, {name: "Ganymede", size: 0.09, distance: 2.1, period: 85.2, desc: "A Galilean moon.", fact: "Ganymede is the largest moon in the solar system."}, {name: "Callisto", size: 0.07, distance: 2.4, period: 16.7*4, desc: "A Galilean moon.", fact: "Callisto is heavily cratered."}] },
-    { name: 'Saturn', tex: loadTex(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7, desc: "Famous for its prominent ring system.", fact: "Saturn is less dense than water.", moons: [{name: "Titan", size: 0.12, distance: 1.4, period: 15.9, desc: "Saturn's largest moon.", fact: "Titan has a dense atmosphere."}, {name: "Enceladus", size: 0.06, distance: 1.7, period: 32, desc: "A moon of Saturn.", fact: "Enceladus has geysers shooting water into space."}] },
-    { name: 'Uranus', tex: loadTex(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5, desc: "The seventh planet, an ice giant.", fact: "Uranus rotates on its side.", moons: [{name: "Titania", size: 0.06, distance: 1.0, period: 8.7, desc: "Largest moon of Uranus.", fact: "Titania is cut by a massive system of faults."}, {name: "Oberon", size: 0.05, distance: 1.2, period: 13.5, desc: "Outermost major moon of Uranus.", fact: "Oberon is heavily cratered."}] },
-    { name: 'Neptune', tex: loadTex(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5, desc: "The farthest known solar planet.", fact: "Neptune has the strongest winds in the solar system.", moons: [{name: "Triton", size: 0.07, distance: 1.1, period: 5.9, desc: "Largest moon of Neptune.", fact: "Triton has a retrograde orbit."}] },
-    { name: 'Pluto', tex: loadTex(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0, desc: "A dwarf planet in the Kuiper belt.", fact: "Pluto is smaller than Earth's Moon.", moons: [{name: "Charon", size: 0.04, distance: 0.3, period: 6.4, desc: "Pluto's largest moon.", fact: "Charon is so large that it and Pluto orbit each other."}] }
+    { name: 'Mercury', tex: loadTex(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0, desc: "The smallest and innermost planet.", facts: ["Mercury has no atmosphere to retain heat.", "Your weight on Mercury would be 38% of your weight on Earth.", "A day on the surface of Mercury lasts 176 Earth days."], moons: [] },
+    { name: 'Venus', tex: loadTex(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9, desc: "Earth's sister planet.", facts: ["Venus rotates backwards compared to most planets.", "Venus is the hottest planet in our solar system.", "Atmospheric pressure on Venus is 92 times greater than the Earth's."], moons: [] },
+    { name: 'Earth', tex: loadTex(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6, desc: "Our home planet.", facts: ["Earth is the only planet known to harbor life.", "Earth's rotation is gradually slowing.", "The Earth is the densest planet in the Solar System."], moons: [{name: "Moon", size: 0.08, distance: 0.8, period: 27.3, desc: "Earth's only natural satellite.", facts: ["The Moon is drifting away at 3.8 cm per year.", "The Moon always shows Earth the same face.", "There is water on the Moon."]}] },
+    { name: 'Mars', tex: loadTex(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9, desc: "The Red Planet.", facts: ["Mars has the largest dust storms in the solar system.", "Mars is home to the tallest mountain in the solar system.", "Pieces of Mars have fallen to Earth."], moons: [{name: "Phobos", size: 0.04, distance: 0.5, period: 1.3, desc: "Inner moon of Mars.", facts: ["Phobos is spiraling inwards.", "It orbits Mars three times a day.", "It has a giant impact crater called Stickney."]}, {name: "Deimos", size: 0.03, distance: 0.7, period: 4.0, desc: "Outer moon of Mars.", facts: ["Deimos is only 12.4 km in mean radius.", "It has a much smoother surface than Phobos.", "It takes 30 hours to orbit Mars."]}] },
+    { name: 'Jupiter', tex: loadTex(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7, desc: "The largest planet.", facts: ["Jupiter's Great Red Spot is a 300-year-old storm.", "Jupiter has the shortest day of all the planets.", "Jupiter has faint rings."], moons: [{name: "Io", size: 0.1, distance: 1.5, period: 16.7, desc: "A Galilean moon.", facts: ["Io is the most geologically active body in the solar system.", "It has over 400 active volcanoes.", "Io has a thin atmosphere of sulfur dioxide."]}, {name: "Europa", size: 0.08, distance: 1.8, period: 42.5, desc: "A Galilean moon.", facts: ["Europa has a water-ice crust.", "It likely has a liquid water ocean beneath its surface.", "Europa has a very smooth surface."]}, {name: "Ganymede", size: 0.09, distance: 2.1, period: 85.2, desc: "A Galilean moon.", facts: ["Ganymede is the largest moon in the solar system.", "It is larger than the planet Mercury.", "Ganymede is the only moon known to have a magnetic field."]}, {name: "Callisto", size: 0.07, distance: 2.4, period: 16.7*4, desc: "A Galilean moon.", facts: ["Callisto is heavily cratered.", "It is the third-largest moon in the solar system.", "Callisto may have a subsurface ocean."]}] },
+    { name: 'Saturn', tex: loadTex(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7, desc: "Famous for its prominent ring system.", facts: ["Saturn is less dense than water.", "Saturn has 146 moons.", "Saturn is a flattened ball."], moons: [{name: "Titan", size: 0.12, distance: 1.4, period: 15.9, desc: "Saturn's largest moon.", facts: ["Titan has a dense atmosphere.", "It has liquid methane lakes.", "Titan is larger than the planet Mercury."]}, {name: "Enceladus", size: 0.06, distance: 1.7, period: 32, desc: "A moon of Saturn.", facts: ["Enceladus has geysers shooting water into space.", "It is one of the brightest objects in our solar system.", "Enceladus has an icy shell."]}] },
+    { name: 'Uranus', tex: loadTex(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5, desc: "The seventh planet, an ice giant.", facts: ["Uranus rotates on its side.", "It is often referred to as an 'ice giant'.", "Uranus has 13 currently known rings."], moons: [{name: "Titania", size: 0.06, distance: 1.0, period: 8.7, desc: "Largest moon of Uranus.", facts: ["Titania is cut by a massive system of faults.", "It was discovered by William Herschel in 1787.", "Titania consists of roughly equal amounts of ice and rock."]}, {name: "Oberon", size: 0.05, distance: 1.2, period: 13.5, desc: "Outermost major moon of Uranus.", facts: ["Oberon is heavily cratered.", "It is the second-largest moon of Uranus.", "Oberon's surface is dark and slightly red."]}] },
+    { name: 'Neptune', tex: loadTex(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5, desc: "The farthest known solar planet.", facts: ["Neptune has the strongest winds in the solar system.", "It is the most distant planet in the solar system.", "Neptune has 14 known moons."], moons: [{name: "Triton", size: 0.07, distance: 1.1, period: 5.9, desc: "Largest moon of Neptune.", facts: ["Triton has a retrograde orbit.", "It is one of the coldest objects in our solar system.", "Triton has active geysers."]}] },
+    { name: 'Pluto', tex: loadTex(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0, desc: "A dwarf planet in the Kuiper belt.", facts: ["Pluto is smaller than Earth's Moon.", "Pluto has a heart-shaped glacier.", "Pluto has five known moons."], moons: [{name: "Charon", size: 0.04, distance: 0.3, period: 6.4, desc: "Pluto's largest moon.", facts: ["Charon is so large that it and Pluto orbit each other.", "It does not have an atmosphere.", "Charon has a reddish polar region."]}] }
   ];
 
   var daysSinceJ2000 = (Date.now() - 946728000000) / (1000 * 60 * 60 * 24);
@@ -631,7 +631,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     }
     
     var pMesh = new THREE.Mesh(new THREE.SphereGeometry(p.size, 128, 128), mat);
-    pMesh.userData = { name: p.name, desc: p.desc, fact: p.fact };
+    pMesh.userData = { name: p.name, desc: p.desc, facts: p.facts };
     interactables.push(pMesh);
     
     if (p.ring) {
@@ -664,7 +664,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
       p.moons.forEach(function(m) {
         var mTex = loadTex(TEX_BASE + 'moon.jpg');
         var mMesh = new THREE.Mesh(new THREE.SphereGeometry(m.size, 32, 32), new THREE.MeshStandardMaterial({map: mTex, roughness: 1.0, color: 0xdddddd}));
-        mMesh.userData = { name: m.name, desc: m.desc, fact: m.fact };
+        mMesh.userData = { name: m.name, desc: m.desc, facts: m.facts };
         solarSystem.add(mMesh);
         interactables.push(mMesh);
         
@@ -733,23 +733,20 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     mouse.x = (e.clientX / innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / innerHeight) * 2 + 1;
     
-    if (selectedObj && infoPanel.classList.contains('visible')) {
-      infoPanel.style.left = e.clientX + 'px';
-      infoPanel.style.top = e.clientY + 'px';
-    }
-  }, {passive:true});
-
-  addEventListener('dblclick', function(e) {
     raycaster.setFromCamera(mouse, camera);
     var visibleInteractables = interactables.filter(function(obj) { return obj.visible; });
     var intersects = raycaster.intersectObjects(visibleInteractables);
+    
     if(intersects.length > 0) {
       var objData = intersects[0].object.userData;
       if(objData && objData.name) {
-        selectedObj = objData;
-        infoTitle.innerText = objData.name;
-        infoDesc.innerText = objData.desc;
-        infoFact.innerText = "Fun Fact: " + objData.fact;
+        if(selectedObj !== objData) {
+          selectedObj = objData;
+          infoTitle.innerText = objData.name;
+          infoDesc.innerText = objData.desc;
+          var randomFact = objData.facts[Math.floor(Math.random() * objData.facts.length)];
+          infoFact.innerText = "Fun Fact: " + randomFact;
+        }
         infoPanel.style.left = e.clientX + 'px';
         infoPanel.style.top = e.clientY + 'px';
         infoPanel.classList.add('visible');
@@ -758,7 +755,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
       selectedObj = null;
       infoPanel.classList.remove('visible');
     }
-  });
+  }, {passive:true});
 
   var timeScale = 1.0;
   var userTimeScale = 1.0;
@@ -938,7 +935,6 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     currentLookAt.lerp(baseTargetLook, 0.05);
     camera.lookAt(currentLookAt);
 
-    // Raycaster logic is now handled in dblclick event
 
     renderer.render(scene, camera);
   }
