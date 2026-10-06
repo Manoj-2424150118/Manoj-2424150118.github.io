@@ -662,7 +662,8 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
     var moonObjects = [];
     if (p.moons) {
       p.moons.forEach(function(m) {
-        var mMesh = new THREE.Mesh(new THREE.SphereGeometry(m.size, 32, 32), new THREE.MeshStandardMaterial({color: 0xcccccc, roughness: 1.0}));
+        var mTex = loadTex(TEX_BASE + 'moon.jpg');
+        var mMesh = new THREE.Mesh(new THREE.SphereGeometry(m.size, 32, 32), new THREE.MeshStandardMaterial({map: mTex, roughness: 1.0, color: 0xdddddd}));
         mMesh.userData = { name: m.name, desc: m.desc, fact: m.fact };
         solarSystem.add(mMesh);
         interactables.push(mMesh);
