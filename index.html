@@ -2,18 +2,62 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
+<style id="antiClickjack">html{display:none !important}</style>
+<script src="anti-clickjack.js"></script>
+<noscript><style>html{display:block !important}</style></noscript>
 <title>Manoj Kumar Sharma — Cybersecurity Analyst</title>
 <meta name="description" content="Manoj Kumar Sharma — Cybersecurity professional and final-year MCA student at Manipal University Jaipur. Vulnerability assessment, AI-driven threat intelligence, cryptographic protocol design.">
 <meta property="og:title" content="Manoj Kumar Sharma — Cybersecurity Analyst">
 <meta property="og:description" content="Vulnerability assessment, AI-security and cryptography. Creator of Deceptive-Net.">
 <meta property="og:type" content="profile">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="Logo.png">
 <style>
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/inter-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/inter-600.woff2') format('woff2');
+}
 :root{
   --bg:#000000; --bg-2:#000000; --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
   --ink:#ffffff; --ink-2:#e2e8f0; --ink-3:#cbd5e1; --accent:#10b981; --accent-2:#a7f3d0;
@@ -22,8 +66,8 @@
   --r:16px; --max:1080px;
 }
 :root:not([data-theme="light"]){color-scheme:dark}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07080a}}
-:root[data-theme="dark"]{--bg:#07080a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000000}}
+:root[data-theme="dark"]{--bg:#000000}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-snap-type:y mandatory}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
@@ -410,7 +454,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   <div class="wrap">
     <h2>Education &amp; Certifications</h2><p class="sub">Credentials</p>
     <div class="grid two">
-      <a class="card" href="#" onclick="alert('To Be Distributed'); return false;">
+      <a class="card" href="#education" id="mcaDegreeCard">
         <h3>Master of Computer Applications</h3>
         <p class="role">Manipal University Jaipur · September 2024 – June 2026</p>
         <p>Aggregate 76%. Core focus: advanced network security, cloud architecture, AI and cryptography.</p>
@@ -467,463 +511,7 @@ footer p{color:var(--ink-3);font-size:.82rem;margin-top:14px}
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-  pdfjsLib.getDocument('Manoj_Resume_2026.pdf').promise.then(function(pdf) {
-    pdf.getPage(1).then(function(page) {
-      var viewport = page.getViewport({scale: 1.5});
-      var canvas = document.getElementById('resumeCanvas');
-      var context = canvas.getContext('2d');
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      page.render({canvasContext: context, viewport: viewport});
-    });
-  }).catch(function(e){ console.log("PDF render error:", e); });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
-<script>
-(function(){
-  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
-  // Scroll reveals
-  var els = document.querySelectorAll('.reveal');
-  if (rm.matches || !('IntersectionObserver' in window)) {
-    els.forEach(function(e){ e.classList.add('in'); });
-  } else {
-    var io = new IntersectionObserver(function(en){
-      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
-    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
-    els.forEach(function(e){ io.observe(e); });
-  }
-
-  // 3D background
-  var c = document.getElementById('bg');
-  if (!window.THREE || rm.matches) { if(c) c.style.display='none'; return; }
-
-  var renderer, scene, camera, pts, mesh, raf, mx=0, my=0;
-  try {
-    renderer = new THREE.WebGLRenderer({canvas:c, alpha:true, antialias:true, powerPreference: "high-performance"});
-  } catch(e) { c.style.display='none'; return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
-  renderer.setSize(innerWidth, innerHeight);
-  // Photorealistic rendering settings
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
-
-  scene = new THREE.Scene();
-  // Using a lower FOV (telephoto) prevents spheres from distorting into ellipses at the screen edges
-  camera = new THREE.PerspectiveCamera(30, innerWidth/innerHeight, 0.1, 100);
-  camera.position.z = 28;
-
-  // Removed background stars and Milky Way
-
-  // --- FULL SOLAR SYSTEM ---
-  var solarSystem = new THREE.Group();
-  solarSystem.position.set(6, -2, -15);
-  solarSystem.rotation.x = 0.25 * Math.PI;
-  solarSystem.rotation.y = -0.15 * Math.PI;
-  scene.add(solarSystem);
-
-  var tLoader = new THREE.TextureLoader();
-  var maxAniso = renderer.capabilities.getMaxAnisotropy();
-  function loadTex(url) {
-    var t = tLoader.load(url, function(tex) {
-      if (tex.image && tex.image.width > 4096) {
-        var c = document.createElement('canvas');
-        c.width = 4096;
-        c.height = Math.round(tex.image.height * (4096 / tex.image.width));
-        var ctx = c.getContext('2d');
-        ctx.drawImage(tex.image, 0, 0, c.width, c.height);
-        tex.image = c;
-        tex.needsUpdate = true;
-      }
-    }, undefined, function(err) {
-      console.error("Texture error:", url, err);
-      if (window.location.protocol === 'file:') {
-        console.warn("CORS Error: Chrome blocks WebGL from reading local files. This will automatically disappear once uploaded to a web server (like GitHub Pages).");
-      }
-    });
-    t.anisotropy = maxAniso;
-    t.encoding = THREE.sRGBEncoding;
-    return t;
-  }
-  var TEX_BASE = 'textures/';
-
-  // High-Res Sun
-  var sunMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(2.5, 128, 128),
-    new THREE.MeshBasicMaterial({ map: loadTex(TEX_BASE + 'sun.jpg'), color: 0xffffee })
-  );
-  sunMesh.userData = { name: "Sun", desc: "The star around which the Earth and other planets revolve.", facts: ["The Sun accounts for 99.86% of the mass in the solar system.", "One million Earths could fit inside the Sun.", "The Sun is traveling at 220 kilometers per second."] };
-  solarSystem.add(sunMesh);
-
-  var systemLight = new THREE.PointLight(0xffeedd, 2.5, 200);
-  sunMesh.add(systemLight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
-
-  var planetsData = [
-    { name: 'Mercury', tex: loadTex(TEX_BASE + 'mercury.jpg'), size: 0.15, orbit: 4.5, period: 88, rough: 1.0, desc: "The smallest and innermost planet.", facts: ["Mercury has no atmosphere to retain heat.", "Your weight on Mercury would be 38% of your weight on Earth.", "A day on the surface of Mercury lasts 176 Earth days."], moons: [] },
-    { name: 'Venus', tex: loadTex(TEX_BASE + 'venus.jpg'), size: 0.35, orbit: 6.0, period: 225, rough: 0.9, desc: "Earth's sister planet.", facts: ["Venus rotates backwards compared to most planets.", "Venus is the hottest planet in our solar system.", "Atmospheric pressure on Venus is 92 times greater than the Earth's."], moons: [] },
-    { name: 'Earth', tex: loadTex(TEX_BASE + 'earth.jpg'), size: 0.4, orbit: 8.0, period: 365.25, rough: 0.6, desc: "Our home planet.", facts: ["Earth is the only planet known to harbor life.", "Earth's rotation is gradually slowing.", "The Earth is the densest planet in the Solar System."], moons: [{name: "Moon", size: 0.08, distance: 0.8, period: 27.3, desc: "Earth's only natural satellite.", facts: ["The Moon is drifting away at 3.8 cm per year.", "The Moon always shows Earth the same face.", "There is water on the Moon."]}] },
-    { name: 'Mars', tex: loadTex(TEX_BASE + 'mars.jpg'), size: 0.25, orbit: 10.0, period: 687, rough: 0.9, desc: "The Red Planet.", facts: ["Mars has the largest dust storms in the solar system.", "Mars is home to the tallest mountain in the solar system.", "Pieces of Mars have fallen to Earth."], moons: [{name: "Phobos", size: 0.04, distance: 0.5, period: 1.3, desc: "Inner moon of Mars.", facts: ["Phobos is spiraling inwards.", "It orbits Mars three times a day.", "It has a giant impact crater called Stickney."]}, {name: "Deimos", size: 0.03, distance: 0.7, period: 4.0, desc: "Outer moon of Mars.", facts: ["Deimos is only 12.4 km in mean radius.", "It has a much smoother surface than Phobos.", "It takes 30 hours to orbit Mars."]}] },
-    { name: 'Jupiter', tex: loadTex(TEX_BASE + 'jupiter.jpg'), size: 1.1, orbit: 14.5, period: 4333, rough: 0.7, desc: "The largest planet.", facts: ["Jupiter's Great Red Spot is a 300-year-old storm.", "Jupiter has the shortest day of all the planets.", "Jupiter has faint rings."], moons: [{name: "Io", size: 0.1, distance: 1.5, period: 16.7, desc: "A Galilean moon.", facts: ["Io is the most geologically active body in the solar system.", "It has over 400 active volcanoes.", "Io has a thin atmosphere of sulfur dioxide."]}, {name: "Europa", size: 0.08, distance: 1.8, period: 42.5, desc: "A Galilean moon.", facts: ["Europa has a water-ice crust.", "It likely has a liquid water ocean beneath its surface.", "Europa has a very smooth surface."]}, {name: "Ganymede", size: 0.09, distance: 2.1, period: 85.2, desc: "A Galilean moon.", facts: ["Ganymede is the largest moon in the solar system.", "It is larger than the planet Mercury.", "Ganymede is the only moon known to have a magnetic field."]}, {name: "Callisto", size: 0.07, distance: 2.4, period: 16.7*4, desc: "A Galilean moon.", facts: ["Callisto is heavily cratered.", "It is the third-largest moon in the solar system.", "Callisto may have a subsurface ocean."]}] },
-    { name: 'Saturn', tex: loadTex(TEX_BASE + 'saturn.jpg'), size: 0.9, orbit: 19.0, period: 10759, ring: true, rough: 0.7, desc: "Famous for its prominent ring system.", facts: ["Saturn is less dense than water.", "Saturn has 146 moons.", "Saturn is a flattened ball."], moons: [{name: "Titan", size: 0.12, distance: 1.4, period: 15.9, desc: "Saturn's largest moon.", facts: ["Titan has a dense atmosphere.", "It has liquid methane lakes.", "Titan is larger than the planet Mercury."]}, {name: "Enceladus", size: 0.06, distance: 1.7, period: 32, desc: "A moon of Saturn.", facts: ["Enceladus has geysers shooting water into space.", "It is one of the brightest objects in our solar system.", "Enceladus has an icy shell."]}] },
-    { name: 'Uranus', tex: loadTex(TEX_BASE + 'uranus.jpg'), size: 0.6, orbit: 23.0, period: 30685, rough: 0.5, desc: "The seventh planet, an ice giant.", facts: ["Uranus rotates on its side.", "It is often referred to as an 'ice giant'.", "Uranus has 13 currently known rings."], moons: [{name: "Titania", size: 0.06, distance: 1.0, period: 8.7, desc: "Largest moon of Uranus.", facts: ["Titania is cut by a massive system of faults.", "It was discovered by William Herschel in 1787.", "Titania consists of roughly equal amounts of ice and rock."]}, {name: "Oberon", size: 0.05, distance: 1.2, period: 13.5, desc: "Outermost major moon of Uranus.", facts: ["Oberon is heavily cratered.", "It is the second-largest moon of Uranus.", "Oberon's surface is dark and slightly red."]}] },
-    { name: 'Neptune', tex: loadTex(TEX_BASE + 'neptune.jpg'), size: 0.6, orbit: 26.5, period: 60190, rough: 0.5, desc: "The farthest known solar planet.", facts: ["Neptune has the strongest winds in the solar system.", "It is the most distant planet in the solar system.", "Neptune has 14 known moons."], moons: [{name: "Triton", size: 0.07, distance: 1.1, period: 5.9, desc: "Largest moon of Neptune.", facts: ["Triton has a retrograde orbit.", "It is one of the coldest objects in our solar system.", "Triton has active geysers."]}] },
-    { name: 'Pluto', tex: loadTex(TEX_BASE + 'pluto.jpg'), size: 0.1, orbit: 29.5, period: 90560, rough: 1.0, desc: "A dwarf planet in the Kuiper belt.", facts: ["Pluto is smaller than Earth's Moon.", "Pluto has a heart-shaped glacier.", "Pluto has five known moons."], moons: [{name: "Charon", size: 0.04, distance: 0.3, period: 6.4, desc: "Pluto's largest moon.", facts: ["Charon is so large that it and Pluto orbit each other.", "It does not have an atmosphere.", "Charon has a reddish polar region."]}] }
-  ];
-
-  var daysSinceJ2000 = (Date.now() - 946728000000) / (1000 * 60 * 60 * 24);
-  var planets = [];
-  var interactables = [sunMesh];
-
-  planetsData.forEach(function(p) {
-    var mat = new THREE.MeshStandardMaterial({ map: p.tex, roughness: p.rough, metalness: 0.1 });
-    if(p.rough > 0.8 && p.name !== 'Earth') {
-      mat.bumpMap = p.tex; // Rocky planets use noise as bumpmap
-      mat.bumpScale = 0.015;
-    }
-    
-    var pMesh = new THREE.Mesh(new THREE.SphereGeometry(p.size, 128, 128), mat);
-    pMesh.userData = { name: p.name, desc: p.desc, facts: p.facts };
-    interactables.push(pMesh);
-    
-    if (p.ring) {
-      var rCanvas = document.createElement('canvas'); rCanvas.width=256; rCanvas.height=1;
-      var rCtx = rCanvas.getContext('2d'); var rGrad = rCtx.createLinearGradient(0,0,256,0);
-      rGrad.addColorStop(0, 'rgba(234,214,184,0)'); rGrad.addColorStop(0.2, 'rgba(234,214,184,0.8)');
-      rGrad.addColorStop(0.5, 'rgba(206,184,184,0.9)'); rGrad.addColorStop(0.8, 'rgba(234,214,184,0.5)'); rGrad.addColorStop(1, 'rgba(234,214,184,0)');
-      rCtx.fillStyle = rGrad; rCtx.fillRect(0,0,256,1);
-      
-      var ring = new THREE.Mesh(
-        new THREE.RingGeometry(p.size * 1.4, p.size * 2.2, 64),
-        new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(rCanvas), side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
-      );
-      ring.rotation.x = Math.PI / 2.2;
-      pMesh.add(ring);
-    }
-    
-    var pathMesh = new THREE.Mesh(
-      new THREE.RingGeometry(p.orbit, p.orbit + 0.03, 64),
-      new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide, transparent: true, opacity: 0.3 })
-    );
-    pathMesh.rotation.x = Math.PI / 2;
-    solarSystem.add(pathMesh);
-
-    solarSystem.add(pMesh);
-    p.baseAngle = (daysSinceJ2000 / p.period) * Math.PI * 2;
-    
-    var moonObjects = [];
-    planets.push({ mesh: pMesh, data: p, path: pathMesh, moons: moonObjects });
-  });
-
-  var accentLight = new THREE.PointLight(0x10b981, 2.5, 40);
-  accentLight.position.set(5, -5, 2); // Subtle emerald rim light
-  scene.add(accentLight);
-
-  // Realistic Asteroids with Gravity Physics
-  var MAX_ASTEROIDS = 2000;
-  var asteroidCount = 800;
-  var asteroidGeo = new THREE.BufferGeometry();
-  var astPos = new Float32Array(MAX_ASTEROIDS * 3);
-  var astVel = [];
-  
-  for(var i=0; i<MAX_ASTEROIDS; i++) {
-    var a = Math.random() * Math.PI * 2;
-    var r = 11.0 + Math.random() * 3.0;
-    var inclination = (Math.random() - 0.5) * 0.4;
-    
-    if (i < asteroidCount) {
-      astPos[i*3] = Math.cos(a) * r;
-      astPos[i*3+1] = Math.sin(a) * r * inclination;
-      astPos[i*3+2] = Math.sin(a) * r;
-    } else {
-      astPos[i*3] = 9999;
-      astPos[i*3+1] = 9999;
-      astPos[i*3+2] = 9999;
-    }
-    
-    var GM = 4.0;
-    var v = Math.sqrt(GM / r);
-    var vx = -Math.sin(a) * v;
-    var vy = Math.cos(a) * v * inclination;
-    var vz = Math.cos(a) * v;
-    astVel.push(new THREE.Vector3(vx, vy, vz));
-  }
-  asteroidGeo.setAttribute('position', new THREE.BufferAttribute(astPos, 3));
-  var asteroidMat = new THREE.PointsMaterial({ color: 0x999999, size: 0.05, transparent: true, opacity: 0.6 });
-  var asteroidSystem = new THREE.Points(asteroidGeo, asteroidMat);
-  solarSystem.add(asteroidSystem);
-
-  var raycaster = new THREE.Raycaster();
-  var mouse = new THREE.Vector2(-1, -1);
-  var infoPanel = document.getElementById('infoPanel');
-  var infoTitle = document.getElementById('infoTitle');
-  var infoDesc = document.getElementById('infoDesc');
-  var infoFact = document.getElementById('infoFact');
-
-  var selectedObj = null;
-  addEventListener('pointermove', function(e){
-    mx = (e.clientX/innerWidth - .5); my = (e.clientY/innerHeight - .5);
-    mouse.x = (e.clientX / innerWidth) * 2 - 1;
-    mouse.y = -(e.clientY / innerHeight) * 2 + 1;
-    
-    raycaster.setFromCamera(mouse, camera);
-    var visibleInteractables = interactables.filter(function(obj) { return obj.visible; });
-    var intersects = raycaster.intersectObjects(visibleInteractables);
-    
-    if(intersects.length > 0) {
-      var objData = intersects[0].object.userData;
-      if(objData && objData.name) {
-        if(selectedObj !== objData) {
-          selectedObj = objData;
-          infoTitle.innerText = objData.name;
-          infoDesc.innerText = objData.desc;
-          var randomFact = objData.facts[Math.floor(Math.random() * objData.facts.length)];
-          infoFact.innerText = "Fun Fact: " + randomFact;
-        }
-        var pw = infoPanel.offsetWidth || 280;
-        var ph = infoPanel.offsetHeight || 150;
-        var px = e.clientX + 15;
-        var py = e.clientY + 15;
-        if(px + pw > window.innerWidth) px = e.clientX - pw - 15;
-        if(py + ph > window.innerHeight) py = e.clientY - ph - 15;
-        infoPanel.style.left = px + 'px';
-        infoPanel.style.top = py + 'px';
-        infoPanel.classList.add('visible');
-      }
-    } else {
-      selectedObj = null;
-      infoPanel.classList.remove('visible');
-    }
-  }, {passive:true});
-
-  var timeScale = 1.0;
-  var userTimeScale = 1.0;
-  
-  // UI logic for Motion Settings
-  var moContainer = document.getElementById('motionContainer');
-  var moHeader = document.getElementById('motionHeader');
-  var moArrow = document.getElementById('motionArrow');
-  var tsSlider = document.getElementById('timeScaleSlider');
-
-  if(moHeader && moContainer) {
-    moHeader.addEventListener('click', function() {
-      moContainer.classList.toggle('open');
-      moArrow.style.transform = moContainer.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-      moArrow.style.transition = 'transform 0.3s';
-    });
-  }
-  if(tsSlider) {
-    tsSlider.addEventListener('input', function(e) {
-      userTimeScale = parseFloat(e.target.value);
-    });
-  }
-
-  // Camera tracking logic for Infinite Zoom
-  var sections = [
-    { id: 'header', planet: null },
-    { id: 'about', planet: 'Earth' },
-    { id: 'experience', planet: 'Jupiter' },
-    { id: 'research', planet: 'Saturn' },
-    { id: 'skills', planet: 'Pluto' },
-    { id: 'education', planet: 'Mars' },
-    { id: 'contact', planet: 'Uranus' }
-  ];
-
-  var currentTargetPlanet = null;
-  function updateActiveSection() {
-    var wh = window.innerHeight;
-    var bestSection = null;
-    var maxVis = -1;
-    
-    sections.forEach(function(sec) {
-      var el = document.getElementById(sec.id);
-      if (!el) return;
-      var rect = el.getBoundingClientRect();
-      var top = Math.max(0, rect.top);
-      var bottom = Math.min(wh, rect.bottom);
-      var vis = bottom - top;
-      if (vis > maxVis) {
-        maxVis = vis;
-        bestSection = sec;
-      }
-    });
-    
-    if (bestSection) {
-      currentTargetPlanet = bestSection.planet;
-    }
-  }
-
-  window.addEventListener('scroll', updateActiveSection, {passive: true});
-  updateActiveSection();
-
-  var currentLookAt = new THREE.Vector3(0,0,0);
-  var targetCameraPos = new THREE.Vector3(0,0,28);
-  
-  // Attach a soft light to the camera so planets are always beautifully illuminated when zoomed in
-  scene.add(camera);
-  var camLight = new THREE.PointLight(0xffffff, 0.4, 60);
-  camera.add(camLight);
-
-  var t = 0;
-  function loop(){
-    raf = requestAnimationFrame(loop);
-    
-    // Target scale slows down heavily when zoomed in to a planet
-    var targetScale = currentTargetPlanet ? 0.05 * userTimeScale : 1.0 * userTimeScale;
-    timeScale += (targetScale - timeScale) * 0.05;
-    
-    t += 0.0035 * timeScale;
-    // Stars removed
-    
-    // Physics update for asteroids
-    var dt = 0.016 * timeScale;
-    var positions = asteroidGeo.attributes.position.array;
-    for(var i=0; i<asteroidCount; i++) {
-      var px = positions[i*3];
-      var py = positions[i*3+1];
-      var pz = positions[i*3+2];
-      
-      var distSq = px*px + py*py + pz*pz;
-      var dist = Math.sqrt(distSq);
-      if(dist > 0.1) {
-        var force = 4.0 / distSq;
-        var ax = -px / dist * force;
-        var ay = -py / dist * force;
-        var az = -pz / dist * force;
-        
-        astVel[i].x += ax * dt;
-        astVel[i].y += ay * dt;
-        astVel[i].z += az * dt;
-      }
-      
-      positions[i*3] += astVel[i].x * dt;
-      positions[i*3+1] += astVel[i].y * dt;
-      positions[i*3+2] += astVel[i].z * dt;
-    }
-    asteroidGeo.attributes.position.needsUpdate = true;
-    
-    // Real-Time Solar System Revolution
-    var animTime = t * 0.5;
-    planets.forEach(function(p) {
-      var currentAngle = p.data.baseAngle + (animTime * (365.25 / p.data.period));
-      p.mesh.position.x = p.data.orbit * Math.cos(currentAngle);
-      p.mesh.position.z = p.data.orbit * Math.sin(currentAngle);
-      p.mesh.position.y = 0;
-      p.mesh.rotation.y += 0.01 * timeScale;
-      
-      if (p.moons) {
-        p.moons.forEach(function(m) {
-          var moonAngle = m.baseAngle + (animTime * (365.25 / m.data.period));
-          m.mesh.position.x = p.mesh.position.x + m.data.distance * Math.cos(moonAngle);
-          m.mesh.position.z = p.mesh.position.z + m.data.distance * Math.sin(moonAngle);
-          m.mesh.position.y = p.mesh.position.y;
-          m.mesh.rotation.y += 0.02 * timeScale;
-          
-          m.path.position.x = p.mesh.position.x;
-          m.path.position.z = p.mesh.position.z;
-          m.path.position.y = p.mesh.position.y;
-          
-          var showMoon = currentTargetPlanet !== null;
-          m.mesh.visible = showMoon;
-          m.path.visible = showMoon;
-        });
-      }
-    });
-
-    // Camera infinite zoom logic
-    var baseTargetPos = new THREE.Vector3(0, 0, 28);
-    var baseTargetLook = new THREE.Vector3(0, 0, 0);
-
-    var targetOpacity = currentTargetPlanet ? 0.0 : 0.3;
-    planets.forEach(function(p) {
-      if(p.path) p.path.material.opacity += (targetOpacity - p.path.material.opacity) * 0.1;
-      if(p.moons) {
-        p.moons.forEach(function(m) {
-          if(m.path) m.path.material.opacity += (targetOpacity - m.path.material.opacity) * 0.1;
-        });
-      }
-    });
-
-    if (currentTargetPlanet) {
-      var pData = planets.find(p => p.data.name === currentTargetPlanet);
-      if (pData) {
-        var worldPos = new THREE.Vector3();
-        pData.mesh.getWorldPosition(worldPos);
-        
-        // Force EXACT 35-45% screen height ratio for ALL planets, big or small
-        // FOV 30 = visible height is 0.5359 * distance. 
-        // (2 * size) / (0.5359 * dist) = 0.39 -> dist = 9.5 * size
-        var dist = pData.data.size * 9.5; 
-        if (pData.data.name === 'Saturn') dist *= 1.4; // Saturn's rings need extra framing space
-        
-        var panLeft = window.innerWidth > 1024 ? dist * 0.22 : 0;
-        
-        baseTargetLook.copy(worldPos).add(new THREE.Vector3(-panLeft, 0, 0));
-        var offset = new THREE.Vector3(-panLeft, pData.data.size * 0.5, dist);
-        baseTargetPos.copy(worldPos).add(offset);
-      }
-    }
-
-    // Apply Parallax based on zoom state
-    var parallaxMult = currentTargetPlanet ? 0.3 : 2.2;
-    targetCameraPos.copy(baseTargetPos).add(new THREE.Vector3(mx * parallaxMult, -my * (parallaxMult * 0.6), 0));
-
-    // Smooth camera interpolation
-    camera.position.lerp(targetCameraPos, 0.05);
-    currentLookAt.lerp(baseTargetLook, 0.05);
-    camera.lookAt(currentLookAt);
-
-
-    renderer.render(scene, camera);
-  }
-  loop();
-
-  var rt;
-  addEventListener('resize', function(){
-    clearTimeout(rt);
-    rt = setTimeout(function(){
-      camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
-      renderer.setSize(innerWidth, innerHeight);
-    }, 140);
-  });
-  document.addEventListener('visibilitychange', function(){
-    if (document.hidden) { cancelAnimationFrame(raf); } else { loop(); }
-  });
-
-  // Mobile Menu Toggle
-  var menuBtn = document.getElementById('menuToggle');
-  var navlinks = document.getElementById('navlinks');
-  if (menuBtn && navlinks) {
-    menuBtn.addEventListener('click', function() {
-      navlinks.classList.toggle('open');
-      menuBtn.classList.toggle('open');
-    });
-    navlinks.addEventListener('click', function(e) {
-      if (e.target.tagName === 'A') {
-        navlinks.classList.remove('open');
-        menuBtn.classList.remove('open');
-      }
-    });
-  }
-
-  // Resume Card Flip In-Place
-  var card = document.getElementById('resumeCard');
-  var hintText = document.getElementById('flipHintText');
-  if (card) {
-    card.addEventListener('click', function(e) {
-      if (e.target.closest('#viewFullscreenBtn')) {
-        return; // Let the link click go through natively
-      }
-      card.classList.toggle('is-flipped');
-      if (hintText) {
-        hintText.textContent = card.classList.contains('is-flipped') ? 'Flip to view Profile' : 'Flip to view Resume';
-      }
-    });
-  }
-})();
-</script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
