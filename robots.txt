@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://manoj-2424150118.github.io/sitemap.xml
