@@ -1,0 +1,73 @@
+name: Security Check
+
+# Guards this static portfolio against regression and tampering:
+# - on every push/PR: the code in this repo must keep its strict CSP,
+#   anti-clickjacking, self-hosted-only assets and content-integrity markers
+# - weekly (and on demand): the LIVE site is fetched and checked for the
+#   same markers, so silent drift between repo and live site fails loudly
+# A failed run notifies the repository owner through GitHub's standard
+# Actions failure notifications.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "17 6 * * 1" # Mondays 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Strict CSP present, no unsafe-inline, no external scripts
+        run: |
+          set -e
+          grep -q 'http-equiv="Content-Security-Policy"' index.html
+          ! grep -q "unsafe-inline" index.html
+          ! grep -qE '<script[^>]+src="http' index.html
+          ! grep -qE '<link[^>]+href="http[^"]*\.css' index.html
+          grep -q "object-src 'none'" index.html
+          grep -q "base-uri 'self'" index.html
+          echo "CSP checks passed"
+      - name: Anti-clickjacking and self-hosted assets intact
+        run: |
+          set -e
+          test -f anti-clickjack.js
+          grep -q 'anti-clickjack.js' index.html
+          grep -q 'styles.css' index.html
+          grep -q 'js/site.js' index.html
+          echo "Asset checks passed"
+      - name: Content integrity markers
+        run: |
+          set -e
+          grep -q "Manoj Kumar Sharma" index.html
+          grep -q "Cybersecurity &amp; Software Professional" index.html
+          # phone number must never be published on the site (owner's rule)
+          ! grep -q "85293" index.html
+          ! grep -q "95133" index.html
+          echo "Content checks passed"
+
+  live-check:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch live site and verify it matches the security posture
+        run: |
+          set -e
+          curl -sL --max-time 30 "https://manoj-2424150118.github.io/" -o live.html -w "live HTTP %{http_code}\n"
+          grep -q 'http-equiv="Content-Security-Policy"' live.html
+          ! grep -q "unsafe-inline" live.html
+          grep -q "Manoj Kumar Sharma" live.html
+          ! grep -q "85293" live.html
+          ! grep -q "95133" live.html
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://manoj-2424150118.github.io/styles.css")
+          test "$code" = "200"
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://manoj-2424150118.github.io/js/site.js")
+          test "$code" = "200"
+          echo "Live site checks passed"
