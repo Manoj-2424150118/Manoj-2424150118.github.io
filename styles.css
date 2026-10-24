@@ -89,6 +89,10 @@ a.card:hover{text-decoration:none;color:inherit}
 .card li{margin-bottom:6px}
 .card li::marker{color:var(--accent)}
 .featured{grid-column:1/-1;border-color:rgba(16,185,129,.35);background:linear-gradient(150deg,rgba(16,185,129,.09),var(--panel) 55%)}
+.span-all{grid-column:1/-1}
+.stack-gap{margin-top:18px}
+.subhead-gap{margin-top:20px}
+.footer-name{font-family:var(--serif);font-size:1.1rem}
 .featured h3{font-size:1.35rem}
 .kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px}
 .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
