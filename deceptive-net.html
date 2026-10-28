@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-K+HXQ64aoJqlAWz6B/ZxS70dXBR7HcvMZFLIpYm3YsQ='; style-src 'self' 'sha256-puWyCwUT640XmHLgCz2V3DWL9mz2f8Vj/XwRIYT7Q1o=' 'sha256-aBs6FCHttzcnKrMojf/lO+PpHmPFwwK7nXLEtBJb09o='; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; worker-src 'none'; upgrade-insecure-requests;">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<style id="antiClickjack">html{display:none !important}</style>
+<script src="anti-clickjack.js"></script>
+<script src="js/enhance.js"></script>
+<noscript><style>html{display:block !important}</style></noscript>
+<title>Deceptive-Net — WGAN-GP Honey-Token Framework | Case Study</title>
+<meta name="description" content="Case study: Deceptive-Net, a WGAN-GP framework that generates hyper-realistic honey-tokens to mislead attackers during reconnaissance. MCA capstone.">
+<link rel="canonical" href="https://manoj-2424150118.github.io/deceptive-net.html">
+<link rel="preload" href="fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="author" content="Manoj Kumar Sharma">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050807">
+<meta property="og:title" content="Deceptive-Net — WGAN-GP Honey-Token Framework | Case Study">
+<meta property="og:description" content="An AI-driven defensive system using Wasserstein GANs (WGAN-GP) to generate hyper-realistic honey-tokens and deceptive artefacts that mislead attackers.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://manoj-2424150118.github.io/deceptive-net.html">
+<meta property="og:image" content="https://manoj-2424150118.github.io/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Manoj Kumar Sharma — Cybersecurity & Software Professional, Jaipur, India">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deceptive-Net — WGAN-GP Honey-Token Framework | Case Study">
+<meta name="twitter:description" content="WGAN-GP honey-token generation for cyber deception — MCA capstone by Manoj Kumar Sharma, aligned with NIST security frameworks.">
+<meta name="twitter:image" content="https://manoj-2424150118.github.io/og-cover.jpg">
+<link rel="icon" type="image/png" href="Logo.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://manoj-2424150118.github.io/deceptive-net.html#article",
+      "headline": "Deceptive-Net — Honey-Token Generative Framework: Case Study",
+      "description": "How Deceptive-Net uses a Wasserstein GAN with gradient penalty (WGAN-GP) to generate hyper-realistic honey-tokens that mislead attackers during reconnaissance.",
+      "url": "https://manoj-2424150118.github.io/deceptive-net.html",
+      "author": { "@id": "https://manoj-2424150118.github.io/#person" },
+      "datePublished": "2026-10-29",
+      "inLanguage": "en",
+      "about": { "@id": "https://manoj-2424150118.github.io/deceptive-net.html#software" }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://manoj-2424150118.github.io/deceptive-net.html#software",
+      "name": "Deceptive-Net — Honey-Token Generative Framework",
+      "codeRepository": "https://github.com/Manoj-2424150118/Deceptive-Net-A-Honey-Token-Generative-Framework",
+      "programmingLanguage": "Python",
+      "author": { "@id": "https://manoj-2424150118.github.io/#person" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://manoj-2424150118.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://manoj-2424150118.github.io/#projects" },
+        { "@type": "ListItem", "position": 3, "name": "Deceptive-Net — Case Study", "item": "https://manoj-2424150118.github.io/deceptive-net.html" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav aria-label="Main navigation">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Manoj Kumar Sharma — home"><img src="Logo.png" alt="" class="brand-img" width="36" height="36"><span>Manoj Kumar Sharma</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navlinks">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="/">Home</a><a href="/#projects">Projects</a>
+      <a href="/aegis.html">Aegis case study</a>
+      <a href="/#contact">Contact</a>
+      <a class="nav-cta" href="Manoj_Kumar_Sharma_Resume.pdf" download>Download Résumé</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<header id="top">
+  <div class="wrap">
+    <p class="eyebrow"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Deceptive-Net</p>
+    <p class="kicker">Case Study · Academic Capstone · Jan – Jun 2026</p>
+    <h1>Deceptive-Net — Honey-Token <em>Generative Framework</em></h1>
+    <p class="lede">Attackers reconnoitre networks and hunt for credentials long before defenders notice. Deceptive-Net turns that reconnaissance against them: an AI-driven defensive system that uses a Wasserstein GAN (WGAN-GP) to generate hyper-realistic honey-tokens and deceptive network artefacts, so the first thing an attacker touches is a trap that reveals them.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Manoj-2424150118/Deceptive-Net-A-Honey-Token-Generative-Framework" target="_blank" rel="noopener noreferrer">View repository on GitHub</a>
+      <a class="btn" href="/aegis.html">Read the Aegis case study</a>
+    </div>
+    <div class="tags"><span class="tag">Python</span><span class="tag">WGAN-GP</span><span class="tag">GANs</span><span class="tag">Honey-tokens</span><span class="tag">NIST</span><span class="tag">AI Security</span></div>
+  </div>
+</header>
+
+<section id="problem" class="reveal">
+  <div class="wrap">
+    <h2>The problem it solves</h2>
+    <div class="card">
+      <p>Static honeypots and hand-written decoy credentials have a fingerprint: they are too clean, too uniform, and experienced attackers learn to spot and avoid them. Real credentials and network artefacts are messy and varied. Deceptive-Net's premise is that a generative model trained on realistic token distributions can produce decoys at scale that hold up to that scrutiny — every token unique, plausible, and traceable when used.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="reveal">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <div class="card">
+      <h3>WGAN-GP generation</h3>
+      <p>A Wasserstein GAN with gradient penalty learns the distribution of realistic credentials and artefacts. The Wasserstein objective gives stable, measurable training progress compared with a vanilla GAN, and the gradient penalty enforces the Lipschitz constraint that keeps the critic — and therefore the generator — honest.</p>
+      <h3>The hard part: repetitive tokens</h3>
+      <p>Training instability pushed the generator toward repetitive, low-diversity tokens — decoys that would fingerprint themselves. The fix combined the gradient-penalty term with measured token diversity as an explicit evaluation signal, so diversity was optimised and verified, not assumed.</p>
+      <h3>Evaluation and alignment</h3>
+      <p>Generated tokens are evaluated for diversity and realism before deployment, and the deception methodology is aligned with NIST security frameworks, so the work sits inside recognised defensive practice rather than ad-hoc trickery.</p>
+    </div>
+  </div>
+</section>
+
+<section id="role" class="reveal">
+  <div class="wrap">
+    <h2>My role</h2>
+    <div class="card">
+      <p>End-to-end ownership as my MCA capstone: the data pipeline, the GAN training methodology, and the evaluation metrics. Deceptive-Net is the research counterpart to Aegis — one explores AI-driven deception, the other ships AI-assisted defence as a product.</p>
+      <div class="cta">
+        <a class="btn primary small" href="https://github.com/Manoj-2424150118/Deceptive-Net-A-Honey-Token-Generative-Framework" target="_blank" rel="noopener noreferrer">View repository on GitHub</a>
+        <a class="btn small" href="/#projects">← Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="footer-name">Manoj Kumar Sharma</span>
+    <p>Cybersecurity &amp; Software Professional · Jaipur, Rajasthan, India</p>
+    <div class="links">
+      <a href="mailto:sharmamanojkumar697@gmail.com">Email</a>
+      <a href="https://github.com/Manoj-2424150118" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/ManojTheGeek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="js/site.js"></script>
+</body>
+</html>

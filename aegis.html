@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-4kKqCFhQq1ketm8oV50yykLR+MM8D9yKuxI98FIW+0M='; style-src 'self' 'sha256-puWyCwUT640XmHLgCz2V3DWL9mz2f8Vj/XwRIYT7Q1o=' 'sha256-aBs6FCHttzcnKrMojf/lO+PpHmPFwwK7nXLEtBJb09o='; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; worker-src 'none'; upgrade-insecure-requests;">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<style id="antiClickjack">html{display:none !important}</style>
+<script src="anti-clickjack.js"></script>
+<script src="js/enhance.js"></script>
+<noscript><style>html{display:block !important}</style></noscript>
+<title>Aegis — Personal Cyber Defense Platform | Case Study</title>
+<meta name="description" content="Case study: Aegis, a personal cyber defense platform with nine detection tools — phishing, malware, passwords, vault, audits — built with FastAPI & React.">
+<link rel="canonical" href="https://manoj-2424150118.github.io/aegis.html">
+<link rel="preload" href="fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="author" content="Manoj Kumar Sharma">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050807">
+<meta property="og:title" content="Aegis — Personal Cyber Defense Platform | Case Study">
+<meta property="og:description" content="Nine explainable security tools in one hardened platform: phishing URL & email analysis, in-memory malware scanning, breach checks, encrypted vault, website audits.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://manoj-2424150118.github.io/aegis.html">
+<meta property="og:image" content="https://manoj-2424150118.github.io/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Manoj Kumar Sharma — Cybersecurity & Software Professional, Jaipur, India">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aegis — Personal Cyber Defense Platform | Case Study">
+<meta name="twitter:description" content="Nine explainable security tools in one hardened platform, built by Manoj Kumar Sharma with FastAPI, React and Docker.">
+<meta name="twitter:image" content="https://manoj-2424150118.github.io/og-cover.jpg">
+<link rel="icon" type="image/png" href="Logo.png">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://manoj-2424150118.github.io/aegis.html#article",
+      "headline": "Aegis — Personal Cyber Defense Platform: Case Study",
+      "description": "How Aegis was designed and built: nine explainable detection tools on a hardened FastAPI + React platform, secured against the OWASP Top 10.",
+      "url": "https://manoj-2424150118.github.io/aegis.html",
+      "author": { "@id": "https://manoj-2424150118.github.io/#person" },
+      "datePublished": "2026-10-29",
+      "inLanguage": "en",
+      "about": { "@id": "https://manoj-2424150118.github.io/aegis.html#software" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://manoj-2424150118.github.io/aegis.html#software",
+      "name": "Aegis — Personal Cyber Defense Platform",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Web",
+      "url": "https://aegis-cyber-defense-platform.onrender.com",
+      "codeRepository": "https://github.com/Manoj-2424150118/aegis-cyber-defense-platform",
+      "author": { "@id": "https://manoj-2424150118.github.io/#person" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://manoj-2424150118.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://manoj-2424150118.github.io/#projects" },
+        { "@type": "ListItem", "position": 3, "name": "Aegis — Case Study", "item": "https://manoj-2424150118.github.io/aegis.html" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav aria-label="Main navigation">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Manoj Kumar Sharma — home"><img src="Logo.png" alt="" class="brand-img" width="36" height="36"><span>Manoj Kumar Sharma</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navlinks">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="/">Home</a><a href="/#projects">Projects</a>
+      <a href="https://aegis-cyber-defense-platform.onrender.com" target="_blank" rel="noopener noreferrer">Live demo</a>
+      <a href="/#contact">Contact</a>
+      <a class="nav-cta" href="Manoj_Kumar_Sharma_Resume.pdf" download>Download Résumé</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<header id="top">
+  <div class="wrap">
+    <p class="eyebrow"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Aegis</p>
+    <p class="kicker">Case Study · Full-Stack Security Product · Oct 2026</p>
+    <h1>Aegis — Personal Cyber <em>Defense Platform</em></h1>
+    <p class="lede">Most people are not compromised by nation-state zero-days. They are compromised by a phishing link in an SMS, a fake “verify your account” email, a malware attachment disguised as an invoice, or a weak password that leaked in someone else's breach. Aegis gives a non-technical user one place to check each of these before it hurts them — and the platform itself is hardened against the OWASP Top 10.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://aegis-cyber-defense-platform.onrender.com" target="_blank" rel="noopener noreferrer">▶ Try the live demo</a>
+      <a class="btn" href="https://github.com/Manoj-2424150118/aegis-cyber-defense-platform" target="_blank" rel="noopener noreferrer">View repository on GitHub</a>
+    </div>
+    <div class="tags"><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Docker</span><span class="tag">Argon2id</span><span class="tag">AES-256-GCM</span><span class="tag">OWASP</span><span class="tag">DevSecOps</span></div>
+  </div>
+</header>
+
+<section id="modules" class="reveal">
+  <div class="wrap">
+    <h2>The nine protection modules</h2>
+    <div class="card">
+      <h3>1. Phishing URL Analyser</h3>
+      <p>Detects IP-literal hosts, punycode and homograph domains, typosquatting against known brands (including Indian banks and UPI), brand-in-host tricks, URL shorteners, credential keywords and DGA-like entropy — returned as explained, weighted findings, not a bare score.</p>
+      <h3>2. Phishing &amp; BEC Email Analyser</h3>
+      <p>Checks SPF/DKIM/DMARC failures, Reply-To and Return-Path mismatches, display-name spoofing, urgency and pressure language, and link-text versus destination mismatches — then re-scores every link in the email with the URL analyser.</p>
+      <h3>3. Malware File Scanner</h3>
+      <p>Static analysis only: magic-byte type spoofing, double extensions, dangerous file types, Shannon entropy for packers, embedded droppers and macro auto-exec markers. Files are scanned in memory — never executed, never written to disk.</p>
+      <h3>4. Password Lab</h3>
+      <p>Entropy and offline crack-time estimation, common-password detection, and a secure generator built on Python's <em>secrets</em> module with diceware-style passphrases.</p>
+      <h3>5. Breach Check</h3>
+      <p>Have-I-Been-Pwned lookups using k-anonymity: only the first five hex characters of the password's SHA-1 hash ever leave the machine.</p>
+      <h3>6. Encrypted Vault</h3>
+      <p>AES-256-GCM authenticated encryption with keys derived from the user's master password via Argon2id. The server stores ciphertext only — a database leak reveals nothing, and tampering is caught by the GCM tag.</p>
+      <h3>7. Website Security Audit</h3>
+      <p>Grades any site A–F on HTTPS/HSTS, CSP, X-Frame-Options, MIME-sniffing protection, Referrer/Permissions policies and cookie flags.</p>
+      <h3>8. Scam Message Checker</h3>
+      <p>Built for the scams Indians actually receive: digital-arrest and agency impersonation, KYC and account-block threats, OTP harvesting, UPI redirection and Telegram task scams — and it re-scores every link inside the message.</p>
+      <h3>9. Domain &amp; TLS Inspectors</h3>
+      <p>Live DNS grading (SPF, DMARC policy strength, CAA) and real TLS handshakes covering chain verification, hostname coverage, expiry runway and protocol version — including an unverified re-handshake so broken certificates are reported, not hidden.</p>
+    </div>
+  </div>
+</section>
+
+<section id="architecture" class="reveal">
+  <div class="wrap">
+    <h2>Architecture</h2>
+    <div class="card">
+      <p>A React/TypeScript single-page app served with a FastAPI backend, containerised with Docker. Every analysis is streamed to the browser stage-by-stage over Server-Sent Events, so the user watches each check execute and the running risk score build — the streamed result is byte-for-byte identical to the classic API result, a parity enforced by tests. Every finding in every report ships with a concrete suggested fix written for the person holding the report; a test enforces that no finding can ship without one.</p>
+    </div>
+  </div>
+</section>
+
+<section id="security" class="reveal">
+  <div class="wrap">
+    <h2>How Aegis secures itself</h2>
+    <div class="card">
+      <p>Parameterised SQLAlchemy queries and Pydantic validation on every request body. JWT required on protected routes, with per-user row scoping on every query. Argon2id password hashing with a 12-character minimum, account lockout after five failed attempts, and generic authentication errors that never reveal whether an account exists. Short-lived access tokens; secrets come from the environment only. Rate limiting is enforced globally and more strictly on authentication endpoints. Outbound fetches are restricted to public http/https targets with timeouts, blocking SSRF against private and loopback addresses. CORS is allowlisted, a strict CSP and security-headers middleware are applied, and Dependabot, Bandit, CodeQL and npm audit run in CI.</p>
+    </div>
+  </div>
+</section>
+
+<section id="role" class="reveal">
+  <div class="wrap">
+    <h2>My role</h2>
+    <div class="card">
+      <p>Designed and built end-to-end by Manoj Kumar Sharma — threat model, detection logic, backend, frontend, Docker deployment and CI. Verified with an automated test suite, GitHub Actions CI and CodeQL, all passing; the demo runs live on Render.</p>
+      <div class="cta">
+        <a class="btn primary small" href="https://aegis-cyber-defense-platform.onrender.com" target="_blank" rel="noopener noreferrer">▶ Try the live demo</a>
+        <a class="btn small" href="/#projects">← Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="footer-name">Manoj Kumar Sharma</span>
+    <p>Cybersecurity &amp; Software Professional · Jaipur, Rajasthan, India</p>
+    <div class="links">
+      <a href="mailto:sharmamanojkumar697@gmail.com">Email</a>
+      <a href="https://github.com/Manoj-2424150118" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/ManojTheGeek" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="js/site.js"></script>
+</body>
+</html>
