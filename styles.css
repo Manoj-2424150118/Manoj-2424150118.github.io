@@ -85,14 +85,6 @@ a.card:hover{text-decoration:none;color:inherit}
 .card ul{margin-top:10px;padding-left:18px;color:var(--ink-2);font-size:.92rem}
 .card li{margin-bottom:6px}
 .card li::marker{color:var(--accent)}
-.checklist{list-style:none;margin-top:14px;padding:0}
-.checklist li{position:relative;padding:7px 0 7px 30px;border-top:1px solid var(--line);color:var(--ink-2);font-size:.92rem;margin-bottom:0}
-.checklist li:first-child{border-top:none}
-.checklist li::before{content:"✓";position:absolute;left:2px;top:7px;color:var(--accent);font-weight:700}
-.checklist li.na{color:var(--ink-3)}
-.checklist li.na::before{content:"—";color:var(--ink-3)}
-.checklist strong{color:var(--ink);font-weight:600}
-.check-note{margin-top:16px;font-size:.84rem;color:var(--ink-3)}
 .featured{grid-column:1/-1;border-color:rgba(16,185,129,.35);background:linear-gradient(150deg,rgba(16,185,129,.09),var(--panel) 55%)}
 .span-all{grid-column:1/-1}
 .stack-gap{margin-top:18px}
