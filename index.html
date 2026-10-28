@@ -71,7 +71,7 @@
     </button>
     <div class="navlinks" id="navlinks">
       <a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a>
-      <a href="#skills">Skills</a><a href="#education">Education</a><a href="#contact">Contact</a>
+      <a href="#security">Security</a><a href="#skills">Skills</a><a href="#education">Education</a><a href="#contact">Contact</a>
       <a class="nav-cta" href="Manoj_Kumar_Sharma_Resume.pdf" download>Download Résumé</a>
     </div>
   </div>
@@ -219,7 +219,7 @@
         <h3>Portfolio Website — manoj-2424150118.github.io</h3>
         <p>Hand-built static portfolio in HTML, CSS and JavaScript, hosted on GitHub Pages with a strict Content-Security-Policy, accessible responsive design, structured data (schema.org) for recruiters and search, and no heavy frameworks. The site itself is a sample of my secure web work.</p>
         <div class="tags"><span class="tag">HTML / CSS / JS</span><span class="tag">GitHub Pages</span><span class="tag">CSP</span><span class="tag">Accessibility</span><span class="tag">SEO</span></div>
-        <div class="cta"><a class="btn small" href="https://github.com/Manoj-2424150118/Manoj-2424150118.github.io" target="_blank" rel="noopener noreferrer">View source</a></div>
+        <div class="cta"><a class="btn small" href="https://github.com/Manoj-2424150118/Manoj-2424150118.github.io" target="_blank" rel="noopener noreferrer">View source</a> <a class="btn small" href="#security">See the security checklist</a></div>
       </div>
       <a class="card span-all" href="https://drive.google.com/file/d/1hIvhHTNHgPBJ3nTfE_gDnqnsmC98ukpB/view" target="_blank" rel="noopener noreferrer">
         <p class="kicker">Publication · Presented Jul 2026 ↗</p>
@@ -228,6 +228,42 @@
         <p>Presented before session chairs. Status: under review by session chair members. Tap to view the presentation certificate.</p>
       </a>
     </div>
+  </div>
+</section>
+
+<section id="security" class="reveal">
+  <div class="wrap">
+    <p class="sub">Secure by checklist</p>
+    <h2>Security Checklist, Applied — Not Just Listed</h2>
+    <p class="section-lede">A security checklist only means something if every line is true of code you actually run. Here is mine, split honestly: the controls live on this site, the controls live in Aegis where a real server exists, and the lines that do not apply to a static site at all — with the reason why.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>This portfolio site — static by design</h3>
+        <ul class="checklist">
+          <li><strong>XSS:</strong> strict Content-Security-Policy (self-only sources, pinned hashes, no exceptions for inline code) and zero DOM injection sinks in the JavaScript.</li>
+          <li><strong>Clickjacking:</strong> anti-clickjack protection so the page cannot be framed by another site.</li>
+          <li><strong>Transport:</strong> HTTPS only, with HSTS served by GitHub Pages.</li>
+          <li><strong>Secrets:</strong> none in the code — no API keys, no tokens, no published source maps.</li>
+          <li><strong>Vulnerable components:</strong> checked daily against the CISA KEV, Tenable and OpenCVE feeds; the only workflow action is pinned to a full commit SHA.</li>
+          <li class="na"><strong>SQL injection, CSRF, login security, file uploads:</strong> not applicable — there is no database, no login, no session and no upload. Removed by architecture, not patched over.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Aegis — where server-side controls apply</h3>
+        <ul class="checklist">
+          <li><strong>Injection:</strong> parameterised queries (SQLAlchemy) and Pydantic validation of every request body.</li>
+          <li><strong>Broken access control:</strong> JWT required on protected routes, with per-user row scoping on every query.</li>
+          <li><strong>Passwords &amp; auth failures:</strong> Argon2id hashing, 12-character minimum, account lockout after 5 failed attempts, generic auth errors (no user enumeration).</li>
+          <li><strong>Tokens &amp; secrets:</strong> short-lived access tokens; secrets come from the environment only, never from code.</li>
+          <li><strong>Rate limiting:</strong> enforced, and stricter on the authentication endpoints.</li>
+          <li><strong>CORS &amp; headers:</strong> allowlisted CORS, strict CSP and security-headers middleware, server banner removed.</li>
+          <li><strong>SSRF:</strong> outbound fetches restricted to http/https, with timeouts and contained errors.</li>
+          <li><strong>Vulnerable components:</strong> Dependabot plus Bandit, CodeQL and npm audit in CI.</li>
+        </ul>
+        <p class="check-note">Every line above maps to Aegis's documented OWASP Top 10 controls in its repository README.</p>
+      </div>
+    </div>
+    <p class="check-note">Statuses verified against the code on 29 Oct 2026. If a line here were not true, it would not be listed — challenge me on any of it in an interview.</p>
   </div>
 </section>
 
