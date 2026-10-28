@@ -34,7 +34,19 @@ jobs:
           ! grep -qE '<link[^>]+href="http[^"]*\.css' index.html
           grep -q "object-src 'none'" index.html
           grep -q "base-uri 'self'" index.html
+          grep -q "frame-src 'none'" index.html
+          grep -q "worker-src 'none'" index.html
           echo "CSP checks passed"
+      - name: No DOM injection sinks, source maps or secrets in site files
+        run: |
+          set -e
+          ! grep -rnE 'innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(' --include='*.js' --include='*.html' .
+          ! grep -rn 'sourceMappingURL' --include='*.js' --include='*.css' .
+          test -z "$(find . -name '*.map' -not -path './.git/*' -print -quit)"
+          ! grep -rnE 'BEGIN [A-Z ]*PRIVATE KEY' --include='*.html' --include='*.js' --include='*.css' .
+          ! grep -rnE 'ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}' --include='*.html' --include='*.js' --include='*.css' .
+          ! grep -qE 'href="(javascript|data):' index.html
+          echo "Sink/map/secret checks passed"
       - name: Anti-clickjacking and self-hosted assets intact
         run: |
           set -e
@@ -70,4 +82,8 @@ jobs:
           test "$code" = "200"
           code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://manoj-2424150118.github.io/js/site.js")
           test "$code" = "200"
+          for p in .env .git/HEAD wp-admin; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://manoj-2424150118.github.io/$p")
+            test "$code" = "404"
+          done
           echo "Live site checks passed"

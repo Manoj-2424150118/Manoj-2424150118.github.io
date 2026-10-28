@@ -1,0 +1,9 @@
+version: 2
+updates:
+  # The only supply-chain component this static site has is its GitHub
+  # Actions workflow. Dependabot opens PRs for action updates; the daily
+  # CVE intake (CISA KEV / Tenable / OpenCVE) reviews them before merge.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
