@@ -55,6 +55,32 @@ jobs:
           grep -q 'styles.css' index.html
           grep -q 'js/site.js' index.html
           echo "Asset checks passed"
+      - name: Security posture present on every page
+        run: |
+          set -e
+          for f in index.html aegis.html deceptive-net.html 404.html; do
+            grep -q 'http-equiv="Content-Security-Policy"' "$f"
+            ! grep -q "unsafe-inline" "$f"
+            grep -q 'name="referrer"' "$f"
+            grep -q 'id="antiClickjack"' "$f"
+            grep -q 'anti-clickjack.js' "$f"
+          done
+          echo "All-pages security posture checks passed"
+      - name: _headers file in sync with the pages (headers-capable hosts)
+        run: |
+          set -e
+          # GitHub Pages ignores _headers, but Cloudflare Pages / Netlify
+          # honour it — keep its CSP hashes identical to the pages' own
+          # meta CSP hashes so a host move serves the same strict policy.
+          for h in $(grep -ho "'sha256-[A-Za-z0-9+/=]*'" index.html aegis.html deceptive-net.html 404.html | sort -u); do
+            grep -q "$h" _headers || { echo "_headers is missing hash $h"; exit 1; }
+          done
+          grep -q "X-Frame-Options: DENY" _headers
+          grep -q "X-Content-Type-Options: nosniff" _headers
+          grep -q "Referrer-Policy: strict-origin-when-cross-origin" _headers
+          grep -q "Permissions-Policy:" _headers
+          grep -q "frame-ancestors 'none'" _headers
+          echo "_headers checks passed"
       - name: Content integrity markers
         run: |
           set -e
