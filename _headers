@@ -1,3 +1,11 @@
+# Security response headers for hosts that honour the _headers format
+# (Cloudflare Pages, Netlify). GitHub Pages IGNORES this file — github.io
+# offers no way to set custom HTTP response headers, so on the live site
+# the in-page equivalents do this work instead: meta Content-Security-
+# Policy, meta referrer, and the anti-clickjack frame-buster on every
+# page. CI (security-check.yml) keeps this file's CSP hashes in sync with
+# the pages' meta CSP, so the site is header-ready if it is ever moved
+# or mirrored to a headers-capable host.
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
@@ -6,4 +14,4 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-7Yr2wBvs91ZJvNjiZz21+xktzsQ4a9FHCUGbciwxysk='; style-src 'self' 'sha256-puWyCwUT640XmHLgCz2V3DWL9mz2f8Vj/XwRIYT7Q1o=' 'sha256-aBs6FCHttzcnKrMojf/lO+PpHmPFwwK7nXLEtBJb09o='; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-gZd4rnRT9TjHKGn4HING3EBOFI/bfjgJ5bECrciEftw=' 'sha256-4kKqCFhQq1ketm8oV50yykLR+MM8D9yKuxI98FIW+0M=' 'sha256-K+HXQ64aoJqlAWz6B/ZxS70dXBR7HcvMZFLIpYm3YsQ='; style-src 'self' 'sha256-puWyCwUT640XmHLgCz2V3DWL9mz2f8Vj/XwRIYT7Q1o=' 'sha256-aBs6FCHttzcnKrMojf/lO+PpHmPFwwK7nXLEtBJb09o='; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; frame-src 'none'; worker-src 'none'; upgrade-insecure-requests;
