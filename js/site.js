@@ -76,7 +76,7 @@
   var rot=document.getElementById('roleRotator');
   if(rot&&!rm.matches){
     var phrases=['SOC Analysis','Vulnerability Assessment','Threat Intelligence','DevSecOps','AI Security','Secure Software Development'];
-    var pi=0, ci=phrases[0].length, deleting=false;
+    var pi=0, ci=phrases[0].length-1, deleting=false; /* ci=len-1: first tick completes the word, then deletes (ci=len never satisfies ci===word.length after ci++) */
     function tick(){
       var word=phrases[pi];
       if(!deleting){
