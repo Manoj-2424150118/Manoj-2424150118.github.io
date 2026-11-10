@@ -23,8 +23,11 @@ permissions:
 jobs:
   static-checks:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Strict CSP present, no unsafe-inline, no external scripts
         run: |
           set -e
@@ -81,14 +84,24 @@ jobs:
           grep -q "Permissions-Policy:" _headers
           grep -q "frame-ancestors 'none'" _headers
           echo "_headers checks passed"
+      - name: CSP hashes verified (computed, not string-matched)
+        run: node tools/verify-csp-hashes.mjs
+      - name: PII scan (text assets + resume PDF)
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check pypdf
+          python3 tools/scan_pii.py . --allow-email sharmamanojkumar697@gmail.com
+      - name: HTML validation (html-validate, zero errors)
+        run: |
+          npm --prefix tools ci --no-audit --no-fund
+          npm --prefix tools run validate
       - name: Content integrity markers
         run: |
           set -e
           grep -q "Manoj Kumar Sharma" index.html
           grep -q "Cybersecurity &amp; Software Professional" index.html
-          # phone number must never be published on the site (owner's rule)
-          ! grep -q "[REDACTED]" index.html
-          ! grep -q "[REDACTED]" index.html
+          # Phone-number absence is enforced by the PII scanner step above
+          # (generic regex over every text asset and the PDF) — the literal
+          # digit fragments are deliberately no longer kept in this file.
           echo "Content checks passed"
 
   live-check:
@@ -102,8 +115,21 @@ jobs:
           grep -q 'http-equiv="Content-Security-Policy"' live.html
           ! grep -q "unsafe-inline" live.html
           grep -q "Manoj Kumar Sharma" live.html
-          ! grep -q "[REDACTED]" live.html
-          ! grep -q "[REDACTED]" live.html
+          curl -sL --max-time 30 "https://manoj-2424150118.github.io/Manoj_Kumar_Sharma_Resume.pdf" -o live-resume.pdf
+          python3 -m pip install --quiet --disable-pip-version-check pypdf
+          python3 - <<'PYEOF'
+          import io, re, sys
+          from pypdf import PdfReader
+          PHONE = re.compile(r"(?<!\d)(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}(?!\d)")
+          bad = False
+          if PHONE.search(open("live.html", encoding="utf-8", errors="ignore").read()):
+              print("PHONE FOUND in live HTML"); bad = True
+          r = PdfReader(io.BytesIO(open("live-resume.pdf", "rb").read()))
+          text = "\n".join((p.extract_text() or "") for p in r.pages)
+          if PHONE.search(text):
+              print("PHONE FOUND in live resume PDF"); bad = True
+          sys.exit(1 if bad else 0)
+          PYEOF
           code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://manoj-2424150118.github.io/styles.css")
           test "$code" = "200"
           code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://manoj-2424150118.github.io/js/site.js")

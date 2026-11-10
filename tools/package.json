@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-tools",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "validate": "html-validate \"../*.html\"",
+    "build": "node build_site.mjs",
+    "manifest": "node check-deploy-manifest.mjs ../_site"
+  },
+  "devDependencies": {
+    "html-validate": "^9.0.0"
+  }
+}

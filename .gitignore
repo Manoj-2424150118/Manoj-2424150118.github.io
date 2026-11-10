@@ -2,3 +2,7 @@
 test.html
 models/
 Manoj-2424150118.github.io-main/
+
+# Audit tooling (2026-11-11)
+tools/node_modules/
+_site/
