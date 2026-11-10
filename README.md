@@ -25,3 +25,7 @@ Cybersecurity Analyst, SOC Analyst, Information Security Analyst, GRC Analyst, a
 ## Tech
 
 Hand-built static site (HTML, CSS, JavaScript) hosted on GitHub Pages. Strict Content-Security-Policy, accessible responsive design, schema.org structured data, no heavy frameworks — the previous 3D background (Three.js + ~4.3 MB textures) was removed so recruiters reach the content fast, including on mobile.
+
+## Privacy & licenses
+
+See [PRIVACY.md](./PRIVACY.md) for what this site publishes and how removal works. Code is MIT-licensed (see [LICENSE](./LICENSE) for scope); fonts are under the SIL Open Font License 1.1 (see [NOTICE.md](./NOTICE.md) and `fonts/OFL.txt`).
