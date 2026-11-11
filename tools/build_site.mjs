@@ -27,6 +27,7 @@ const common = [
   'MKS Dark Gray.jpg',
   'portrait-3d.webp',
   'portrait-full.webp',
+  'portrait-large.webp',
   'og-cover.jpg',
   'og-aegis.jpg',
   'og-deceptive-net.jpg',
