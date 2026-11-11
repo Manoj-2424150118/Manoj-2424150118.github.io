@@ -25,6 +25,7 @@ const common = [
   'Logo.png',
   'Logo-3D.png',
   'MKS Dark Gray.jpg',
+  'portrait-3d.webp',
   'og-cover.jpg',
   'og-aegis.jpg',
   'og-deceptive-net.jpg',
