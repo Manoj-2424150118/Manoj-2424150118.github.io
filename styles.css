@@ -85,12 +85,9 @@ a.chip:hover{border-color:var(--accent-2);color:var(--ink);text-decoration:none;
 .btn.primary:hover{box-shadow:0 12px 28px rgba(16,185,129,.28)}
 .btn.small{padding:9px 18px;font-size:.84rem}
 .portrait-wrap{max-width:330px;margin:0 auto;width:100%}
-.portrait-card{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,rgba(16,185,129,.15),rgba(167,243,208,.06) 55%,transparent);transition:transform .35s,box-shadow .35s}
-.portrait-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,.5)}
-.portrait-card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.09) 48%,transparent 62%);transform:translateX(-120%);transition:transform .8s ease;pointer-events:none}
-.portrait-card:hover::after{transform:translateX(120%)}
-.portrait-card img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 18%}
-.portrait-facts{padding:16px 18px;background:rgba(255,255,255,.02)}
+.portrait-card{position:relative}
+.portrait-card img{display:block;width:100%;height:auto}
+.portrait-facts{padding:14px 6px 0;text-align:center}
 .portrait-facts strong{display:block;font-weight:600;font-size:.95rem}
 .portrait-facts span{color:var(--ink-3);font-size:.84rem}
 .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
@@ -177,7 +174,6 @@ footer .links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin
   .cmdline{background:rgba(255,255,255,.82)}
   .card:hover{box-shadow:0 18px 36px rgba(7,40,30,.14)}
   .btn:hover{box-shadow:0 10px 24px rgba(7,40,30,.16)}
-  .portrait-card:hover{box-shadow:0 24px 48px rgba(7,40,30,.18)}
   .featured{border-color:rgba(4,120,87,.35);background:linear-gradient(150deg,rgba(4,120,87,.08),var(--panel) 55%)}
   .tag{background:rgba(4,120,87,.09);border-color:rgba(4,120,87,.28)}
   .to-top{background:rgba(255,255,255,.92)}
