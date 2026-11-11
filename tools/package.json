@@ -9,6 +9,6 @@
     "manifest": "node check-deploy-manifest.mjs ../_site"
   },
   "devDependencies": {
-    "html-validate": "^9.0.0"
+    "html-validate": "^11.21.0"
   }
 }
