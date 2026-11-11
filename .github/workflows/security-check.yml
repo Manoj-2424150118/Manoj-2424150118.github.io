@@ -90,10 +90,12 @@ jobs:
         run: node tools/verify-csp-hashes.mjs
       - name: Live header and security.txt checks
         run: HOST_KIND=pages node tools/check-headers.mjs
-      - name: Browser regression checks (skip link, names, reflow, menu, links)
+      - name: Browser regression checks (skip link, names, reflow, menu, links, axe)
         env:
           CHROME_PATH: /usr/bin/google-chrome
-        run: node tools/browser-check.mjs
+        run: |
+          npm --prefix tools ci --no-audit --no-fund
+          node tools/browser-check.mjs
       - name: PII scan (text assets + resume PDF)
         run: |
           python3 -m pip install --quiet --disable-pip-version-check pypdf

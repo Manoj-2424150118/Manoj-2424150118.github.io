@@ -9,9 +9,16 @@
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
-import { extname, join, resolve } from 'node:path';
+import { extname, join, resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(process.cwd());
+const AXE_PATH = join(dirname(fileURLToPath(import.meta.url)), 'node_modules', 'axe-core', 'axe.min.js');
+if (!existsSync(AXE_PATH)) {
+  console.error('FAIL browser-check: axe-core not installed (run: npm --prefix tools ci)');
+  process.exit(1);
+}
+const AXE_SRC = readFileSync(AXE_PATH, 'utf8');
 const GLYPHS = /[✓↗▶←]/;
 
 const chromeCandidates = [
@@ -104,7 +111,17 @@ for (const page of ['/', '/aegis.html', '/deceptive-net.html', '/resume.html']) 
   const tree = await send('Accessibility.getFullAXTree', {}, sid);
   const bad = (tree.result?.nodes || []).filter((n) => ['link', 'button'].includes(n.role?.value) && n.name?.value && GLYPHS.test(n.name.value)).map((n) => n.name.value);
   check(`accessible names glyph-free ${page}`, bad.length === 0, bad.slice(0, 3).join(' | '));
+
+  await ev(AXE_SRC);
+  const axe = await ev(`axe.run(document, {runOnly: {type: 'tag', values: ['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}).then(r => r.violations.map(v => v.id + ' x' + v.nodes.length))`);
+  check(`axe zero violations ${page}`, Array.isArray(axe) && axe.length === 0, (axe || []).join(', '));
 }
+
+// axe on the 404 page too (no skip link there, so it sits outside the loop)
+await navigate('/404.html');
+await ev(AXE_SRC);
+const axe404 = await ev(`axe.run(document, {runOnly: {type: 'tag', values: ['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}).then(r => r.violations.map(v => v.id + ' x' + v.nodes.length))`);
+check('axe zero violations /404.html', Array.isArray(axe404) && axe404.length === 0, (axe404 || []).join(', '));
 
 // --- 3. Reflow at key widths (index) ---
 await navigate('/');
