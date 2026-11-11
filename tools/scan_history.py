@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Scan every reachable git blob for phone numbers. Read-only.
 
-Expected to FAIL until the owner approves the history rewrite (Gate A):
-historical resume PDFs in this repository's history contain the number.
+History was rewritten on 2026-11-11 to purge the number, so this scan is
+expected to PASS. A failure means PII has re-entered reachable history.
 Prints commit + path only, never the matched value.
 """
 from __future__ import annotations
