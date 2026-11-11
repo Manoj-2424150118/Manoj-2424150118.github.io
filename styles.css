@@ -192,3 +192,31 @@ footer .links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin
   h1 em,.stat b,.card .role,.sub{color:#065f46}
   section,header{padding:28px 0}
 }
+
+/* Resume (HTML) page */
+.resume-doc section{padding:30px 0}
+.resume-doc h2{font-size:1.55rem;margin-bottom:12px}
+.resume-doc h3{font-size:1.05rem;margin:14px 0 4px}
+.resume-meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin:10px 0 4px;font-size:.98rem}
+.resume-note{color:var(--ink-3);font-size:.92rem;margin-top:14px;max-width:65ch}
+.resume-item{margin-bottom:20px}
+.resume-item-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 18px;flex-wrap:wrap}
+.resume-item-head h3{margin:0}
+.resume-date{color:var(--ink-3);font-size:.9rem;white-space:nowrap}
+.resume-item ul{margin:6px 0 0 20px}
+.resume-item li{margin-bottom:4px}
+
+@media print{
+  nav,.skip,footer,.toast,.to-top{display:none !important}
+  html{scroll-padding-top:0}
+  body{background:#fff !important;color:#111 !important;background-image:none !important}
+  header,section{padding:14px 0 !important;border-top:1px solid #ccc !important}
+  h1,h2,h3,.lede,.stat b{color:#111 !important}
+  h1 em,h2 em{color:#065f46 !important}
+  p,li,span,a{color:#111 !important}
+  a{text-decoration:none !important}
+  .card,.chip,.tag{border-color:#bbb !important;background:#fff !important;color:#111 !important}
+  .btn{border:1px solid #065f46 !important;color:#065f46 !important;background:#fff !important}
+  .wrap{max-width:100%;padding:0}
+  .reveal{opacity:1 !important;transform:none !important}
+}

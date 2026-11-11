@@ -91,7 +91,7 @@ let failures = 0;
 const check = (name, ok, detail = '') => { console.log(`${ok ? 'PASS' : 'FAIL'} ${name}${detail ? ' — ' + detail : ''}`); if (!ok) failures++; };
 
 // --- 1+2. Skip-link focus and accessible names on content pages ---
-for (const page of ['/', '/aegis.html', '/deceptive-net.html']) {
+for (const page of ['/', '/aegis.html', '/deceptive-net.html', '/resume.html']) {
   await navigate(page);
   await key('Tab', 'Tab', 9);
   const first = await ev(`document.activeElement ? document.activeElement.textContent.trim() : ''`);

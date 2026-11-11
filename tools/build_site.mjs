@@ -16,6 +16,7 @@ const common = [
   'index.html',
   'aegis.html',
   'deceptive-net.html',
+  'resume.html',
   '404.html',
   'styles.css',
   'anti-clickjack.js',
