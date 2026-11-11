@@ -25,6 +25,8 @@ function directive(csp, name) {
 }
 
 let failed = false;
+let stale = false;
+const globalUsed = new Set();
 
 for (const file of files) {
   const html = readFileSync(file, 'utf8');
@@ -58,6 +60,7 @@ for (const file of files) {
   for (const m of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) allInline.push(hash(m[1]));
   for (const m of html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) allInline.push(hash(m[1]));
   const used = new Set([...checks.map((c) => c.hash), ...allInline]);
+  for (const h of used) globalUsed.add(h);
   for (const c of checks) {
     const dir = c.kind === 'script' ? scriptSrc : styleSrc;
     const ok = dir.includes(c.hash);
@@ -65,11 +68,13 @@ for (const file of files) {
     if (!ok) failed = true;
   }
 
+  // Stale hashes fail closed (F-24): a pinned hash that matches no inline
+  // block in the page is drift, and drift in a security control is a defect.
   for (const h of [...scriptSrc.matchAll(/'sha256-[^']+'/g)].map((m) => m[0])) {
-    if (!used.has(h)) console.warn(`WARN ${file}: unused/stale script hash ${h}`);
+    if (!used.has(h)) { console.error(`FAIL ${file}: unused/stale script hash ${h}`); stale = true; }
   }
   for (const h of [...styleSrc.matchAll(/'sha256-[^']+'/g)].map((m) => m[0])) {
-    if (!used.has(h)) console.warn(`WARN ${file}: unused/stale style hash ${h}`);
+    if (!used.has(h)) { console.error(`FAIL ${file}: unused/stale style hash ${h}`); stale = true; }
   }
 }
 
@@ -86,9 +91,16 @@ if (existsSync('_headers')) {
       }
     }
   }
+  // A hash pinned in _headers that no page uses is stale too.
+  for (const h of headers.matchAll(/'sha256-[^']+'/g)) {
+    if (!globalUsed.has(h[0])) {
+      console.error(`FAIL _headers: unused/stale hash ${h[0]}`);
+      stale = true;
+    }
+  }
 }
 
-if (failed) {
+if (failed || stale) {
   console.error('CSP hash verification failed.');
   process.exit(1);
 }

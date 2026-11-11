@@ -83,9 +83,17 @@ jobs:
           grep -q "Referrer-Policy: strict-origin-when-cross-origin" _headers
           grep -q "Permissions-Policy:" _headers
           grep -q "frame-ancestors 'none'" _headers
+          grep -q "script-src-attr 'none'" _headers
+          grep -q "style-src-attr 'none'" _headers
           echo "_headers checks passed"
       - name: CSP hashes verified (computed, not string-matched)
         run: node tools/verify-csp-hashes.mjs
+      - name: Live header and security.txt checks
+        run: HOST_KIND=pages node tools/check-headers.mjs
+      - name: Browser regression checks (skip link, names, reflow, menu, links)
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tools/browser-check.mjs
       - name: PII scan (text assets + resume PDF)
         run: |
           python3 -m pip install --quiet --disable-pip-version-check pypdf
@@ -108,6 +116,21 @@ jobs:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
+      - name: security.txt expiry guard (must be >30 days out)
+        run: |
+          python3 - <<'PYEOF'
+          import re, sys, urllib.request
+          from datetime import datetime, timezone, timedelta
+          txt = urllib.request.urlopen("https://manoj-2424150118.github.io/.well-known/security.txt", timeout=30).read().decode()
+          m = re.search(r"^Expires:\s*(\S+)", txt, re.M)
+          if not m:
+              print("security.txt has no Expires field"); sys.exit(1)
+          exp = datetime.fromisoformat(m.group(1).replace("Z", "+00:00"))
+          left = exp - datetime.now(timezone.utc)
+          print(f"security.txt expires {exp.date()} ({left.days} days left)")
+          if left < timedelta(days=30):
+              print("security.txt expires within 30 days - renew it"); sys.exit(1)
+          PYEOF
       - name: Fetch live site and verify it matches the security posture
         run: |
           set -e
