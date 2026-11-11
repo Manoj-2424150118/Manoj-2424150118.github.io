@@ -44,18 +44,31 @@ const base = `http://127.0.0.1:${server.address().port}`;
 
 // --- CDP plumbing ---
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const port = 9400 + Math.floor(Math.random() * 400);
-const chrome = spawn(CHROME, ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', `--remote-debugging-port=${port}`, 'about:blank'], { stdio: 'ignore' });
-let ws;
-for (let i = 0; i < 60 && !ws; i++) {
-  try {
-    const r = await fetch(`http://127.0.0.1:${port}/json/version`);
-    const url = (await r.json()).webSocketDebuggerUrl;
-    ws = new WebSocket(url);
-    await new Promise((res, rej) => { ws.addEventListener('open', res, { once: true }); ws.addEventListener('error', rej, { once: true }); });
-  } catch { await sleep(250); }
+async function launchChrome() {
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const port = 9400 + Math.floor(Math.random() * 500);
+    const proc = spawn(CHROME, ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', `--remote-debugging-port=${port}`, 'about:blank'], { stdio: 'ignore' });
+    let exited = false;
+    proc.on('exit', () => { exited = true; });
+    // Runner Chrome can be slow to open its debug port; allow ~45 s.
+    for (let i = 0; i < 90 && !exited; i++) {
+      try {
+        const r = await fetch(`http://127.0.0.1:${port}/json/version`);
+        const url = (await r.json()).webSocketDebuggerUrl;
+        const sock = new WebSocket(url);
+        await new Promise((res, rej) => { sock.addEventListener('open', res, { once: true }); sock.addEventListener('error', rej, { once: true }); });
+        return { proc, sock };
+      } catch { await sleep(500); }
+    }
+    try { proc.kill(); } catch {}
+    if (attempt === 2) return null;
+  }
+  return null;
 }
-if (!ws) { console.error('FAIL browser-check: could not connect to Chrome CDP'); process.exit(1); }
+const launched = await launchChrome();
+if (!launched) { console.error('FAIL browser-check: could not connect to Chrome CDP'); process.exit(1); }
+const chrome = launched.proc;
+const ws = launched.sock;
 let id = 0; const pending = new Map();
 ws.addEventListener('message', (e) => { const m = JSON.parse(e.data); if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); } });
 function send(method, params = {}, sessionId) { return new Promise((res) => { const i = ++id; pending.set(i, res); ws.send(JSON.stringify({ id: i, method, params, sessionId })); }); }
