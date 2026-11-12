@@ -165,7 +165,7 @@ footer .links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin
   :root{
     --bg:#eee5d4; --bg-2:#e7dcc3; --panel:rgba(29,74,53,.05); --panel-2:rgba(242,70,46,.08);
     --line:rgba(29,74,53,.18); --line-strong:rgba(242,70,46,.5); --ink:#1d4a35; --ink-2:#2c5a43; --ink-3:#43594a;
-    --accent:#f2462e; --accent-2:#1d4a35; --accent-soft:#c53a20; --accent-ink:#ffffff;
+    --accent:#a92e14; --accent-2:#1d4a35; --accent-soft:#c53a20; --accent-ink:#ffffff;
     color-scheme:light;
   }
   body{background-image:radial-gradient(900px 480px at 85% -5%,rgba(242,70,46,.08),transparent 60%),radial-gradient(700px 420px at -10% 20%,rgba(29,74,53,.06),transparent 55%)}
