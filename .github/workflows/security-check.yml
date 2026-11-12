@@ -90,7 +90,7 @@ jobs:
         run: node tools/verify-csp-hashes.mjs
       - name: Live header and security.txt checks
         run: HOST_KIND=pages node tools/check-headers.mjs
-      - name: Browser regression checks (skip link, names, reflow, menu, links, axe)
+      - name: Browser regression checks (skip link, names, reflow, menu, links, axe + contrast dark/light)
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: |

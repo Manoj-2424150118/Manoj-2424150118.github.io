@@ -1,6 +1,10 @@
 // Browser regression gate (F-03 / T-26): keyboard skip-link focus, accessible
 // names free of decorative glyphs, reflow at key widths, internal link
-// integrity, and the mobile menu's Escape/focus-return behaviour.
+// integrity, and the mobile menu's Escape/focus-return behaviour. axe runs
+// twice per page — default (dark) scheme and emulated light scheme — plus a
+// direct computed-contrast check per scheme, because axe reports
+// color-contrast "incomplete" (body gradient background) and missed the
+// light-mode accent regression fixed in d5e057e.
 //
 // Zero npm dependencies: drives Chrome over CDP with Node's global WebSocket.
 // Chrome discovery: $CHROME_PATH, then common install locations. In CI the
@@ -85,6 +89,10 @@ const sid = a.result.sessionId;
 await send('Page.enable', {}, sid);
 await send('Runtime.enable', {}, sid);
 await send('Accessibility.enable', {}, sid);
+// Pin the starting scheme explicitly: headless Chrome's default
+// prefers-color-scheme varies by binary/environment (light in this shell,
+// dark on the CI runner), so the "dark" pass below must not rely on it.
+await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] }, sid);
 
 async function ev(expr) { const r = await send('Runtime.evaluate', { expression: expr, returnByValue: true, awaitPromise: true }, sid); if (r.result?.exceptionDetails) throw new Error(r.result.exceptionDetails.text || 'evaluate failed'); return r.result?.result?.value; }
 async function navigate(path) { await send('Page.navigate', { url: base + path }, sid); await sleep(900); }
@@ -96,6 +104,36 @@ async function key(keyName, code, vk) {
 
 let failures = 0;
 const check = (name, ok, detail = '') => { console.log(`${ok ? 'PASS' : 'FAIL'} ${name}${detail ? ' — ' + detail : ''}`); if (!ok) failures++; };
+
+// Direct computed-contrast check for the accent-coloured text axe cannot see:
+// axe reports color-contrast as "incomplete" here because the body's
+// radial-gradient background-image hides the effective background, so a
+// 2.95:1 regression passes axe silently. This composites each element's
+// ancestor background-colors (the gradient is a subtle overlay on an opaque
+// base) and asserts WCAG AA: 4.5:1 normal text, 3:1 large text (h1 em).
+const CONTRAST_JS = `(() => {
+  const parse = (c) => { const m = c.match(/rgba?\\(([^)]+)\\)/); if (!m) return null; const p = m[1].split(',').map(Number); return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 }; };
+  const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b); };
+  const over = (fg, bg) => ({ r: fg.r * fg.a + bg.r * (1 - fg.a), g: fg.g * fg.a + bg.g * (1 - fg.a), b: fg.b * fg.a + bg.b * (1 - fg.a) });
+  const effBg = (el) => { const layers = []; let n = el; while (n) { const c = parse(getComputedStyle(n).backgroundColor); if (c && c.a > 0) layers.push(c); if (n === document.body) break; n = n.parentElement; } let bg = { r: 255, g: 255, b: 255 }; for (let i = layers.length - 1; i >= 0; i--) bg = over(layers[i], bg); return bg; };
+  const out = [];
+  for (const [sel, min] of [['.eyebrow', 4.5], ['.sub', 4.5], ['.card .role', 4.5], ['.kicker', 4.5], ['h1 em', 3.0]]) {
+    const els = [...document.querySelectorAll(sel)];
+    if (!els.length) continue;
+    let worst = 99;
+    for (const el of els) { const fg = parse(getComputedStyle(el).color); const bg = effBg(el); const l1 = lum(fg), l2 = lum(bg); const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); if (ratio < worst) worst = ratio; }
+    out.push({ sel, min, n: els.length, worst: Math.round(worst * 100) / 100 });
+  }
+  return out;
+})()`;
+
+async function contrastPass(label) {
+  for (const page of ['/', '/aegis.html', '/deceptive-net.html', '/resume.html', '/404.html']) {
+    await navigate(page);
+    const rows = await ev(CONTRAST_JS);
+    for (const r of rows) check(`contrast ${label} ${r.sel} ${page}`, r.worst >= r.min, `${r.worst}:1 (min ${r.min}:1, ${r.n} node${r.n > 1 ? 's' : ''})`);
+  }
+}
 
 // --- 1+2. Skip-link focus and accessible names on content pages ---
 for (const page of ['/', '/aegis.html', '/deceptive-net.html', '/resume.html']) {
@@ -122,6 +160,31 @@ await navigate('/404.html');
 await ev(AXE_SRC);
 const axe404 = await ev(`axe.run(document, {runOnly: {type: 'tag', values: ['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}).then(r => r.violations.map(v => v.id + ' x' + v.nodes.length))`);
 check('axe zero violations /404.html', Array.isArray(axe404) && axe404.length === 0, (axe404 || []).join(', '));
+
+// --- 2a. Direct contrast of accent text (dark scheme) ---
+await contrastPass('dark');
+
+// --- 2b. axe under emulated light colour scheme ---
+// The default-scheme pass above runs dark, so it missed the light-mode
+// accent regression fixed in d5e057e. Emulate prefers-color-scheme: light,
+// prove the light palette actually applied (guard on --accent), then run
+// axe on every page again. Restore dark afterwards so the reflow/menu
+// checks below run in the default scheme.
+await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'light' }] }, sid);
+await navigate('/');
+const lightAccent = await ev(`getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()`);
+check('light scheme applied (--accent)', lightAccent === '#a92e14', lightAccent);
+for (const page of ['/', '/aegis.html', '/deceptive-net.html', '/resume.html', '/404.html']) {
+  await navigate(page);
+  await ev(AXE_SRC);
+  const axeLight = await ev(`axe.run(document, {runOnly: {type: 'tag', values: ['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}).then(r => r.violations.map(v => v.id + ' x' + v.nodes.length))`);
+  check(`axe zero violations (light) ${page}`, Array.isArray(axeLight) && axeLight.length === 0, (axeLight || []).join(', '));
+}
+await contrastPass('light');
+await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] }, sid);
+await navigate('/');
+const darkAccent = await ev(`getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()`);
+check('dark scheme restored (--accent)', darkAccent === '#f2462e', darkAccent);
 
 // --- 3. Reflow at key widths (index) ---
 await navigate('/');
