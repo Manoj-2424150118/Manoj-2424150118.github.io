@@ -4,7 +4,7 @@
 :root{
   --bg:#0a1f13; --bg-2:#0f2a1a; --panel:rgba(238,229,212,.05); --panel-2:rgba(46,106,74,.16);
   --line:rgba(238,229,212,.12); --line-strong:rgba(242,70,46,.45); --ink:#eee5d4; --ink-2:#d9cfbb; --ink-3:#a79b83;
-  --accent:#f2462e; --accent-2:#ff8a70; --accent-soft:#f2462e; --accent-ink:#ffffff;
+  --accent:#f2462e; --accent-2:#ff8a70; --accent-soft:#f2462e; --accent-ink:#0a1f13;
   --sans:'Inter',system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
   --mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;
