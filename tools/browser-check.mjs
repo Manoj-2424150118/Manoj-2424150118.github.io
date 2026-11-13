@@ -116,13 +116,15 @@ const check = (name, ok, detail = '') => { console.log(`${ok ? 'PASS' : 'FAIL'} 
 // linear-gradient, so its text is asserted against the worst gradient stop
 // (the generic path would measure the page background instead and pass
 // spuriously — that gap hid white-on-salmon 2.30:1 in the dark scheme).
+// .tag is covered too: accent-2 text on a translucent tomato chip, whose
+// effective background is the composite of the chip over the card panel.
 const CONTRAST_JS = `(() => {
   const parse = (c) => { const m = c.match(/rgba?\\(([^)]+)\\)/); if (!m) return null; const p = m[1].split(',').map(Number); return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 }; };
   const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b); };
   const over = (fg, bg) => ({ r: fg.r * fg.a + bg.r * (1 - fg.a), g: fg.g * fg.a + bg.g * (1 - fg.a), b: fg.b * fg.a + bg.b * (1 - fg.a) });
   const effBg = (el) => { const layers = []; let n = el; while (n) { const c = parse(getComputedStyle(n).backgroundColor); if (c && c.a > 0) layers.push(c); if (n === document.body) break; n = n.parentElement; } let bg = { r: 255, g: 255, b: 255 }; for (let i = layers.length - 1; i >= 0; i--) bg = over(layers[i], bg); return bg; };
   const out = [];
-  for (const [sel, min] of [['.eyebrow', 4.5], ['.sub', 4.5], ['.card .role', 4.5], ['.kicker', 4.5], ['.filter-btn.active', 4.5], ['h1 em', 3.0]]) {
+  for (const [sel, min] of [['.eyebrow', 4.5], ['.sub', 4.5], ['.card .role', 4.5], ['.kicker', 4.5], ['.filter-btn.active', 4.5], ['.tag', 4.5], ['h1 em', 3.0]]) {
     const els = [...document.querySelectorAll(sel)];
     if (!els.length) continue;
     let worst = 99;
