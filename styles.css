@@ -97,6 +97,12 @@ a.chip:hover{border-color:var(--accent-2);color:var(--ink);text-decoration:none;
 .portrait-wrap{max-width:520px;margin:0 auto;width:100%}
 .portrait-card{position:relative}
 .portrait-card img{display:block;width:100%;height:auto}
+.portrait-wrap{perspective:1100px}
+.gaze-stage{position:relative}
+.gaze-eye{position:absolute;width:10.4%;aspect-ratio:118/93;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden;pointer-events:none}
+.gaze-eye-l{left:41.84%;top:37.41%}
+.gaze-eye-r{left:59.90%;top:37.24%}
+.portrait-card .gaze-iris{position:absolute;left:50%;top:50%;width:62.7%;height:auto;transform:translate(-50%,-50%);will-change:transform}
 .portrait-facts{padding:14px 6px 0;text-align:center}
 .portrait-facts strong{display:block;font-weight:600;font-size:.95rem}
 .portrait-facts span{color:var(--ink-3);font-size:.84rem}

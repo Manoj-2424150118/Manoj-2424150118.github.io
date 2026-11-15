@@ -129,3 +129,37 @@
     els.forEach(function(e){io.observe(e)});
   }
 })();
+
+// Hero portrait: eyes follow the visitor's cursor (decorative, motion-safe)
+(function(){
+  var card = document.querySelector('.portrait-card');
+  if(!card) return;
+  var irises = card.querySelectorAll('.gaze-iris');
+  if(!irises.length) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tx=0, ty=0, cx=0, cy=0, raf=null;
+  function loop(){
+    cx += (tx-cx)*0.085; cy += (ty-cy)*0.085;
+    var s = card.clientWidth/1152;
+    var dx = (cx*13*s).toFixed(2), dy = (cy*6*s).toFixed(2);
+    for(var i=0;i<irises.length;i++){
+      irises[i].style.transform = 'translate(calc(-50% + '+dx+'px), calc(-50% + '+dy+'px))';
+    }
+    card.style.transform = 'rotateY('+(cx*3.2).toFixed(3)+'deg) rotateX('+(-cy*2.4).toFixed(3)+'deg)';
+    if(Math.abs(tx-cx)>0.0005 || Math.abs(ty-cy)>0.0005){ raf = requestAnimationFrame(loop); }
+    else { raf = null; }
+  }
+  function kick(){ if(!raf) raf = requestAnimationFrame(loop); }
+  document.addEventListener('pointermove', function(e){
+    if(e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+    var r = card.getBoundingClientRect();
+    if(r.bottom < 0 || r.top > window.innerHeight) return;
+    var ex = r.left + r.width*0.5, ey = r.top + r.height*0.37;
+    var vx = e.clientX-ex, vy = e.clientY-ey;
+    var d = Math.hypot(vx,vy) || 1;
+    var m = Math.min(1, d/240);
+    tx = (vx/d)*m; ty = (vy/d)*m;
+    kick();
+  }, {passive:true});
+  document.addEventListener('pointerleave', function(){ tx=0; ty=0; kick(); });
+})();
