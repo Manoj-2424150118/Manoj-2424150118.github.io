@@ -23,6 +23,7 @@ const common = [
   'js',
   'fonts',
   'Logo-3D.png',
+  'favicon.ico',
   'MKS Dark Gray.jpg',
   'portrait-large.webp',
   'og-cover.jpg',
