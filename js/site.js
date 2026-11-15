@@ -121,7 +121,7 @@
 
   /* Reveal on scroll */
   var els=document.querySelectorAll('.reveal');
-  if(rm.matches||!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); }
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); }
   else{
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); }});
