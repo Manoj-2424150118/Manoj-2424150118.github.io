@@ -1,6 +1,7 @@
 # Scratch and duplicate directories
 test.html
-models/
+models/*
+!models/avatar.glb
 Manoj-2424150118.github.io-main/
 
 # Audit tooling (2026-11-11)

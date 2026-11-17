@@ -103,6 +103,10 @@ a.chip:hover{border-color:var(--accent-2);color:var(--ink);text-decoration:none;
 .gaze-eye-l{left:41.84%;top:37.41%}
 .gaze-eye-r{left:59.90%;top:37.24%}
 .portrait-card .gaze-iris{position:absolute;left:50%;top:50%;width:62.7%;height:auto;transform:translate(-50%,-50%);will-change:transform}
+.gaze-stage>img,.gaze-stage .gaze-eye{transition:opacity .6s ease}
+.avatar-3d{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease;pointer-events:none}
+.gaze-stage.has-3d .avatar-3d{opacity:1}
+.gaze-stage.has-3d>img,.gaze-stage.has-3d .gaze-eye{opacity:0}
 .portrait-facts{padding:14px 6px 0;text-align:center}
 .portrait-facts strong{display:block;font-weight:600;font-size:.95rem}
 .portrait-facts span{color:var(--ink-3);font-size:.84rem}

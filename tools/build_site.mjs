@@ -29,6 +29,7 @@ const common = [
   'portrait-base.webp',
   'iris-left.png',
   'iris-right.png',
+  'models/avatar.glb',
   'og-cover.jpg',
   'og-aegis.jpg',
   'og-deceptive-net.jpg',
