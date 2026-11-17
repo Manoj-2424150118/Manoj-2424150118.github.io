@@ -19,6 +19,7 @@ const common = [
   'resume.html',
   '404.html',
   'styles.css',
+  'maintenance.css',
   'anti-clickjack.js',
   'js',
   'fonts',
