@@ -24,6 +24,13 @@ EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
 
 TEXT_EXT = {".html", ".htm", ".css", ".js", ".mjs", ".md", ".txt", ".xml", ".yml", ".yaml", ".json"}
 SKIP_DIRS = {".git", "node_modules", "audit", "_site", "tools"}
+# Vendored third-party builds (repo-relative paths): not authored content,
+# and the strict PHONE regex false-positives on numeric constants inside
+# them — js/avatar3d.bundle.js is a vendored three.js build whose shader
+# code contains the sRGB constant 0.9478672986 (verified: the only PHONE
+# match in the file, and it is not a real number). Keep this list explicit
+# so every authored file stays scanned.
+SKIP_FILES = frozenset({"js/avatar3d.bundle.js"})
 
 
 def redact(value: str) -> str:
@@ -64,6 +71,11 @@ def main() -> int:
             if not path.is_file():
                 continue
             if any(part in skip_dirs for part in path.parts):
+                continue
+            posix = path.as_posix()
+            if posix in SKIP_FILES or any(
+                posix.endswith("/" + skipped) for skipped in SKIP_FILES
+            ):
                 continue
             if path.suffix.lower() == ".pdf":
                 if PdfReader is None:
