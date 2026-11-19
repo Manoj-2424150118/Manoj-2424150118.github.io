@@ -24,7 +24,6 @@ const common = [
   'fonts',
   'Logo-3D.png',
   'favicon.ico',
-  'MKS Dark Gray.jpg',
   'portrait-large.webp',
   'portrait-base.webp',
   'iris-left.png',
