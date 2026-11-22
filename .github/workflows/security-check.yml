@@ -55,8 +55,16 @@ jobs:
           set -e
           test -f anti-clickjack.js
           grep -q 'anti-clickjack.js' index.html
-          grep -q 'styles.css' index.html
-          grep -q 'js/site.js' index.html
+          # During the temporary maintenance window (owner request, f24d821)
+          # the pages are a standalone notice card on maintenance.css with no
+          # site.js; outside that window the full site's styles.css + js/site.js
+          # are required again, so this branch snaps back on revert.
+          if grep -q 'maintenance.css' index.html; then
+            test -f maintenance.css
+          else
+            grep -q 'styles.css' index.html
+            grep -q 'js/site.js' index.html
+          fi
           echo "Asset checks passed"
       - name: Security posture present on every page
         run: |

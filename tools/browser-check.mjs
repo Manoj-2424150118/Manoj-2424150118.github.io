@@ -17,6 +17,13 @@ import { extname, join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(process.cwd());
+// Temporary maintenance window (owner request, f24d821): the pages are a
+// standalone notice card with no skip link, nav menu or #main, so the
+// full-site interaction checks (skip-link, mobile menu) do not apply.
+// axe / contrast / reflow / link-integrity still run. Keyed on
+// maintenance.css so full strictness returns when the maintenance commit
+// is reverted.
+const MAINTENANCE = readFileSync(join(ROOT, 'index.html'), 'utf8').includes('maintenance.css');
 const AXE_PATH = join(dirname(fileURLToPath(import.meta.url)), 'node_modules', 'axe-core', 'axe.min.js');
 if (!existsSync(AXE_PATH)) {
   console.error('FAIL browser-check: axe-core not installed (run: npm --prefix tools ci)');
@@ -150,15 +157,20 @@ async function contrastPass(label) {
 }
 
 // --- 1+2. Skip-link focus and accessible names on content pages ---
+// Skip-link checks assume the full site chrome; skipped in the maintenance
+// window (no skip link / #main on the notice card). Glyph names + axe run
+// on every page in both modes.
 for (const page of ['/', '/aegis.html', '/deceptive-net.html', '/resume.html']) {
   await navigate(page);
-  await key('Tab', 'Tab', 9);
-  const first = await ev(`document.activeElement ? document.activeElement.textContent.trim() : ''`);
-  check(`skip-link first tab stop ${page}`, /Skip to content/i.test(first || ''), JSON.stringify(first));
-  await key('Enter', 'Enter', 13);
-  await sleep(300);
-  const st = await ev(`({tag: document.activeElement.tagName, id: document.activeElement.id, hash: location.hash})`);
-  check(`skip-link moves focus to main ${page}`, st.tag === 'MAIN' && st.id === 'main' && st.hash === '#main', JSON.stringify(st));
+  if (!MAINTENANCE) {
+    await key('Tab', 'Tab', 9);
+    const first = await ev(`document.activeElement ? document.activeElement.textContent.trim() : ''`);
+    check(`skip-link first tab stop ${page}`, /Skip to content/i.test(first || ''), JSON.stringify(first));
+    await key('Enter', 'Enter', 13);
+    await sleep(300);
+    const st = await ev(`({tag: document.activeElement.tagName, id: document.activeElement.id, hash: location.hash})`);
+    check(`skip-link moves focus to main ${page}`, st.tag === 'MAIN' && st.id === 'main' && st.hash === '#main', JSON.stringify(st));
+  }
 
   const tree = await send('Accessibility.getFullAXTree', {}, sid);
   const bad = (tree.result?.nodes || []).filter((n) => ['link', 'button'].includes(n.role?.value) && n.name?.value && GLYPHS.test(n.name.value)).map((n) => n.name.value);
@@ -211,17 +223,20 @@ for (const w of [320, 375, 768, 1024, 1280]) {
 await send('Emulation.clearDeviceMetricsOverride', {}, sid);
 
 // --- 4. Mobile menu: open, Escape closes, focus returns (index @768) ---
-await send('Emulation.setDeviceMetricsOverride', { width: 768, height: 900, deviceScaleFactor: 1, mobile: true }, sid);
-await navigate('/');
-await ev(`document.getElementById('menuToggle').click()`);
-await sleep(150);
-const opened = await ev(`({open: document.getElementById('navlinks').classList.contains('open'), exp: document.getElementById('menuToggle').getAttribute('aria-expanded')})`);
-check('menu opens at 768px', opened.open && opened.exp === 'true', JSON.stringify(opened));
-await key('Escape', 'Escape', 27);
-await sleep(150);
-const closed = await ev(`({open: document.getElementById('navlinks').classList.contains('open'), focus: document.activeElement.id})`);
-check('menu Escape closes + focus returns', !closed.open && closed.focus === 'menuToggle', JSON.stringify(closed));
-await send('Emulation.clearDeviceMetricsOverride', {}, sid);
+// Full-site nav only; no menu exists on the maintenance notice card.
+if (!MAINTENANCE) {
+  await send('Emulation.setDeviceMetricsOverride', { width: 768, height: 900, deviceScaleFactor: 1, mobile: true }, sid);
+  await navigate('/');
+  await ev(`document.getElementById('menuToggle').click()`);
+  await sleep(150);
+  const opened = await ev(`({open: document.getElementById('navlinks').classList.contains('open'), exp: document.getElementById('menuToggle').getAttribute('aria-expanded')})`);
+  check('menu opens at 768px', opened.open && opened.exp === 'true', JSON.stringify(opened));
+  await key('Escape', 'Escape', 27);
+  await sleep(150);
+  const closed = await ev(`({open: document.getElementById('navlinks').classList.contains('open'), focus: document.activeElement.id})`);
+  check('menu Escape closes + focus returns', !closed.open && closed.focus === 'menuToggle', JSON.stringify(closed));
+  await send('Emulation.clearDeviceMetricsOverride', {}, sid);
+}
 
 // --- 5. Internal link integrity (static) ---
 const htmlFiles = readdirSync(ROOT).filter((f) => f.endsWith('.html'));
