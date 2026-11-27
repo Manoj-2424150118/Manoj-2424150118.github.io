@@ -98,15 +98,13 @@ a.chip:hover{border-color:var(--accent-2);color:var(--ink);text-decoration:none;
 .portrait-card{position:relative}
 .portrait-card img{display:block;width:100%;height:auto}
 .portrait-wrap{perspective:1100px}
-.gaze-stage{position:relative}
-.gaze-eye{position:absolute;width:10.4%;aspect-ratio:118/93;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden;pointer-events:none}
-.gaze-eye-l{left:41.84%;top:37.41%}
-.gaze-eye-r{left:59.90%;top:37.24%}
-.portrait-card .gaze-iris{position:absolute;left:50%;top:50%;width:62.7%;height:auto;transform:translate(-50%,-50%);will-change:transform}
-.gaze-stage>img,.gaze-stage .gaze-eye{transition:opacity .6s ease}
+.gaze-stage{position:relative;aspect-ratio:1/1;background:radial-gradient(115% 115% at 50% 28%,rgba(255,241,221,.09),rgba(255,255,255,.02) 55%,rgba(0,0,0,.14))}
+html.js .gaze-stage::after{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:3px solid rgba(140,140,140,.28);border-top-color:var(--accent-2);animation:gaze-spin .9s linear infinite;transition:opacity .4s ease;pointer-events:none}
+.gaze-stage.has-3d::after,.gaze-stage.is-failed::after{opacity:0;animation:none}
+@keyframes gaze-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.gaze-stage::after{animation-duration:2.6s}}
 .avatar-3d{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease;pointer-events:none}
 .gaze-stage.has-3d .avatar-3d{opacity:1}
-.gaze-stage.has-3d>img,.gaze-stage.has-3d .gaze-eye{opacity:0}
 .portrait-facts{padding:14px 6px 0;text-align:center}
 .portrait-facts strong{display:block;font-weight:600;font-size:.95rem}
 .portrait-facts span{color:var(--ink-3);font-size:.84rem}

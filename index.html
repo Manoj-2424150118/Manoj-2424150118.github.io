@@ -15,6 +15,8 @@
 <link rel="canonical" href="https://manoj-2424150118.github.io/">
 <link rel="preload" href="fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="models/avatar.glb" as="fetch" fetchpriority="high">
+<script src="js/avatar3d.bundle.js" defer></script>
 <meta name="author" content="Manoj Kumar Sharma">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a1f13">
@@ -128,11 +130,7 @@
     </div>
     <div class="portrait-wrap">
       <div class="portrait-card">
-        <div class="gaze-stage">
-          <img src="portrait-base.webp" alt="Portrait of Manoj Kumar Sharma" width="1152" height="1152" loading="eager" decoding="async" fetchpriority="high">
-          <span class="gaze-eye gaze-eye-l"><img class="gaze-iris" src="iris-left.png" alt="" width="74" height="74" aria-hidden="true"></span>
-          <span class="gaze-eye gaze-eye-r"><img class="gaze-iris" src="iris-right.png" alt="" width="74" height="74" aria-hidden="true"></span>
-        </div>
+        <div class="gaze-stage" role="img" aria-label="Interactive 3D avatar of Manoj Kumar Sharma"></div>
         <div class="portrait-facts">
           <strong>AI Fellow — Handshake AI</strong>
           <span>Jul 2026 – Present · MCA, Manipal University Jaipur (76%)</span>
@@ -387,6 +385,5 @@
 <div class="toast" id="toast" role="status" aria-live="polite">Email copied</div>
 
 <script src="js/site.js" defer></script>
-<script src="js/avatar3d.bundle.js" defer></script>
 </body>
 </html>
