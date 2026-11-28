@@ -227,6 +227,23 @@ await send('Emulation.clearDeviceMetricsOverride', {}, sid);
 if (!MAINTENANCE) {
   await send('Emulation.setDeviceMetricsOverride', { width: 768, height: 900, deviceScaleFactor: 1, mobile: true }, sid);
   await navigate('/');
+  // The avatar bundle (defer, <head>) + 53 MB GLB preload can delay
+  // site.js past navigate()'s fixed 900 ms settle, so the click below
+  // would land before the menu listener exists (CI: silent no-op;
+  // slow shells: menuToggle not yet parsed). Wait until site.js has
+  // run — it sets the footer year in the same IIFE that wires the
+  // menu — so this asserts the menu itself, not load timing.
+  let menuReady = false;
+  for (let i = 0; i < 40; i++) {
+    menuReady = await ev(`!!document.getElementById('menuToggle') && (document.getElementById('year') || {}).textContent !== ''`);
+    if (menuReady) break;
+    await sleep(250);
+  }
+  if (!menuReady) {
+    check('menu opens at 768px', false, 'menuToggle/site.js not ready after 10s');
+    check('menu Escape closes + focus returns', false, 'menu never opened');
+    await send('Emulation.clearDeviceMetricsOverride', {}, sid);
+  } else {
   await ev(`document.getElementById('menuToggle').click()`);
   await sleep(150);
   const opened = await ev(`({open: document.getElementById('navlinks').classList.contains('open'), exp: document.getElementById('menuToggle').getAttribute('aria-expanded')})`);
@@ -236,6 +253,7 @@ if (!MAINTENANCE) {
   const closed = await ev(`({open: document.getElementById('navlinks').classList.contains('open'), focus: document.activeElement.id})`);
   check('menu Escape closes + focus returns', !closed.open && closed.focus === 'menuToggle', JSON.stringify(closed));
   await send('Emulation.clearDeviceMetricsOverride', {}, sid);
+  }
 }
 
 // --- 5. Internal link integrity (static) ---
